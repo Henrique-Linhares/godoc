@@ -1,4 +1,4 @@
-package com.spring.godoc.entity;
+package com.spring.godoc.domains.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,7 +12,7 @@ import lombok.Data;
 @Table(name = "users")
 @AllArgsConstructor
 @Data
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

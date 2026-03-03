@@ -1,4 +1,4 @@
-package com.spring.godoc.entity.enums;
+package com.spring.godoc.domains.agendamento.enums;
 
 public enum StatusAgendamento {
     AGENDADO,
