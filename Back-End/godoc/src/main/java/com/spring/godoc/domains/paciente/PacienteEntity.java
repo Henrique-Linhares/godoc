@@ -1,18 +1,19 @@
 package com.spring.godoc.domains.paciente;
 
 import java.sql.Date;
+import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.spring.godoc.domains.exame.Exame;
+import com.spring.godoc.domains.user.UserEntity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "pacientes")
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class PacienteEntity {
     @Id
@@ -24,4 +25,10 @@ public class PacienteEntity {
     private Date dataNascimento;
     private String telefone;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
+//    @OneToMany(mappedBy = "paciente")
+//    private List<Exame> exames;
 }

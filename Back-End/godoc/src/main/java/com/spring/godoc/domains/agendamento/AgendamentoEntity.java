@@ -3,16 +3,17 @@ package com.spring.godoc.domains.agendamento;
 import java.time.LocalDateTime;
 
 import com.spring.godoc.domains.agendamento.enums.StatusAgendamento;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.spring.godoc.domains.medico.MedicoEntity;
+import com.spring.godoc.domains.paciente.PacienteEntity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "agendamentos")
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class AgendamentoEntity {
     @Id
@@ -21,4 +22,11 @@ public class AgendamentoEntity {
     private LocalDateTime data;
     private StatusAgendamento status;
 
+    @OneToOne
+    @JoinColumn(name = "paciente_id")
+    private PacienteEntity paciente;
+
+    @ManyToOne
+    @JoinColumn(name = "medico_id")
+    private MedicoEntity medico;
 }
