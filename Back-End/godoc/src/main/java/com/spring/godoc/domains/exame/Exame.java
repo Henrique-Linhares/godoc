@@ -1,4 +1,4 @@
-package com.spring.godoc.entity;
+package com.spring.godoc.domains.exame;
 
 import java.time.LocalDate;
 
@@ -9,10 +9,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "exames")
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Exame {
     @Id
