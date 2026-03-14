@@ -3,8 +3,6 @@ import Input from '../components/Button/Input/Input'
 
 const Login = () => {
     
-    
-    
     return(
         <>
         <form>
