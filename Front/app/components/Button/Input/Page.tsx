@@ -12,7 +12,7 @@ interface InputProps {
 
 import "./Input.css"
 
-const Page = ({ type, onChange, placeholder, variant, value = "default" }: InputProps) => {
+const Input = ({ type, onChange, placeholder, variant, value = "default" }: InputProps) => {
     return (
         <input
             type={type}
@@ -24,4 +24,4 @@ const Page = ({ type, onChange, placeholder, variant, value = "default" }: Input
     );
 };
 
-export default Page;
+export default Input;
