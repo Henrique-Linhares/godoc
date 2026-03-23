@@ -41,7 +41,7 @@ const Login = () => {
                             onChange={item.onChange}
                             placeholder={item.placeholder}
                             variant={item.variant}
-                            value={item.value}
+                            value={item.value}y
                         />
                     })}
                 </div>
