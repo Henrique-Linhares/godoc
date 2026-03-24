@@ -9,10 +9,10 @@ interface ButtonProps {
     variant: string;
 }
 
-const Page = ({ onClick, text, variant = "default" }: ButtonProps) => {
+const Button = ({ onClick, text, variant = "default" }: ButtonProps) => {
     return (
             <button onClick={onClick} className={`btn btn-${variant}`}>{text}</button>
     )
 }
 
-export default Page;
+export default Button;
