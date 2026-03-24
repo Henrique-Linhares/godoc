@@ -10,7 +10,7 @@ interface InputProps {
 
 }
 
-import "./Input.css"
+//import "./Input.css"
 
 const Input = ({ type, onChange, placeholder, variant, value = "default" }: InputProps) => {
     return (
