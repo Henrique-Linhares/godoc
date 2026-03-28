@@ -1,0 +1,23 @@
+.footerContainer {
+    background-color: #7CD7CF;
+    margin: 0px;
+}
+
+.itemBox {
+    display: flex;
+
+    padding: 10px;
+    margin: 30px;
+    justify-content: center;
+}
+
+.suportContainer {
+     display: flex;
+    flex-direction: column;
+}
+
+
+.devContainer {
+    display: flex;
+    flex-direction: column;
+}

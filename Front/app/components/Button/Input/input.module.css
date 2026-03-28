@@ -1,4 +1,4 @@
-.input-default {
+.default {
     width: 200px;
     height: 30px;
 
@@ -9,4 +9,9 @@
     border-top: transparent;
 
     color: black;
+
+    border-radius: 5px;
+    background-color: #F1F1F1;
+
+    border-bottom: black;
 }
