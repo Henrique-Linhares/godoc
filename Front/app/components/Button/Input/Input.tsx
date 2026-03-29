@@ -1,9 +1,12 @@
 "use client"
 
+import { ChangeEvent  } from "react";
+
+
 interface InputProps {
 
     type: string;
-    onChange: () => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
     placeholder: string;
     variant: string;
     value: string
@@ -11,9 +14,6 @@ interface InputProps {
 }
 
 import styles from "./input.module.css"
-
-//import "./Input.css"
-
 
 
 const Input = ({ type, onChange, placeholder, variant, value = "default" }: InputProps) => {

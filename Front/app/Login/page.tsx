@@ -4,18 +4,17 @@ import Input from "../components/Button/Input/Input"
 import Button from "../components/Button/Button/Button"
 
 import { useState } from "react"
+import styles from "./page.module.css"
+
+function Login() {
 
 const [email, setEmail] = useState("")
 const [senha, setSenha] = useState("")
-
-
-import styles from "./page.module.css"
 
 const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
 }
-
 const compFields = [
     {
         id: "email",
@@ -31,11 +30,7 @@ const compFields = [
         value: "",
         variant: "default"
     }
-]
-
-
-    
-console.log("variant:", compFields[0]?.variant);
+]   
     return (
         <>
             <form onSubmit={handleSubmit}>
@@ -52,7 +47,7 @@ console.log("variant:", compFields[0]?.variant);
                         <span className={styles.description}>Digite sua senha </span>
                         <Input
                             type={compFields[1].type}
-                            onChange={() => {}}
+                            onChange={(e) => setSenha(e.target.value)}
                             variant={compFields[1].variant}
                             value={senha} 
                             placeholder=""/>
@@ -64,7 +59,6 @@ console.log("variant:", compFields[0]?.variant);
                     type="submit"/>
                 </div>
                 <div className={styles.logoContainer}>
-
                 </div>
             </form >
         </>
