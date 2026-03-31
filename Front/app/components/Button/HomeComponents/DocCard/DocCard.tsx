@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
 import styles from './docbox.module.css'
 import { doctors } from '@/Services/doctorListService'
 
-function DoxCard() {
+const DoxCard = () => {
     return (
         <div className={styles.container}>
             <div className={styles.card}>
@@ -32,3 +32,5 @@ function DoxCard() {
         </div>
     )
 }
+
+export default DoxCard
