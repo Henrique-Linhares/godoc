@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SearchProvider } from '@/app/components/Search.tsx/Search'
 import "./globals.css";
 
 import Header from "../app/components/Button/Structure/Header/Header"

@@ -2,35 +2,44 @@
 
 import Input from "../components/Button/Input/Input"
 import Button from "../components/Button/Button/Button"
+import { useRouter } from 'next/navigation';
 
 import { useState } from "react"
 import styles from "./page.module.css"
 
 function Login() {
 
-const [email, setEmail] = useState("")
-const [senha, setSenha] = useState("")
+    const [email, setEmail] = useState("")
+    const [senha, setSenha] = useState("")
 
-const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-}
-const compFields = [
-    {
-        id: "email",
-        type: "text",
-        placeholder: "Email",
-        value: "",
-        variant: "default"
-    },
-    {
-        id: "senha",
-        type: "passworld",
-        placeholder: "Senha",
-        value: "",
-        variant: "default"
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
     }
-]   
+    const compFields = [
+        {
+            id: "email",
+            type: "text",
+            placeholder: "Email",
+            value: "",
+            variant: "default"
+        },
+        {
+            id: "senha",
+            type: "passworld",
+            placeholder: "Senha",
+            value: "",
+            variant: "default"
+        }
+    ]
+
+
+    const router = useRouter()
+
+    const validação = () => {
+        if (true) {
+            router.push('/Home')
+        }
+    }
     return (
         <>
             <form onSubmit={handleSubmit}>
@@ -49,14 +58,14 @@ const compFields = [
                             type={compFields[1].type}
                             onChange={(e) => setSenha(e.target.value)}
                             variant={compFields[1].variant}
-                            value={senha} 
-                            placeholder=""/>
+                            value={senha}
+                            placeholder="" />
                     </div >
-                    <Button 
-                    onClick={() => {}}
-                    text="Ir"
-                    variant="default"
-                    type="submit"/>
+                    <Button
+                        onClick={validação}
+                        text="Ir"
+                        variant="default"
+                        type="submit" />
                 </div>
                 <div className={styles.logoContainer}>
                 </div>

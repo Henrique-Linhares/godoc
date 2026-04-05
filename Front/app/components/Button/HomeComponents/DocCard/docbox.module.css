@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.card   {
+}
+
+.info {
+    display: flex;
+   background-color: aqua;
+
+}
+
+
+
+.display {
+    margin-right: 20px;
+}
+
+.name {
+    font-size: larger;
+
+}
+
+.details {
+        margin-right: 20px;
+
+}

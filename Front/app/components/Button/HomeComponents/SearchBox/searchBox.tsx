@@ -3,7 +3,10 @@
 import Styles from './search.module.css'
 import Input from '../../Input/Input'
 import Button from '../../Button/Button'
-import { text } from 'stream/consumers'
+import { useState } from 'react'
+import { useSearch } from '@/app/components/Search.tsx/Search'
+
+
 
 const inputFields = [
     {
@@ -23,20 +26,27 @@ const buttonFields = [
     }
 ]
 
+const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+    }
+
 const SearchBox = () => {
+
+    const {search, setSearch}= useSearch()
+
     return (
         <div className={Styles.container}>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <Input
                     type={inputFields[0].type}
-                    onChange={() => { }}
+                    onChange={(e) => {setSearch(e.target.value)}}
                     placeholder=''
                     variant={inputFields[0].variant}
-                    value={inputFields[0].value}
+                    value={search}
                 />
                 <Button
                     onClick={buttonFields[0].onClick}
-                    type={buttonFields[0].type}
+                    type="submit"
                     text={buttonFields[0].text}
                     variant={buttonFields[0].variant}
                 />

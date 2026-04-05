@@ -1,6 +1,5 @@
 import { Children } from 'react';
-import Button from '../components/Button'
-import Header from "./Header"
+
 import { Interface } from 'readline';
 
 
@@ -12,7 +11,7 @@ interface landingPageProps {
 function LandingPage() {
     return (
         <div className='landing-page-container'>
-            <Header />
+            google
         </div>
     );
 };
