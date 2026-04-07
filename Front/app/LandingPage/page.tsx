@@ -1,11 +1,11 @@
 import styles from './page.module.css'
 
 
-const data =[
-    {
-        title: "Cuide da sua saúde",
-        description: "No GoDoc você encontra médicos perto de você e agenda consultas em poucos cliques - sem filas,sem complicação e sem perder tempo"
-    },
+const dataCard = {
+    title: "Cuide da sua saúde",
+    description: "No GoDoc você encontra médicos perto de você e agenda consultas em poucos cliques - sem filas,sem complicação e sem perder tempo"
+}
+const data = [
     {
         title: "Encontre",
         description: "Busque Medicos por especialidade, localização"
@@ -27,18 +27,25 @@ function LandingPage() {
     return (
         <div className={styles.container}>
             <div className={styles.info_card}>
-                <h2>{data[0].title}</h2>
-                <p>{data[0].description}</p>
+                <h2>{dataCard.title}</h2>
+                <p>{dataCard.description}</p>
             </div>
-            <div> 
+            <div>
                 <div>
 
                 </div>
                 <div>
-
+                    {data.map((item, index) => {
+                        return (
+                            <div key={index} className={styles.info_card}>
+                                <h2>{item.title}</h2>
+                                <p>{item.description}</p>
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
-            
+
         </div>
     )
 }
