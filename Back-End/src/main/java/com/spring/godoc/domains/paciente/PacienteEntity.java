@@ -1,9 +1,6 @@
 package com.spring.godoc.domains.paciente;
 
-import java.sql.Date;
-import java.util.List;
-
-import com.spring.godoc.domains.exame.Exame;
+import java.util.Date;
 import com.spring.godoc.domains.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

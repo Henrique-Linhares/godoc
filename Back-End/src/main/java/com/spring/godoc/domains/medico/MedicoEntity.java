@@ -1,13 +1,10 @@
 package com.spring.godoc.domains.medico;
 
-import com.spring.godoc.domains.exame.Exame;
 import com.spring.godoc.domains.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
 @Table(name = "medicos")
