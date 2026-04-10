@@ -5,10 +5,8 @@ function Footer() {
         <div className={styles.footerContainer}>
             <div className={styles.itemBox}>
                 <div className={styles.logo}>
-
                 </div>
                 <div className={styles.contacContainer}>
-
                 </div>
                 <div className={styles.suportContainer}>
                     <span>hlinhares453@gmail.com</span>
@@ -21,7 +19,6 @@ function Footer() {
                     <span>Kaique Santos</span>
                     <span>Tatiana Silva</span>
                     <span> Victor Lemos</span>
-
                 </div>
             </div>
         </div>

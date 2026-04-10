@@ -32,7 +32,6 @@ function Login() {
         }
     ]
 
-
     const router = useRouter()
 
     const validação = () => {
@@ -41,7 +40,7 @@ function Login() {
         }
     }
     return (
-        <>
+        <div className={styles.container}>
             <form onSubmit={handleSubmit}>
                 <div className={styles.loginContainer}>
                     <span className='title'>Criar Conta</span>
@@ -70,7 +69,7 @@ function Login() {
                 <div className={styles.logoContainer}>
                 </div>
             </form >
-        </>
+        </div>
     )
 }
 

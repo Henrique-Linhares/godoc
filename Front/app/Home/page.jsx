@@ -4,10 +4,13 @@ import styles from '@/app/Home/page.module.css'
 
 function HomePage() {
     return (
-        <div className={styles.container}>
-            <SearchBox />
-            <DoxCard />
+        <div className={styles.layout}>
+            <div className={styles.container}>
+                <SearchBox />
+                <DoxCard />
+            </div>
         </div>
+
     )
 }
 

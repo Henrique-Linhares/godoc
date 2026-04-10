@@ -1,0 +1,19 @@
+.layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    background-color: #7CD7CF;
+}
+
+
+
+.logoBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 70px;
+    background-size: contain;
+    border-radius: 15px;
+}
