@@ -6,8 +6,12 @@ function HomePage() {
     return (
         <div className={styles.layout}>
             <div className={styles.container}>
-                <SearchBox />
-                <DoxCard />
+                <div className={styles.searchContainer}>
+                    <SearchBox />
+                </div>
+                <div className={styles.boxCardContainer}>
+                    <DoxCard />
+                </div>
             </div>
         </div>
 

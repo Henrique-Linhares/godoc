@@ -17,3 +17,26 @@
     font-weight: bold;
 
 }
+
+.pesquisar {
+    width: 350px;
+    height: 30px;
+
+    display: flex;
+    justify-content: flex-start;
+
+    border-radius: 15px;
+    border-style: none;
+    border-top: transparent;
+
+    color: black;
+    color-scheme: unset;
+
+    border-radius: 5px;
+    background-color: #ffffff;
+
+    border-bottom: black;
+
+    margin-left: 150px;
+
+}

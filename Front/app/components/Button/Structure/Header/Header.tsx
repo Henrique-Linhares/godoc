@@ -17,7 +17,7 @@ function Header() {
     }
 
     return (
-        <div className={styles.layout}>
+        <div className={styles.container}>
             <div className={styles.logoBox}>
                 <Image src={'/Godoc.png'} alt="Godoc" width={150} height={50} />
             </div>

@@ -2,7 +2,7 @@
 
 import styles from './docbox.module.css'
 import { doctors } from '@/Services/doctorListService'
-import { useSearch } from '@/app/components/Search.tsx/Search'
+import { useSearch } from '@/app/components/Search/Search'
 
 
 

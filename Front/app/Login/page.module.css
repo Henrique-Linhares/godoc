@@ -3,8 +3,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 700px;
 }
+
 .loginContainer {
     display: flex;
     margin: 0;
@@ -29,4 +29,8 @@
 
 .description {
 
+}
+
+.title {
+    
 }

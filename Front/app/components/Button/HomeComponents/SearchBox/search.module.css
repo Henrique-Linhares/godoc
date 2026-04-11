@@ -1,5 +1,11 @@
 .container {
-    max-width: 1300px;
-    height: auto;
+    width: 900px;
+    height: 50px;
+    padding: 5px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #7CD7CF;
+    border-radius: 15px;
 }
