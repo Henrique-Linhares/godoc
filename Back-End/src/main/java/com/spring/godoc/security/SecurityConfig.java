@@ -52,6 +52,8 @@ public class SecurityConfig {
                 /*Endpoints Publicos*/
                 .requestMatchers("/authn/**").permitAll() //endpoint publicos. O ** é um pattern que significa "qualquer coisa depois de /authn/"
 
+                    // Permitir endpoints de paciente para teste
+                    .requestMatchers("/pacientes/**").permitAll()
                 /*Endpoints do Swagger*/
                 .requestMatchers("/swagger-ui/**").permitAll()
                 .requestMatchers("/v3/api-docs/**").permitAll()
