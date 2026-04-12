@@ -6,9 +6,10 @@ function Footer() {
         <div className={styles.footerContainer}>
             <div className={styles.itemBox}>
                 <div className={styles.logo}>
-                    <Image></Image>
+                    <Image src={'/godoc_logo.png'} alt="Godoc" width={250} height={250} />
                 </div>
                 <div className={styles.contacContainer}>
+                    HELLO
                 </div>
                 <div className={styles.suportContainer}>
                     <span>hlinhares453@gmail.com</span>

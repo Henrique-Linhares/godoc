@@ -35,8 +35,6 @@ const DoxCard = () => {
                                     <span>{item.location}</span>
                                 </div>
                                 <div className={styles.ratings}>
-                                    <span>{item.rating}</span>
-                                    <span>{item.reviews}</span>
                                 </div>
                             </div>
                             <div className={styles.scheduleInfo}>
