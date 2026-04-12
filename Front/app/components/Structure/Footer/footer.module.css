@@ -5,6 +5,7 @@
 
 .itemBox {
     display: flex;
+    gap: 30px;
 
     padding: 10px;
     margin: 30px;

@@ -9,3 +9,7 @@
     background-color: #7CD7CF;
     border-radius: 15px;
 }
+
+.formBox {
+    display: flex;
+}

@@ -2,7 +2,8 @@
 'use client'
 
 import styles from "./page.module.css"
-import Button from "../../Button/Button"
+import Button from "@/app/components/Button/Button/Button"
+import { ROUTES } from "@/routes/routes"
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -12,18 +13,14 @@ function Header() {
 
     const router = useRouter()
 
-    const routerContact = () => {
-        router.push('/Login')
-    }
-
     return (
         <div className={styles.container}>
             <div className={styles.logoBox}>
                 <Image src={'/Godoc.png'} alt="Godoc" width={150} height={50} />
             </div>
             <div className={styles.buttonBox}>
-                <Button text="Login" onClick={routerContact} variant="default" type="text" />
-                <Button text="Contato" onClick={routerContact} variant="default" type="text" />
+                <Button text="Login" onClick={() => { router.push(ROUTES.login)}} variant="default" type="text" />
+                <Button text="Contato" onClick={() => { router.push(ROUTES.login)}} variant="default" type="text" />
             </div>
         </div>
     )

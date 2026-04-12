@@ -1,10 +1,12 @@
 import styles from "./footer.module.css"
+import Image from "next/image"
 
 function Footer() {
     return (
         <div className={styles.footerContainer}>
             <div className={styles.itemBox}>
                 <div className={styles.logo}>
+                    <Image></Image>
                 </div>
                 <div className={styles.contacContainer}>
                 </div>

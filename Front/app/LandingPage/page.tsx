@@ -20,8 +20,6 @@ const data = [
     }
 ]
 
-
-
 function LandingPage() {
 
     return (

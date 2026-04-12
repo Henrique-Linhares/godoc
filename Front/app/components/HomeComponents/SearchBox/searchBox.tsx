@@ -2,7 +2,7 @@
 
 import Styles from './search.module.css'
 import Input from '../../Input/Input'
-import Button from '../../Button/Button'
+import Button from '../../Button/Button/Button'
 import { useState } from 'react'
 import { useSearch } from '@/app/components/Search/Search'
 
@@ -17,15 +17,6 @@ const inputFields = [
     },
 ]
 
-const buttonFields = [
-    {
-        onClick: () => { },
-        type: 'submit',
-        text: "Buscar",
-        variant: 'pesquisar'
-    }
-]
-
 const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 }
@@ -37,19 +28,15 @@ const SearchBox = () => {
     return (
         <div className={Styles.container}>
             <form onSubmit={handleSubmit}>
+                <div className={Styles.formBox}>
                     <Input
                         type={inputFields[0].type}
                         onChange={(e) => { setSearch(e.target.value) }}
-                        placeholder=''
+                        placeholder='nome ou tipo'
                         variant={inputFields[0].variant}
                         value={search}
                     />
-                    <Button
-                        onClick={buttonFields[0].onClick}
-                        type="submit"
-                        text={buttonFields[0].text}
-                        variant={buttonFields[0].variant}
-                    />
+                    </div>
             </form >
         </div >
     )

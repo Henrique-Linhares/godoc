@@ -1,7 +1,8 @@
 'use client'
 
-import Input from "../components/Button/Input/Input"
+import Input from "../components/Input/Input"
 import Button from "../components/Button/Button/Button"
+import { ROUTES } from "@/routes/routes"
 import { useRouter } from 'next/navigation';
 
 import { useState } from "react"
@@ -36,7 +37,7 @@ function Login() {
 
     const validação = () => {
         if (true) {
-            router.push('/Home')
+            router.push(ROUTES.home)
         }
     }
     return (

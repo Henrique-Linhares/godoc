@@ -1,19 +1,22 @@
 "use client";
 
 import styles from './docbox.module.css'
-import { doctors } from '@/Services/doctorListService'
+import { doctors } from '@/services/doctorListService'
+
 import { useSearch } from '@/app/components/Search/Search'
+import { useRouter } from 'next/navigation';
 
-
+import { ROUTES } from "@/routes/routes"
 
 
 const DoxCard = () => {
 
-      const { search } = useSearch();
-
+    const router = useRouter()
+    const { search } = useSearch();
 
     const filtrados = doctors.filter(item =>
-        item.name.toLowerCase().includes(search.toLowerCase())
+
+        item.name.toLowerCase().includes(search.toLowerCase()) || item.specialty.toLowerCase().includes(search.toLowerCase())
     );
 
     return (
@@ -37,8 +40,12 @@ const DoxCard = () => {
                                 </div>
                             </div>
                             <div className={styles.scheduleInfo}>
-                                <span>{item.availableToday}</span>
-                                <span>{item.action.label}</span>
+                                <div className={item.availableToday === true ? styles.availableToday : styles.notAvaibleToday}>
+                                    <span>{item.availableToday === true ? "Disponível Hoje" : "Disponível em Breve"}</span>
+                                </div>
+                                <div onClick={() => {router.push(ROUTES.appointment)}} className={styles.action}>
+                                    <span>{item.action.label}</span>
+                                </div>
                             </div>
                         </div>
                     )

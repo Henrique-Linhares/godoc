@@ -1,5 +1,5 @@
 import styles from './form.module.css'
-import Input from '../../Button/Input/Input';
+import Input from '../../Input/Input';
 
 function Form() {
 
