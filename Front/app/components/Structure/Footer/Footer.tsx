@@ -17,11 +17,11 @@ function Footer() {
                     <span>(16) 99353-6708</span>
                 </div>
                 <div className={styles.devContainer}>
-                    <span>Henrique Linhares </span>
-                    <span>Guilherme Soares</span>
-                    <span>Kaique Santos</span>
-                    <span>Tatiana Silva</span>
-                    <span> Victor Lemos</span>
+                    <span className={styles.item}>Henrique Linhares </span>
+                    <span className={styles.item}>Guilherme Soares</span>
+                    <span className={styles.item}>Kaique Santos</span>
+                    <span className={styles.item}>Tatiana Silva</span>
+                    <span className={styles.item}> Victor Lemos</span>
                 </div>
             </div>
         </div>
