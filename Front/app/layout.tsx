@@ -35,7 +35,9 @@ export default function RootLayout({
 
     <main className="layout">
       <SearchProvider>
+        <div className="page">
         {children}
+        </div>
       </SearchProvider>
     </main>
 
