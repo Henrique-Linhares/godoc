@@ -3,7 +3,8 @@
 import styles from './docbox.module.css'
 import { doctors } from '@/services/doctorListService'
 
-import { useSearch } from '@/app/components/Search/Search'
+// Search Provider import
+import { useSearch } from '../../Search/Search';
 import { useRouter } from 'next/navigation';
 
 import Image from 'next/image';

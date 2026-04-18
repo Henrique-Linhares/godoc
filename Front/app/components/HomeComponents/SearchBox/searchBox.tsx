@@ -4,8 +4,9 @@ import Styles from './search.module.css'
 import Input from '../../Input/Input'
 import Button from '../../Button/Button/Button'
 import { useState } from 'react'
-import { useSearch } from '@/app/components/Search/Search'
 
+//Search Provider Import
+import { useSearch } from '../../Search/Search';
 
 
 const inputFields = [

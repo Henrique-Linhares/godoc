@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { SearchProvider } from "@/app/components/Search/Search";
+
+//Import of Providers
+import { AuthProvider } from "@/context/Auth";
+import { SearchProvider } from "./components/Search/Search";
 
 import "./globals.css";
 
@@ -30,17 +33,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <SearchProvider>
-          <div className="app">
-            <Header />
+        <AuthProvider>
+          <SearchProvider>
+            <div className="app">
+              <Header />
 
-            <main className="main">
-              {children}
-            </main>
+              <main className="main">
+                {children}
+              </main>
 
-            <Footer />
-          </div>
-        </SearchProvider>
+              <Footer />
+            </div>
+          </SearchProvider>
+        </AuthProvider>
       </body>
     </html>
   );
