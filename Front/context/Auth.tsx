@@ -3,8 +3,10 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
 type UserData = {
-    user: string;
+    senha: string;
     email: string;
+    name?: string
+
 };
 
 type ProviderType = {

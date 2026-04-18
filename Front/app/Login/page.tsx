@@ -5,6 +5,10 @@ import Button from "../components/Button/Button/Button"
 import { ROUTES } from "@/routes/routes"
 import { useRouter } from 'next/navigation';
 
+import { users } from '@/services/users'
+
+import { useAuth } from "@/context/Auth";
+
 import { useState } from "react"
 import styles from "./page.module.css"
 
@@ -12,6 +16,8 @@ function Login() {
 
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
+
+    const { user, logged, login, logout } = useAuth()
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -36,8 +42,27 @@ function Login() {
     const router = useRouter()
 
     const validação = () => {
-        if (true) {
+
+
+        const user = users.find(u =>
+            u.email.toLowerCase() === email.toLowerCase() &&
+            u.password === senha
+        )
+
+        if (user) {
+
+            login({
+                email: email,
+                senha: senha,
+                name: user.user
+            })
+
             router.push(ROUTES.home)
+
+            alert("LOGIN REALIZADO COM SUCESSO")
+        } else {
+
+            alert("LOGIN REALIZADO COM nada")
         }
     }
     return (
