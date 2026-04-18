@@ -36,7 +36,12 @@
 .buttonBox {
   display: flex;
   align-items: center;
+  width: 20%;
   gap: 20px;
+}
+
+.buttonBoxNotActivated {
+  visibility: hidden;
 }
 
 .buttonBox button {
@@ -59,4 +64,14 @@
 
 .buttonBox button:active {
   transform: scale(0.95);
+}
+
+.profileContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eeeeee;
+  border-radius: 50%;
+  width: 5%;
+  padding: 10px;
 }

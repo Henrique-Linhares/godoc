@@ -27,8 +27,8 @@ const DoxCard = () => {
                 {filtrados.map((item, index) => {
                     return (
                         <div className={styles.info}>
-                            <div className={styles.display}>
-                                <Image src={'/cleion.png'} alt="Godoc" width={20} height={20} />
+                            <div className={styles.ImageDisplay}>
+                                <Image src={'/cleiton.png'} alt="Godoc" width={50} height={50} />
                             </div>
                             <div className={styles.details}>
                                 <span className={styles.name}>{item.name}</span>
