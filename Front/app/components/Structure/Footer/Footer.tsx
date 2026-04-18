@@ -21,7 +21,7 @@ function Footer() {
                     <span className={styles.item}>Guilherme Soares</span>
                     <span className={styles.item}>Kaique Santos</span>
                     <span className={styles.item}>Tatiana Silva</span>
-                    <span className={styles.item}> Victor Lemos</span>
+                    <span className={styles.item}>Victor Lemos</span>
                 </div>
             </div>
         </div>

@@ -2,20 +2,61 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 70px;
 
-  background: linear-gradient(135deg, #7CD7CF, #5bbfb6);
-  padding: 12px 24px;
+  background: linear-gradient(135deg, #7CD7CF);
+  padding: 0 32px;
 
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(6px);
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .logoBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 150px;
-    height: 70px;
-    
-    margin-right: 60%;
-    border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 150px;
+  height: 50px;
+
+  border-radius: 12px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
+}
+
+.logoBox:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.buttonBox {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.buttonBox button {
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+
+  background: #16C1C8(255, 255, 255, 0.2);
+  color: #fff;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.buttonBox button:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.buttonBox button:active {
+  transform: scale(0.95);
 }

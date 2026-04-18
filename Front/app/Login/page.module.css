@@ -1,36 +1,61 @@
-
 .container {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+
+    width: 100%;
+    min-height: 550px;
+
 }
 
 .loginContainer {
     display: flex;
-    margin: 0;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    background-color: white;
-    padding: 20px;
-    width: 40rem;
-    height: 30rem;
-    margin: 30px;
-    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 30px;
+
+    border-radius: 16px;
+    background: #ffffff;
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e293b;
+    text-align: center;
+}
+
+.description {
+    font-size: 0.95rem;
+    color: #64748b;
+    text-align: center;
 }
 
 .inputContainer {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
-    
+    gap: 12px;
 }
 
 
-.description {
 
+.inputContainer input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-.title {
-    
+
+
+.button:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
 }

@@ -6,6 +6,8 @@ import { doctors } from '@/services/doctorListService'
 import { useSearch } from '@/app/components/Search/Search'
 import { useRouter } from 'next/navigation';
 
+import Image from 'next/image';
+
 import { ROUTES } from "@/routes/routes"
 
 
@@ -26,7 +28,7 @@ const DoxCard = () => {
                     return (
                         <div className={styles.info}>
                             <div className={styles.display}>
-                                {"iamge"}
+                                <Image src={'/cleion.png'} alt="Godoc" width={20} height={20} />
                             </div>
                             <div className={styles.details}>
                                 <span className={styles.name}>{item.name}</span>
@@ -41,7 +43,7 @@ const DoxCard = () => {
                                 <div className={item.availableToday === true ? styles.availableToday : styles.notAvaibleToday}>
                                     <span>{item.availableToday === true ? "Disponível Hoje" : "Disponível em Breve"}</span>
                                 </div>
-                                <div onClick={() => {router.push(ROUTES.appointment)}} className={styles.action}>
+                                <div onClick={() => { router.push(ROUTES.appointment) }} className={styles.action}>
                                     <span>{item.action.label}</span>
                                 </div>
                             </div>

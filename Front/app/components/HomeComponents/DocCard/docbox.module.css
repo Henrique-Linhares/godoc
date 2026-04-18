@@ -66,6 +66,10 @@
 
 
 .display {
+    max-width: 20px;
+    max-height: 20px;
+
+
     margin-right: 20px;
 }
 
