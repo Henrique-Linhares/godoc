@@ -15,14 +15,12 @@
   z-index: 10;
 }
 
-/* lado esquerdo (logo) */
 .leftContainer {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-/* logo */
 .logoBox {
   display: flex;
   align-items: center;
@@ -40,7 +38,6 @@
   filter: brightness(1.1);
 }
 
-/* botões */
 .buttonBox {
   display: flex;
   align-items: center;
@@ -73,14 +70,13 @@
   transform: scale(0.96);
 }
 
-/* perfil (lado direito) */
 .profileContainer {
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 }
 
-/* avatar */
 .profileImage {
   background-color: #eeeeee;
   display: flex;

@@ -1,12 +1,12 @@
 "use client"
 
-import { ChangeEvent  } from "react";
+import { ChangeEvent } from "react";
 
 
 interface InputProps {
 
     type: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
     placeholder: string;
     variant: string;
     value: string

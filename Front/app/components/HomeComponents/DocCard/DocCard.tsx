@@ -8,19 +8,25 @@ import { useSearch } from '../../Search/Search';
 import { useRouter } from 'next/navigation';
 
 import Image from 'next/image';
-
 import { ROUTES } from "@/routes/routes"
+import { useState } from 'react';
 
+
+import { Modal } from '../../Modal/Modal';
 
 const DoxCard = () => {
 
-    const router = useRouter()
+    const router = useRouter();
     const { search } = useSearch();
 
-    const filtrados = doctors.filter(item =>
+  
 
+    const filtrados = doctors.filter(item =>
         item.name.toLowerCase().includes(search.toLowerCase()) || item.specialty.toLowerCase().includes(search.toLowerCase())
     );
+
+    const [openModal, setOpenModal] = useState(false);
+
 
     return (
         <div className={styles.container}>
@@ -44,15 +50,20 @@ const DoxCard = () => {
                                 <div className={item.availableToday === true ? styles.availableToday : styles.notAvaibleToday}>
                                     <span>{item.availableToday === true ? "Disponível Hoje" : "Disponível em Breve"}</span>
                                 </div>
-                                <div onClick={() => { router.push(ROUTES.appointment) }} className={styles.action}>
+                                <div onClick={
+                                    () => {setOpenModal(true) }}
+                                    className={styles.action}
+                                >
                                     <span>{item.action.label}</span>
+
+                                    { openModal &&  <Modal setOpenModal={() => setOpenModal(false)}/> }
                                 </div>
                             </div>
                         </div>
                     )
                 })}
             </div>
-        </div>
+        </div >
     )
 }
 
