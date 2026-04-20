@@ -6,7 +6,7 @@ import Button from '../../Button/Button/Button'
 import { useState } from 'react'
 
 //Search Provider Import
-import { useSearch } from '../../Search/Search';
+import { useSearch } from '@/context/Search'
 
 
 const inputFields = [
@@ -30,7 +30,7 @@ const SearchBox = () => {
         <div className={Styles.container}>
             <form onSubmit={handleSubmit}>
                 <div className={Styles.formBox}>
-                    <Input
+                    <Input  
                         type={inputFields[0].type}
                         onChange={(e) => { setSearch(e.target.value) }}
                         placeholder='nome ou tipo'

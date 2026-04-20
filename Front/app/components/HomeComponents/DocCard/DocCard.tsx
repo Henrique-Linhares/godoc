@@ -3,8 +3,10 @@
 import styles from './docbox.module.css'
 import { doctors } from '@/services/doctorListService'
 
-// Search Provider import
-import { useSearch } from '../../Search/Search';
+// Import context
+import { useSearch } from '@/context/Search';
+
+// Import useRouter for navigation
 import { useRouter } from 'next/navigation';
 
 import Image from 'next/image';

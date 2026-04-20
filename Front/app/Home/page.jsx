@@ -3,6 +3,7 @@ import SearchBox from '@/app/components/HomeComponents/SearchBox/searchBox'
 import styles from '@/app/Home/page.module.css'
 
 
+
 function HomePage() {
     
 
@@ -15,6 +16,7 @@ function HomePage() {
                     <div className={styles.boxCardContainer}>
                         <DoxCard />
                 </div>
+
             </div>
         </div>
 

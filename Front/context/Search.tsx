@@ -4,7 +4,7 @@ import { createContext, useContext, useState, ReactNode } from "react";
 
 
 type SearchTypes ={
-    search: String,
+    search: string,
     setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -14,7 +14,7 @@ type SeachProviderProps = {
 
 const SearchContext = createContext<SearchTypes | undefined>(undefined)
 
-export default function SearchProvider( {children} : SeachProviderProps) {
+export function SearchProvider( {children} : SeachProviderProps) {
 
     const [search, setSearch] = useState('')
     

@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 //Import of Providers
 import { AuthProvider } from "@/context/Auth";
-import { SearchProvider } from "./components/Search/Search";
+import { SearchProvider } from "@/context/Search"
 
 import "./globals.css";
 

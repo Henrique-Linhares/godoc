@@ -24,7 +24,6 @@ const AuthContext = createContext<ProviderType | undefined>(undefined);
 
 export function AuthProvider({ children }: AuthProviderProps) {
 
-    //Autentication
     const [user, setUser] = useState<UserData | null>(null);
     const [logged, setLogged] = useState(false);
 
@@ -44,6 +43,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         </AuthContext.Provider>
     );
 }
+
+//Custom Hook to autentication
 
 export function useAuth() {
     const context = useContext(AuthContext);
