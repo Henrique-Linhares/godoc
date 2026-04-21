@@ -6,7 +6,6 @@ type UserData = {
     senha: string;
     email: string;
     name?: string
-
 };
 
 type ProviderType = {

@@ -5,6 +5,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { AuthProvider } from "@/context/Auth";
 import { SearchProvider } from "@/context/Search"
 
+//Import custom hook for validation of user permisions
+import { usePermissions } from "@/hooks/AuthUserPermissions";
+
 import "./globals.css";
 
 import Header from "@/app/components/Structure/Header/Header";
