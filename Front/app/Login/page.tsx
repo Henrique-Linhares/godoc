@@ -18,9 +18,8 @@ function Login() {
 
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
-    const [loading, setLoading] = useState(false)
 
-    const { user, logged, login, logout } = useAuth()
+    const { user, logged, login, logout, loading, setLoading } = useAuth()
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -71,7 +70,7 @@ function Login() {
 
 
     useEffect(() => {
-        setLoading(true)
+        setLoading(true) 
 
     }, [loading])
 

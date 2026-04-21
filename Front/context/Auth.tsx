@@ -13,6 +13,8 @@ type ProviderType = {
     logged: boolean;
     login: (userData: UserData) => void;
     logout: () => void;
+    loading: boolean;
+    setLoading: (loading: boolean) => void
 };
 
 type AuthProviderProps = {
@@ -25,6 +27,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const [user, setUser] = useState<UserData | null>(null);
     const [logged, setLogged] = useState(false);
+    const [loading, setLoading] = useState(true)
 
     function login(userData: UserData) {
         setUser(userData);
@@ -34,10 +37,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
     function logout() {
         setUser(null);
         setLogged(false);
+
     }
 
     return (
-        <AuthContext.Provider value={{ user, logged, login, logout }}>
+        <AuthContext.Provider value={{ user, logged, login, logout, loading, setLoading }}>
             {children}
         </AuthContext.Provider>
     );

@@ -9,12 +9,12 @@ import { ROUTES } from "@/routes/routes";
 
 export const usePermissions = () => {
 
-    const { logged } = useAuth()
+    const { logged,  logout, loading } = useAuth()
     const router = useRouter()
 
     useEffect(() => {
 
-        if (logged === false) {
+        if (logged === false && loading === false) {
             router.push(ROUTES.login)
         }
 
