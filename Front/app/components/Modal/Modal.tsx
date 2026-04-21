@@ -3,7 +3,12 @@
 import Button from '../Button/Button/Button'
 import Input from '../Input/Input'
 import styles from './page.module.css'
-import { useState } from "react"
+import { useState, useEffect } from "react"
+
+import Loading from '../Loading/Loading'
+
+import { useAuth } from '@/context/Auth'
+import { em } from 'motion/react-client'
 
 interface ModalProps {
     setOpenModal: (value: boolean) => void
@@ -12,10 +17,15 @@ interface ModalProps {
 export function Modal({ setOpenModal }: ModalProps) {
 
     const [email, setEmail] = useState('')
+    const { loading, setLoading } = useAuth()
+    const [data, setData] = useState(false)
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        verificatio()
     }
+
+
 
     const compFields = [
         {
@@ -28,6 +38,35 @@ export function Modal({ setOpenModal }: ModalProps) {
 
         }
     ]
+
+    function verificatio() {
+        if (email) {
+            setData(true)
+        }
+    }
+
+
+    useEffect(() => {
+
+         function delay(ms: number) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+
+        async function something() {
+            setLoading(true);
+
+            await delay(1500);
+
+            setLoading(false);
+            setOpenModal(false)
+
+        }
+
+        something()
+
+
+    }, [data])
 
     return (
         <div className={styles.overlay}>
@@ -42,18 +81,17 @@ export function Modal({ setOpenModal }: ModalProps) {
                             value={email}
                             placeholder=""
                         />
-
-
                         <Button
-                            onClick={() => setOpenModal(false) }
+                            onClick={() => {}}
                             text={'clicar'}
                             type='submit'
                             variant={'default'}
                         />
-
                     </form>
                 </div>
             </div>
+
+            {loading && <Loading />}
         </div>
     )
 

@@ -18,6 +18,7 @@ function Login() {
 
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
+    const [alert, setAlert] = useState(false)
 
     const { user, logged, login, logout, loading, setLoading } = useAuth()
 
@@ -27,14 +28,14 @@ function Login() {
     const compFields = [
         {
             id: "email",
-            type: "text",
+            type: "email",
             placeholder: "Email",
             value: "",
             variant: "default"
         },
         {
             id: "senha",
-            type: "passworld",
+            type: "password",
             placeholder: "Senha",
             value: "",
             variant: "default"
@@ -44,7 +45,6 @@ function Login() {
     const router = useRouter()
 
     const validação = () => {
-
 
         const user = users.find(u =>
             u.email.toLowerCase() === email.toLowerCase() &&
@@ -61,16 +61,15 @@ function Login() {
 
             router.push(ROUTES.home)
 
-            alert("LOGIN REALIZADO COM SUCESSO")
         } else {
 
-            alert("LOGIN REALIZADO COM nada")
+            setAlert(true)
         }
     }
 
 
     useEffect(() => {
-        setLoading(true) 
+        setLoading(false)
 
     }, [loading])
 
@@ -89,6 +88,8 @@ function Login() {
                                 variant={compFields[0].variant}
                                 value={email}
                                 placeholder="" />
+                            {alert && <div className={styles.alert}>Credenciais invalidas</div>}
+
                             <span className={styles.description}>Digite sua senha </span>
                             <Input
                                 type={compFields[1].type}
@@ -96,6 +97,9 @@ function Login() {
                                 variant={compFields[1].variant}
                                 value={senha}
                                 placeholder="" />
+
+                            {alert && <div className={styles.alert}>Credenciais invalidas</div>}
+
                         </div >
                         <Button
                             onClick={validação}
