@@ -29,13 +29,15 @@ const DoxCard = () => {
 
     const [openModal, setOpenModal] = useState(false);
 
+    console.log("MODal", openModal)
+
 
     return (
         <div className={styles.container}>
             <div className={styles.card}>
                 {filtrados.map((item, index) => {
                     return (
-                        <div className={styles.info}>
+                        <div key={index} className={styles.info}>
                             <div className={styles.ImageDisplay}>
                                 <Image src={'/cleiton.png'} alt="Godoc" width={50} height={50} />
                             </div>

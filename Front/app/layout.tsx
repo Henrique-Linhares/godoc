@@ -3,10 +3,13 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 //Import of Providers
 import { AuthProvider } from "@/context/Auth";
-import { SearchProvider } from "@/context/Search"
+import { SearchProvider } from "@/context/Search";
 
 //Import custom hook for validation of user permisions
 import { usePermissions } from "@/hooks/AuthUserPermissions";
+
+//Remove this after
+import { MotionConfig } from "framer-motion";
 
 import "./globals.css";
 
@@ -41,9 +44,7 @@ export default function RootLayout({
             <div className="app">
               <Header />
 
-              <main className="main">
-                {children}
-              </main>
+              <main className="main">{children}</main>
 
               <Footer />
             </div>
