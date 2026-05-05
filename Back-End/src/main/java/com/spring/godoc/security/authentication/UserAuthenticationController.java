@@ -2,6 +2,7 @@ package com.spring.godoc.security.authentication;
 
 
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
 
@@ -19,6 +20,8 @@ import com.spring.godoc.domains.user.UserEntity;
 import com.spring.godoc.domains.user.UserService;
 import com.spring.godoc.domains.user.dtos.UserLoginRequest;
 import com.spring.godoc.domains.user.dtos.UserLoginResponse;
+import com.spring.godoc.domains.user.dtos.UserRegisterRequestDTO;
+import com.spring.godoc.domains.user.dtos.UserRegisterResponseDTO;
 import com.spring.godoc.security.jwt.JwtService;
 
 @RestController
@@ -44,12 +47,12 @@ public class UserAuthenticationController {
 
             /*Criando o "token de autenticação não autenticado" com as informações recebidas*/
             /*Possui por padrão o authenticated = false*/
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userLoginRequest.username(), userLoginRequest.password());
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userLoginRequest.email(), userLoginRequest.password());
 
             /*O Authentication Manager é o metodo que valída se o authenticationToken existe na base de dados*/
             /*Ele chama o UserDetailsServiceImpl e usa o metodo loadUserByUsername*/
             /*Se for válido, retorna um Authentication autenticado(authenticated = true) */
-            org.springframework.security.core.Authentication authentication = authenticationManager.authenticate(authenticationToken);
+            Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
 
             /*Fazendo um downCasting para recuperar o userDetailsImpl*/
@@ -69,18 +72,19 @@ public class UserAuthenticationController {
             return ResponseEntity.ok().body(response);
 
         } catch (AuthenticationException e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais Inválidas");
         }
     };
 
-    // @CrossOrigin(origins = "*", allowedHeaders = "*")
-    // @PostMapping("/register")
-    // public ResponseEntity<?> register(@RequestBody UserRegisterRequestDTO userRegisterRequestDTO) {
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody UserRegisterRequestDTO userRegisterRequestDTO) {
 
-    //     UserEntity newUser = userService.saveRegularUser(userRegisterRequestDTO);
+        UserEntity newUser = userService.saveUser(userRegisterRequestDTO);
 
-    //     UserRegisterResponseDTO responseDTO = new UserRegisterResponseDTO(newUser.getId(), newUser.getUsername(), "Usuário Criado com sucesso!");
+        UserRegisterResponseDTO responseDTO = new UserRegisterResponseDTO(newUser.getId(), newUser.getEmail(), "Usuário Criado com sucesso!");
 
-    //     return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
-    // };
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+    };
 }

@@ -23,41 +23,26 @@ public class UserEntity {
     private String email;
     private String senha;
 
-    @OneToOne(mappedBy = "user")
-    private PacienteEntity paciente;
-
-    @OneToOne(mappedBy = "user")
-    private MedicoEntity medico;
-
     @Enumerated(EnumType.STRING)
     private UserRoles role;
 
-    public UserEntity() {}
+    public UserEntity() {};
 
-    public UserEntity(Long id, String email, String senha, PacienteEntity paciente, MedicoEntity medico, UserRoles role) {
-        this.id = id;
+    public UserEntity(String email, String senha, UserRoles role) {
         this.email = email;
         this.senha = senha;
-        this.paciente = paciente;
-        this.medico = medico;
         this.role = role;
-    }
+    };
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() { return id; };
+    public void setId(Long id) { this.id = id; };
 
     public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public void setEmail(String email) { this.email = email; };
 
     public String getSenha() { return senha; }
-    public void setSenha(String senha) { this.senha = senha; }
+    public void setSenha(String senha) { this.senha = senha; };
 
-    public PacienteEntity getPaciente() { return paciente; }
-    public void setPaciente(PacienteEntity paciente) { this.paciente = paciente; }
-
-    public MedicoEntity getMedico() { return medico; }
-    public void setMedico(MedicoEntity medico) { this.medico = medico; }
-
-    public UserRoles getRole() { return role; }
-    public void setRole(UserRoles role) { this.role = role; }
+    public UserRoles getRole() { return role; };
+    public void setRole(UserRoles role) { this.role = role; };
 }
