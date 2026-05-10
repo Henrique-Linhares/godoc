@@ -56,7 +56,8 @@ function Login() {
             login({
                 email: email,
                 senha: senha,
-                name: user.user
+                name: user.user,
+                tipo: user.type
             })
 
              router.push(ROUTES.dashboard)

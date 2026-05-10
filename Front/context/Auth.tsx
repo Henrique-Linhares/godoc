@@ -7,7 +7,8 @@ import { createContext, useContext, useState, ReactNode, useEffect } from "react
 type UserData = {
     senha: string;
     email: string;
-    name?: string
+    name?: string;
+    tipo: String
 };
 
 type ProviderType = {

@@ -3,12 +3,14 @@ export const users = [
         id: 1,
         email: 'teste@gmail',
         password: "sk",
-        user: "ThiagoFlames"
+        user: "ThiagoFlames",
+        type: "Doctor"
     },
     {
         id: 2,
         email: 'email',
         password: "sk",
-        user: "Marcio Araujo"
+        user: "Marcio Araujo",
+        type: "Doctor"
     }
 ]

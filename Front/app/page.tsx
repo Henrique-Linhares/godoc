@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Login from './(public)/Login/page'
-import HomePage from './(private)/Home/page'
+import HomePage from './(private)/Catalog/page'
 
 
 import LandingPage from "./(public)/LandingPage/page";
