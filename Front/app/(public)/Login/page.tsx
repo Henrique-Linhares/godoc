@@ -59,7 +59,7 @@ function Login() {
                 name: user.user
             })
 
-             router.push(ROUTES.home)
+             router.push(ROUTES.dashboard)
 
         } else {
 
