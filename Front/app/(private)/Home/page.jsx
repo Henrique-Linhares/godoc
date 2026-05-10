@@ -1,6 +1,6 @@
-import DoxCard from "../components/HomeComponents/DocCard/DocCard"
+import DoxCard from "../../components/HomeComponents/DocCard/DocCard"
 import SearchBox from '@/app/components/HomeComponents/SearchBox/searchBox'
-import styles from '@/app/Home/page.module.css'
+import styles from '@/app/(private)/Home/page.module.css'
 
 
 

@@ -1,6 +1,8 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+
+
+import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
 type UserData = {
     senha: string;
@@ -29,7 +31,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [logged, setLogged] = useState(false);
     const [loading, setLoading] = useState(true)
 
-    function login(userData: UserData) {
+
+    useEffect(() => {
+
+        setLoading(false)
+        setLogged(false)
+        setLoading(false)
+
+    }, [])
+
+   async  function login(userData: UserData) {
         setUser(userData);
         setLogged(true);
     }

@@ -1,12 +1,13 @@
 import Image from "next/image";
-import Login from '../app/Login/page'
-import HomePage from '../app/Home/page'
+import Login from './(public)/Login/page'
+import HomePage from './(private)/Home/page'
 
 
-import LandingPage from "./LandingPage/page";
-
+import LandingPage from "./(public)/LandingPage/page";
+import PublicLayout from "./(public)/layout";
 
 import styles from "./page.module.css"
+import { Children } from "react";
 
 export default function Home() {
   return (

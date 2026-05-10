@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
-//Import of Providers
-import { AuthProvider } from "@/context/Auth";
-import { SearchProvider } from "@/context/Search";
 
 //Import custom hook for validation of user permisions
 import { usePermissions } from "@/hooks/AuthUserPermissions";
@@ -13,8 +10,13 @@ import { MotionConfig } from "framer-motion";
 
 import "./globals.css";
 
+import { AuthProvider } from "@/context/Auth";
+
+
 import Header from "@/app/components/Structure/Header/Header";
 import Footer from "@/app/components/Structure/Footer/Footer";
+
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,18 +39,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+
+    <html lang="pt-BR">
+      <body>
         <AuthProvider>
-          <SearchProvider>
-            <div className="app">
-              <Header />
-
-              <main className="main">{children}</main>
-
-              <Footer />
-            </div>
-          </SearchProvider>
+          <div className="app">
+            <Header />
+            <main className="main">{children}</main>
+            <Footer />
+          </div>
         </AuthProvider>
       </body>
     </html>

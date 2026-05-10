@@ -1,7 +1,7 @@
 'use client'
 
-import Input from "../components/Input/Input"
-import Button from "../components/Button/Button/Button"
+import Input from "../../components/Input/Input"
+import Button from "../../components/Button/Button/Button"
 import { ROUTES } from "@/routes/routes"
 import { useRouter } from 'next/navigation';
 
@@ -12,7 +12,7 @@ import { useAuth } from "@/context/Auth";
 import { useState, useEffect } from "react"
 import styles from "./page.module.css"
 
-import Loading from "../components/Loading/Loading";
+import Loading from "../../components/Loading/Loading";
 
 function Login() {
 
@@ -20,7 +20,7 @@ function Login() {
     const [senha, setSenha] = useState("")
     const [alert, setAlert] = useState(false)
 
-    const { user, logged, login, logout, loading, setLoading } = useAuth()
+    const  { user, logged, login, logout, loading, setLoading } = useAuth()
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -44,7 +44,7 @@ function Login() {
 
     const router = useRouter()
 
-    const validação = () => {
+    const handleLogin = () => {
 
         const user = users.find(u =>
             u.email.toLowerCase() === email.toLowerCase() &&
@@ -59,7 +59,7 @@ function Login() {
                 name: user.user
             })
 
-            router.push(ROUTES.home)
+             router.push(ROUTES.home)
 
         } else {
 
@@ -67,6 +67,7 @@ function Login() {
         }
     }
 
+    console.log("sad", logged)
 
     useEffect(() => {
         setLoading(false)
@@ -102,7 +103,7 @@ function Login() {
 
                         </div >
                         <Button
-                            onClick={validação}
+                            onClick={handleLogin}
                             text="Ir"
                             variant="default"
                             type="submit" />
