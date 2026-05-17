@@ -17,7 +17,7 @@ import Loading from "../../components/Loading/Loading";
 import Link from 'next/link'
 
 
-import Credentials from "@/app/components/credentialCard/credential"
+import AuthForm  from "@/app/components/credentialCard/AuthForm "
 
 function Login() {
 
@@ -86,7 +86,7 @@ function Login() {
 
     return (
         <>
-            <Credentials
+            <AuthForm 
                 setEmail={setEmail}
                 setPassword={setPassword}
                 setName={setName}
@@ -96,6 +96,7 @@ function Login() {
                 name={name}
                 alert={alert}
                 image={"/medico.png"}
+                type={'login'}
             />            
         </>
     )

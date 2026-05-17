@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react"
 
 //components
-import Credentials from "@/app/components/credentialCard/credential"
+import AuthForm  from "@/app/components/credentialCard/AuthForm "
 
 //Styles
 import styles from "./page.module.css"
@@ -26,7 +26,7 @@ function Register() {
     }
 
     return (
-         <Credentials
+         <AuthForm 
                 setEmail={setEmail}
                 setPassword={setPassword}
                 setName={setName}
@@ -35,7 +35,8 @@ function Register() {
                 password={password}
                 name={name}
                 alert={alert}
-                image={"/medico.png"} />
+                image={"/clnica.png"}
+                type={'register'} />
     )
 }
 
