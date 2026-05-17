@@ -17,7 +17,7 @@ import Loading from "../../components/Loading/Loading";
 import Link from 'next/link'
 
 
-import AuthForm  from "@/app/components/credentialCard/AuthForm "
+import AuthForm  from "@/app/components/CredentialCard/AuthForm "
 
 function Login() {
 

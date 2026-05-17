@@ -7,6 +7,7 @@ import { useState } from 'react'
 
 //Search Provider Import
 import { useSearch } from '@/context/Search'
+import { style } from 'motion/react-client'
 
 
 const inputFields = [
@@ -30,14 +31,18 @@ const SearchBox = () => {
         <div className={Styles.container}>
             <form onSubmit={handleSubmit}>
                 <div className={Styles.formBox}>
-                    <Input  
+                    <div className={Styles.titleBox}>        
+                        <span>Pesquisar</span>
+                    </div>
+
+                    <Input
                         type={inputFields[0].type}
                         onChange={(e) => { setSearch(e.target.value) }}
-                        placeholder='nome ou tipo'
+                        placeholder='Nome ou Especialidade'
                         variant={inputFields[0].variant}
                         value={search}
                     />
-                    </div>
+                </div>
             </form >
         </div >
     )

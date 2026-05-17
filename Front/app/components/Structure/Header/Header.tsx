@@ -26,10 +26,10 @@ function Header() {
             <div className={styles.leftContainer}>
                 <div className={user === null ? styles.buttonBox : styles.buttonBoxNotActivated}>
                     <Button text="Login" onClick={() => { router.push(ROUTES.login) }} variant="default" type="text" />
-                    <Button text="Contato" onClick={() => { router.push(ROUTES.home) }} variant="default" type="text" />
+                    <Button text="Contato" onClick={() => { router.push(ROUTES.catalog) }} variant="default" type="text" />
                 </div>
                 <div className={user !== null ? styles.profileContainer : styles.profileContainerNotActivated}>
-                    <span>{user?.name}</span>
+                    <span className={styles.span}>{user?.name}</span>
                     <div className={styles.profileImage}>
                         <Image src={'/cleiton.png'} alt="Godoc" width={40} height={40} />
                     </div>

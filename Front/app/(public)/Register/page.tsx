@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react"
 
 //components
-import AuthForm  from "@/app/components/credentialCard/AuthForm "
+import AuthForm  from "@/app/components/CredentialCard/AuthForm "
 
 //Styles
 import styles from "./page.module.css"

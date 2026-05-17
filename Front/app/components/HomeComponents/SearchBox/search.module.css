@@ -12,4 +12,13 @@
 
 .formBox {
     display: flex;
+     align-items: center;
+    justify-content: center;
+    gap: 20px
+}
+
+.titleBox {
+    background-color: white;
+    padding: 7px;
+    border-radius: 5px;
 }
