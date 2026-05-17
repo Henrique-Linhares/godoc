@@ -5,5 +5,6 @@ export const ROUTES = {
   catalog: "/Catalog",
   appointment: "/Appointment",
   dashboard: "Dashboard",
+  register: "/Register"
 };
 

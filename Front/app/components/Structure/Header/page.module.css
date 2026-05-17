@@ -24,9 +24,9 @@
 .logoBox {
   display: flex;
   align-items: center;
-  justify-content: center;
 
-  height: 50px;
+  height: 60px;
+  background-color: white;
 
   border-radius: 12px;
   transition: all 0.3s ease;

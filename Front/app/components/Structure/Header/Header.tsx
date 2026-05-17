@@ -21,7 +21,7 @@ function Header() {
     return (
         <div className={styles.container}>
             <div className={styles.logoBox}>
-                <Image src={'/Godoc.png'} alt="Godoc" width={100} height={50} />
+                <Image src={'/logo_pequena_sem_fundo.png'} alt="Godoc" width={80} height={60} />
             </div>
             <div className={styles.leftContainer}>
                 <div className={user === null ? styles.buttonBox : styles.buttonBoxNotActivated}>
