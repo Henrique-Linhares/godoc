@@ -6,6 +6,9 @@ import interactionPlugin from '@fullcalendar/interaction'
 import styles from './page.module.css'
 import DetalheConsulta from './Consulta/DetalheConsulta'
 
+import { ROUTES } from '@/routes/routes'
+import { useRouter } from 'next/navigation'
+
 const FullCalendar = FullCalendarLib as any
 
 const CORES: Record<string, string> = {
@@ -25,6 +28,7 @@ export default function Dashboard() {
       .then(setConsultas)
   }, [])
 
+  const router = useRouter()
   const hoje = new Date().toISOString().slice(0, 10)
   const agora = new Date()
 
@@ -57,63 +61,71 @@ export default function Dashboard() {
 
   // ── Dashboard principal ───────────────────────────────────────────────────
   return (
-    <div className={styles.page}>
-      <h1 className={styles.greeting}>{saudacao}, Dr Guilherme</h1>
+    <>
+      <div className={styles.page}>
+        <h1 className={styles.greeting}>{saudacao}, Dr Guilherme</h1>
+              <button onClick={() => router.push(ROUTES.catalog)}></button>
 
-      <div className={styles.content}>
-        <div className={styles.calendarWrapper}>
-          <FullCalendar
-            plugins={[timeGridPlugin, interactionPlugin]}
-            initialView="timeGridWeek"
-            locale="pt-br"
-            height="100%"
-            headerToolbar={{ left: 'prev,next', center: 'title', right: 'timeGridWeek,timeGridDay' }}
-            events={eventos}
-            editable={true}
-            selectable={true}
-            eventClick={(info: any) => setSelecionada(info.event.extendedProps)}
-          />
+
+        <div className={styles.content}>
+          <div className={styles.calendarWrapper}>
+            <FullCalendar
+              plugins={[timeGridPlugin, interactionPlugin]}
+              initialView="timeGridWeek"
+              locale="pt-br"
+              height="100%"
+              headerToolbar={{ left: 'prev,next', center: 'title', right: 'timeGridWeek,timeGridDay' }}
+              events={eventos}
+              editable={true}
+              selectable={true}
+              eventClick={(info: any) => setSelecionada(info.event.extendedProps)}
+            />
+          </div>
+
+          <aside className={styles.sidebar}>
+            <div className={styles.resumoCard}>
+              <h2 className={styles.cardTitle}>Resumo de hoje</h2>
+              <div className={styles.resumoGrid}>
+                {resumo.map(item => (
+                  <div key={item.label} className={styles.resumoItem}>
+                    <span className={styles.resumoValue}>{item.valor}</span>
+                    <span className={styles.resumoLabel}>{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.pacientesCard}>
+              <h2 className={styles.cardTitle}>Próximos pacientes</h2>
+              {proximos.length === 0
+                ? <p className={styles.emptyMessage}>Sem consultas restantes hoje.</p>
+                : (
+                  <ul className={styles.pacientesList}>
+                    {proximos.map(p => (
+                      <li key={p.id} className={styles.pacienteItem}>
+                        <span className={styles.pacienteNome}>{p.nomePaciente}</span>
+                        <span className={styles.pacienteHora}>{formatarHora(p.inicio)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )
+              }
+            </div>
+          </aside>
         </div>
 
-        <aside className={styles.sidebar}>
-          <div className={styles.resumoCard}>
-            <h2 className={styles.cardTitle}>Resumo de hoje</h2>
-            <div className={styles.resumoGrid}>
-              {resumo.map(item => (
-                <div key={item.label} className={styles.resumoItem}>
-                  <span className={styles.resumoValue}>{item.valor}</span>
-                  <span className={styles.resumoLabel}>{item.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className={styles.pacientesCard}>
-            <h2 className={styles.cardTitle}>Próximos pacientes</h2>
-            {proximos.length === 0
-              ? <p className={styles.emptyMessage}>Sem consultas restantes hoje.</p>
-              : (
-                <ul className={styles.pacientesList}>
-                  {proximos.map(p => (
-                    <li key={p.id} className={styles.pacienteItem}>
-                      <span className={styles.pacienteNome}>{p.nomePaciente}</span>
-                      <span className={styles.pacienteHora}>{formatarHora(p.inicio)}</span>
-                    </li>
-                  ))}
-                </ul>
-              )
-            }
-          </div>
-        </aside>
+        {/* Modal de detalhe da consulta */}
+        {selecionada && (
+          <DetalheConsulta
+            consulta={selecionada}
+            onVoltar={() => setSelecionada(null)}
+          />
+        )}
       </div>
 
-      {/* Modal de detalhe da consulta */}
-      {selecionada && (
-        <DetalheConsulta
-          consulta={selecionada}
-          onVoltar={() => setSelecionada(null)}
-        />
-      )}
-    </div>
+
+
+
+    </>
   )
 }
