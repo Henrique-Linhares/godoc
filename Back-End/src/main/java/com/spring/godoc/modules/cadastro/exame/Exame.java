@@ -13,4 +13,6 @@ public class Exame {
     private Long id;
     private String nomeExame;
     private LocalDate data;
+
+
 }
