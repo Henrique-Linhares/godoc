@@ -11,11 +11,10 @@ import { useRouter } from 'next/navigation'
 
 const FullCalendar = FullCalendarLib as any
 
+// Cores por tipoConsulta (V2)
 const CORES: Record<string, string> = {
-  consulta: '#3b82f6',
-  retorno: '#10b981',
-  reuniao: '#f59e0b',
-  outro: '#6b7280',
+  PRIMEIRA: '#3b82f6',
+  RETORNO: '#10b981',
 }
 
 export default function Dashboard() {
@@ -32,24 +31,26 @@ export default function Dashboard() {
   const hoje = new Date().toISOString().slice(0, 10)
   const agora = new Date()
 
-  const doDia = consultas.filter(c => c.inicio.startsWith(hoje))
-  const proximos = doDia.filter(c => new Date(c.inicio) > agora && c.status !== 'cancelado')
-    .sort((a, b) => a.inicio.localeCompare(b.inicio))
+  // Filtra consultas do dia usando dataHoraAgendamento (V2)
+  const doDia = consultas.filter(c => c.dataHoraAgendamento?.startsWith(hoje))
+  const proximos = doDia.filter(c => c.dataHoraAgendamento && new Date(c.dataHoraAgendamento) > agora && c.status !== 'CANCELADO')
+    .sort((a, b) => a.dataHoraAgendamento.localeCompare(b.dataHoraAgendamento))
     .slice(0, 5)
 
   const resumo = [
-    { label: 'Consultas', valor: doDia.filter(c => c.tipo === 'consulta').length },
-    { label: 'Retornos', valor: doDia.filter(c => c.tipo === 'retorno').length },
+    { label: 'Consultas', valor: doDia.filter(c => c.tipoConsulta === 'PRIMEIRA').length },
+    { label: 'Retornos', valor: doDia.filter(c => c.tipoConsulta === 'RETORNO').length },
     { label: 'Pendentes', valor: proximos.length },
-    { label: 'Canceladas', valor: doDia.filter(c => c.status === 'cancelado').length },
+    { label: 'Canceladas', valor: doDia.filter(c => c.status === 'CANCELADO').length },
   ]
 
+  // Monta eventos do calendário usando campos V2
   const eventos = consultas.map(c => ({
     id: c.id,
-    title: c.nomePaciente,
-    start: c.inicio,
+    title: c.nomeCompleto,
+    start: c.dataHoraAgendamento,
     end: c.fim,
-    color: c.status === 'cancelado' ? '#ef4444' : CORES[c.tipo],
+    color: c.status === 'CANCELADO' ? '#ef4444' : (CORES[c.tipoConsulta] || '#6b7280'),
     extendedProps: c,
   }))
 
@@ -65,6 +66,8 @@ export default function Dashboard() {
       <div className={styles.page}>
         <h1 className={styles.greeting}>{saudacao}, Dr Guilherme</h1>
               <button onClick={() => router.push(ROUTES.catalog)}></button>
+              {/* TEMPORÁRIO - Link para testar Form */}
+              <button onClick={() => router.push(ROUTES.form)} style={{padding:'8px 20px',background:'#5bbfb6',color:'#fff',border:'none',borderRadius:'8px',cursor:'pointer',fontSize:'0.85rem'}}>Ir para Form (teste)</button>
 
 
         <div className={styles.content}>
@@ -103,8 +106,8 @@ export default function Dashboard() {
                   <ul className={styles.pacientesList}>
                     {proximos.map(p => (
                       <li key={p.id} className={styles.pacienteItem}>
-                        <span className={styles.pacienteNome}>{p.nomePaciente}</span>
-                        <span className={styles.pacienteHora}>{formatarHora(p.inicio)}</span>
+                        <span className={styles.pacienteNome}>{p.nomeCompleto}</span>
+                        <span className={styles.pacienteHora}>{formatarHora(p.dataHoraAgendamento)}</span>
                       </li>
                     ))}
                   </ul>
