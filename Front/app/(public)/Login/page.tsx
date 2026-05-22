@@ -17,7 +17,7 @@ import Loading from "../../components/Loading/Loading";
 import Link from 'next/link'
 
 
-import AuthForm  from "@/app/components/CredentialCard/AuthForm "
+import AuthForm from "@/app/components/CredentialCard/AuthForm "
 
 function Login() {
 
@@ -85,8 +85,9 @@ function Login() {
 
 
     return (
-        <>
-            <AuthForm 
+        <>       
+        <div className={styles.container}>
+            <AuthForm
                 setEmail={setEmail}
                 setPassword={setPassword}
                 setName={setName}
@@ -97,8 +98,10 @@ function Login() {
                 alert={alert}
                 image={"/medico.png"}
                 type={'login'}
-            />            
+            />
+        </div>
         </>
+
     )
 }
 

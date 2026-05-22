@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react"
 
 //components
-import AuthForm  from "@/app/components/CredentialCard/AuthForm "
+import AuthForm from "@/app/components/CredentialCard/AuthForm "
 
 //Styles
 import styles from "./page.module.css"
@@ -26,7 +26,8 @@ function Register() {
     }
 
     return (
-         <AuthForm 
+        <div className={styles.container}>
+            <AuthForm
                 setEmail={setEmail}
                 setPassword={setPassword}
                 setName={setName}
@@ -37,6 +38,7 @@ function Register() {
                 alert={alert}
                 image={"/clnica.png"}
                 type={'register'} />
+        </div>
     )
 }
 
