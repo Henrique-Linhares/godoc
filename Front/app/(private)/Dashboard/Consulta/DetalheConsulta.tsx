@@ -2,11 +2,21 @@
 
 import styles from './DetalheConsulta.module.css'
 
+// Labels de status (V2 - uppercase)
 const STATUS_LABEL: Record<string, string> = {
-  agendado: 'Agendado',
-  confirmado: 'Confirmado',
-  cancelado: 'Cancelado',
-  concluido: 'Concluído',
+  AGENDADO: 'Agendado',
+  CONCLUIDO: 'Concluído',
+  CANCELADO: 'Cancelado',
+}
+
+// Labels de convênio para exibição amigável
+const CONVENIO_LABEL: Record<string, string> = {
+  PARTICULAR: 'Particular',
+  UNIMED: 'Unimed',
+  SULAMERICA: 'SulAmérica',
+  BRADESCO_SAUDE: 'Bradesco Saúde',
+  AMIL: 'Amil',
+  OUTROS: 'Outros',
 }
 
 interface DetalheConsultaProps {
@@ -29,12 +39,22 @@ export default function DetalheConsulta({ consulta, onVoltar }: DetalheConsultaP
   const iniciais = (nome: string) =>
     nome.split(' ').filter(Boolean).slice(0, 2).map(p => p[0]).join('').toUpperCase()
 
+  // Modalidade V2 (PRESENCIAL / TELECONSULTA)
   const modalidadeClass =
-    c.modalidade?.toLowerCase() === 'teleconsulta'
+    c.modalidade === 'TELECONSULTA'
       ? styles.modalidade_teleconsulta
       : styles.modalidade_presencial
 
-  const modalidadeIcon = c.modalidade?.toLowerCase() === 'teleconsulta' ? '📹' : '🏥'
+  const modalidadeIcon = c.modalidade === 'TELECONSULTA' ? '📹' : '🏥'
+
+  // Converte modalidade para exibição amigável
+  const modalidadeLabel = c.modalidade === 'TELECONSULTA' ? 'Teleconsulta' : 'Presencial'
+
+  // tipoConsulta V2 (PRIMEIRA / RETORNO)
+  const tipoLabel = c.tipoConsulta === 'PRIMEIRA' ? '1ª Consulta' : 'Retorno'
+
+  // Convênio label amigável
+  const convenioLabel = CONVENIO_LABEL[c.convenio] || c.convenio || 'Particular'
 
   return (
     <div className={styles.overlay} onClick={onVoltar}>
@@ -43,19 +63,17 @@ export default function DetalheConsulta({ consulta, onVoltar }: DetalheConsultaP
         {/* ── Header ───────────────────────────────────────────────────── */}
         <div className={styles.header}>
           <div className={styles.headerLeft}>
-            <div className={styles.avatarIcon}>{iniciais(c.nomePaciente)}</div>
+            <div className={styles.avatarIcon}>{iniciais(c.nomeCompleto)}</div>
             <div className={styles.headerText}>
-              <h1 className={styles.nome}>{c.nomePaciente}</h1>
-              <p className={styles.subtipo}>
-                {c.primeiraConsulta ? '1ª Consulta' : c.tipo === 'retorno' ? 'Retorno' : 'Acompanhamento'}
-              </p>
+              <h1 className={styles.nome}>{c.nomeCompleto}</h1>
+              <p className={styles.subtipo}>{tipoLabel}</p>
             </div>
           </div>
 
           <div className={styles.headerRight}>
             <button className={styles.closeBtn} onClick={onVoltar} title="Fechar">✕</button>
             <span className={`${styles.modalidadeBadge} ${modalidadeClass}`}>
-              {modalidadeIcon} {c.modalidade}
+              {modalidadeIcon} {modalidadeLabel}
             </span>
           </div>
         </div>
@@ -69,10 +87,10 @@ export default function DetalheConsulta({ consulta, onVoltar }: DetalheConsultaP
             <div className={styles.section}>
               <h2 className={styles.sectionTitle}>Dados do Paciente</h2>
               <div className={styles.fieldGrid}>
-                {c.nomePaciente && (
+                {c.nomeCompleto && (
                   <div className={styles.field}>
                     <p className={styles.fieldLabel}>Nome completo</p>
-                    <p className={styles.fieldValue}>{c.nomePaciente}</p>
+                    <p className={styles.fieldValue}>{c.nomeCompleto}</p>
                   </div>
                 )}
                 {c.idade != null && (
@@ -124,12 +142,12 @@ export default function DetalheConsulta({ consulta, onVoltar }: DetalheConsultaP
               <div className={styles.fieldGrid}>
                 <div className={styles.field}>
                   <p className={styles.fieldLabel}>Convênio</p>
-                  <p className={styles.fieldValue}>{c.convenio ?? 'Particular'}</p>
+                  <p className={styles.fieldValue}>{convenioLabel}</p>
                 </div>
-                {c.numeroCarteirinha && (
+                {c.numeroCarteirinhaPlano && (
                   <div className={styles.field}>
                     <p className={styles.fieldLabel}>Nº da carteirinha</p>
-                    <p className={styles.fieldValue}>{c.numeroCarteirinha}</p>
+                    <p className={styles.fieldValue}>{c.numeroCarteirinhaPlano}</p>
                   </div>
                 )}
               </div>
@@ -142,8 +160,8 @@ export default function DetalheConsulta({ consulta, onVoltar }: DetalheConsultaP
 
             <div className={styles.horarioCard}>
               <p className={styles.horarioLabel}>Horário da Consulta</p>
-              <p className={styles.horarioHora}>{formatarHora(c.inicio)}</p>
-              <p className={styles.horarioData}>{formatarData(c.inicio)}</p>
+              <p className={styles.horarioHora}>{formatarHora(c.dataHoraAgendamento)}</p>
+              <p className={styles.horarioData}>{formatarData(c.dataHoraAgendamento)}</p>
             </div>
 
             <div className={`${styles.statusBadge} ${styles['status_' + c.status]}`}>
@@ -151,27 +169,25 @@ export default function DetalheConsulta({ consulta, onVoltar }: DetalheConsultaP
               {STATUS_LABEL[c.status] ?? c.status}
             </div>
 
-            {(c.convenio || c.tipo) && (
+            {(c.convenio || c.tipoConsulta) && (
               <div className={styles.infoCard}>
                 <p className={styles.infoCardTitle}>Resumo</p>
-                {c.tipo && (
+                {c.tipoConsulta && (
                   <div className={styles.infoRow}>
                     <p className={styles.infoLabel}>Tipo</p>
-                    <p className={styles.infoValue}>
-                      {c.tipo === 'consulta' ? 'Consulta' : c.tipo === 'retorno' ? 'Retorno' : 'Reunião'}
-                    </p>
+                    <p className={styles.infoValue}>{tipoLabel}</p>
                   </div>
                 )}
                 {c.convenio && (
                   <div className={styles.infoRow}>
                     <p className={styles.infoLabel}>Convênio</p>
-                    <p className={styles.infoValue}>{c.convenio}</p>
+                    <p className={styles.infoValue}>{convenioLabel}</p>
                   </div>
                 )}
-                {c.primeiraConsulta != null && (
+                {c.tipoConsulta && (
                   <div className={styles.infoRow}>
                     <p className={styles.infoLabel}>1ª vez</p>
-                    <p className={styles.infoValue}>{c.primeiraConsulta ? 'Sim' : 'Não'}</p>
+                    <p className={styles.infoValue}>{c.tipoConsulta === 'PRIMEIRA' ? 'Sim' : 'Não'}</p>
                   </div>
                 )}
               </div>

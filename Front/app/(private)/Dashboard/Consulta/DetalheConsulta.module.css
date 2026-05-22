@@ -311,6 +311,34 @@
   box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
 }
 
+/* Status V2 (uppercase) */
+.status_AGENDADO {
+  background: #fff7ed;
+  color: #c2760c;
+}
+.status_AGENDADO .statusDot {
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.5);
+}
+
+.status_CONCLUIDO {
+  background: #eef4ff;
+  color: #2b5dcf;
+}
+.status_CONCLUIDO .statusDot {
+  background: #3b82f6;
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.5);
+}
+
+.status_CANCELADO {
+  background: #fef2f2;
+  color: #c53030;
+}
+.status_CANCELADO .statusDot {
+  background: #ef4444;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+}
+
 /* ── Info cards na sidebar ───────────────────────────────────────────── */
 
 .infoCard {

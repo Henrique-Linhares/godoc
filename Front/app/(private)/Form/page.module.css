@@ -1,0 +1,352 @@
+/* ===== PAGE LAYOUT ===== */
+.page {
+  width: 100%;
+  padding: 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #f5f5f5;
+  min-height: 700px;
+}
+
+/* ===== DOCTOR CARD ===== */
+.doctorCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.doctorInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.doctorAvatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.doctorAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.doctorDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.doctorName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.doctorSpecialty {
+  font-size: 0.82rem;
+  color: #666;
+  font-family: 'Poppins', sans-serif;
+}
+
+.doctorRating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: #f5a623;
+}
+
+.reviewCount {
+  color: #999;
+  font-size: 0.75rem;
+}
+
+.priceTag {
+  background: linear-gradient(135deg, #7CD7CF, #5bbfb6);
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ===== CONTENT LAYOUT ===== */
+.content {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+/* ===== FORM COLUMN ===== */
+.formColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-width: 0;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ===== FORM FIELDS ===== */
+.row {
+  display: flex;
+  gap: 14px;
+}
+
+.row > .fieldGroup {
+  flex: 1;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #444;
+  font-family: 'Poppins', sans-serif;
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #333;
+  background: #ffffff;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+  transition: border-color 0.2s ease;
+}
+
+.input:focus {
+  border-color: #5bbfb6;
+  box-shadow: 0 0 0 2px rgba(91, 191, 182, 0.15);
+}
+
+.input::placeholder {
+  color: #aaa;
+}
+
+.select {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #333;
+  background: #ffffff;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  transition: border-color 0.2s ease;
+}
+
+.select:focus {
+  border-color: #5bbfb6;
+  box-shadow: 0 0 0 2px rgba(91, 191, 182, 0.15);
+}
+
+.textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #333;
+  background: #ffffff;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+  resize: vertical;
+  min-height: 70px;
+  transition: border-color 0.2s ease;
+}
+
+.textarea:focus {
+  border-color: #5bbfb6;
+  box-shadow: 0 0 0 2px rgba(91, 191, 182, 0.15);
+}
+
+.textarea::placeholder {
+  color: #aaa;
+}
+
+/* ===== TOGGLE BUTTONS ===== */
+.toggleGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.toggleBtn {
+  padding: 8px 18px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background: #ffffff;
+  font-size: 0.82rem;
+  color: #555;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s ease;
+}
+
+.toggleBtn:hover {
+  border-color: #5bbfb6;
+  color: #5bbfb6;
+}
+
+.toggleActive {
+  background: linear-gradient(135deg, #7CD7CF, #5bbfb6);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.toggleActive:hover {
+  color: #ffffff;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.confirmBtn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #7CD7CF, #5bbfb6);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: opacity 0.2s ease;
+}
+
+.confirmBtn:hover {
+  opacity: 0.9;
+}
+
+.cancelBtn {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  background: #ffffff;
+  color: #555;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s ease;
+}
+
+.cancelBtn:hover {
+  border-color: #999;
+  color: #333;
+}
+
+/* ===== SCHEDULE COLUMN (PLACEHOLDER) ===== */
+.scheduleColumn {
+  width: 320px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 20px;
+}
+
+.scheduleTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 12px 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.calendarPlaceholder,
+.timeSlotsPlaceholder {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.placeholderBox {
+  width: 100%;
+  min-height: 200px;
+  border: 2px dashed #ddd;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholderText {
+  font-size: 0.85rem;
+  color: #aaa;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ===== SELECTED SLOT CARD ===== */
+.selectedSlot {
+  background: linear-gradient(135deg, #7CD7CF, #5bbfb6);
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 12px rgba(91, 191, 182, 0.25);
+}
+
+.selectedTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 6px 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.selectedInfo {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'Poppins', sans-serif;
+}
