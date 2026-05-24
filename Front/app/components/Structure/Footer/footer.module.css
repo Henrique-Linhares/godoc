@@ -32,7 +32,7 @@
 }
 
 .logoC {
-    object-fit: cover;
+  object-fit: cover;
 
 }
 
@@ -99,3 +99,25 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
   border-color: rgba(0, 0, 0, 0.1);
 }
+
+.iconBox {
+  display: flex;
+}
+
+.icon {
+  margin-right: 5px;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease,
+    filter 0.25s ease;
+  cursor: pointer;
+}
+
+.icon:hover {
+  transform: translateY(-2px) scale(1.05);
+  opacity: 0.9;
+  filter: brightness(1.2);
+}
+
+
+

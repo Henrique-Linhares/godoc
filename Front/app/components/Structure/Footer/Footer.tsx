@@ -2,11 +2,13 @@ import styles from "./footer.module.css"
 import Image from "next/image"
 
 function Footer() {
+
+  const images = ['/footer/github.png', '/footer/gmail.png']
   return (
     <div className={styles.footerContainer}>
       <div className={styles.itemBox}>
         <div className={styles.logo}>
-          <Image src={'/footer/godoc_logo_centrado_v2.svg'} alt='footer-godoc' className={styles.logoC} fill/>
+          <Image src={'/footer/godoc_logo_centrado_v2.svg'} alt='footer-godoc' className={styles.logoC} fill />
         </div>
         <div className={styles.itemBox}>
           <div className={styles.contacContainer}>
@@ -21,12 +23,17 @@ function Footer() {
               <label>hlinhares453@gmail.com</label>
               <label>guihhsoaress@gmail.com</label>
               <label>(16) 99353-6708</label>
-              <Image
-                src="/instagram.png"
-                alt="Instagram"
-                width={20}
-                height={20}
-              />
+              <div className={styles.iconsBox}>
+                {images.map((item, index) =>
+                  <Image key={index} className={styles.icon}
+                    src={item}
+                    alt="icons"
+                    width={25}
+                    height={25}
+                    
+                  />
+                )}
+              </div>
             </div>
           </div>
           <div className={styles.devContainer}>
