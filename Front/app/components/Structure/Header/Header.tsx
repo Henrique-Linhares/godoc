@@ -20,16 +20,10 @@ function Header() {
     const router = useRouter()
 
     useEffect(() => {
-        if (user) return router.push(ROUTES.catalog)
+        if (user) return router.push(ROUTES.dashboard)
     },[user])
 
 
-    if (user?.name) {
-        console.log('FOI')
-    } else {
-        console.log("não foi")
-        console.log("user", user?.name)
-    }
 
     return (
         <div className={styles.container}>
