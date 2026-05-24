@@ -1,11 +1,9 @@
-/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* BASE */
 html,
 body {
   height: 100%;
@@ -14,14 +12,12 @@ body {
   background: #f5f5f5;
 }
 
-/* ROOT APP */
 .app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* HEADER */
 header {
   height: 70px;
   flex-shrink: 0;
@@ -36,7 +32,6 @@ header {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* MAIN (MEIO) */
 .main {
   flex: 1;
 
@@ -46,7 +41,6 @@ header {
   width: 100%;
 }
 
-/* CONTAINER CENTRAL */
 .page {
   flex: 1;
 
@@ -70,7 +64,6 @@ footer {
   justify-content: center;
 
   background: #222;
-  color: #fff;
 }
 
 /* EXEMPLO DE USO COM % */
@@ -93,6 +86,30 @@ h1 {
   font-size: 20px;
   font-weight: 700;
   color: #000000;
+}
+
+h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+    line-height: 1.5;
+  color: #2E2E2E;
+}
+
+strong {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+label {
+  font-family: 'Poppins', sans-serif;
+font-size: 10px;
+font-weight: 400;
+line-height: 1.7;
+letter-spacing: 0.3px;
+color: rgba(255, 255, 255, 0.92);
 }
 
 span {

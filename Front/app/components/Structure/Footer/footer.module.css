@@ -1,3 +1,4 @@
+
 .footerContainer {
   display: flex;
   align-items: center;
@@ -5,11 +6,9 @@
   background-color: #7cd7cf;
   margin: 0px;
 
-  font-family: "Instrument Sans", sans-serif;
 
   color: white;
-  font-size: 9px;
-  font-weight: 500;
+
   letter-spacing: 2.5px;
   text-transform: uppercase;
 }
@@ -20,7 +19,7 @@
   justify-content: space-between;
 
   padding: 10px;
-  margin: 30px;
+  margin: 10px;
 }
 
 .logo {
@@ -31,27 +30,26 @@
   align-items: center;
   justify-content: center;
 
-  border-right: 1px solid rgb(255, 255, 255);
 }
 
 .contacContainer {
   width: 35%;
   height: 250px;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-
   border-right: 1px solid rgb(255, 255, 255);
+  border-left: 1px solid rgb(255, 255, 255);
 
-  backdrop-filter: blur(8px);
-  margin: 10px;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  padding: 10px;
 }
 
 .suportContainer {
   width: 35%;
   height: 250px;
   border-right: 1px solid rgb(255, 255, 255);
+
 
   display: flex;
   flex-direction: column;
@@ -76,8 +74,7 @@
   padding: 2px 14px;
   border-radius: 12px;
 
-  font-size: 14px;
-  font-weight: 500;
+
   color: #1a1a1a;
 
   transition: all 0.2s ease;
@@ -98,3 +95,5 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
   border-color: rgba(0, 0, 0, 0.1);
 }
+
+
