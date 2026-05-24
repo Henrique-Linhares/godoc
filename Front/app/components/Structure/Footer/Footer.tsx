@@ -6,7 +6,7 @@ function Footer() {
     <div className={styles.footerContainer}>
       <div className={styles.itemBox}>
         <div className={styles.logo}>
-          <Image src={'/godoc_logo.png'} alt="Godoc" width={250} height={250} />
+          <Image src={'/footer/godoc_logo_centrado_v2.svg'} alt='footer-godoc' className={styles.logoC} fill/>
         </div>
         <div className={styles.itemBox}>
           <div className={styles.contacContainer}>

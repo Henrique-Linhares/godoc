@@ -1,4 +1,3 @@
-
 .footerContainer {
   display: flex;
   align-items: center;
@@ -23,12 +22,17 @@
 }
 
 .logo {
+  position: relative;
   width: 40%;
   height: 250px;
 
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.logoC {
+    object-fit: cover;
 
 }
 
@@ -95,5 +99,3 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
   border-color: rgba(0, 0, 0, 0.1);
 }
-
-

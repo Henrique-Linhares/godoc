@@ -1,0 +1,31 @@
+<svg width="100%" viewBox="0 0 680 420" role="img" xmlns="http://www.w3.org/2000/svg" style="">
+  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">GoDoc Logo</title>
+  <desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Logo GoDoc totalmente centralizado</desc>
+
+  <!-- Card centralizado: x=140, width=400, centro=340 -->
+  <rect x="140" y="20" width="400" height="380" rx="36" fill="#6ECECE" style="fill:rgb(110, 206, 206);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Círculos do ícone — centro 340,145 -->
+  <circle cx="340" cy="145" r="68" fill="#ffffff" opacity="0.20" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.2;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="340" cy="145" r="54" fill="#ffffff" opacity="0.25" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.25;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Cruz médica centralizada em 340,145 -->
+  <!-- vertical: x=318 width=44 → centro=340 ✓ -->
+  <rect x="318" y="108" width="44" height="74" rx="10" fill="#0D8F8F" style="fill:rgb(13, 143, 143);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- horizontal: x=304 width=72 → centro=340 ✓ -->
+  <rect x="304" y="122" width="72" height="30" rx="10" fill="#0D8F8F" style="fill:rgb(13, 143, 143);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Linha de batimento centralizada -->
+  <polyline points="314,137 320,137 325,122 332,152 338,128 344,142 350,137 366,137" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="fill:none;stroke:rgb(255, 255, 255);color:rgb(0, 0, 0);stroke-width:2.5px;stroke-linecap:round;stroke-linejoin:round;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- GoDoc: texto unificado centralizado em x=340 -->
+  <text text-anchor="middle" x="340" y="295" font-family="Arial Black, sans-serif" font-size="80" font-weight="900" style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Arial Black&quot;, sans-serif;font-size:80px;font-weight:900;text-anchor:middle;dominant-baseline:auto">
+    <tspan fill="#0D8F8F" style="fill:rgb(13, 143, 143);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Arial Black&quot;, sans-serif;font-size:80px;font-weight:900;text-anchor:middle;dominant-baseline:auto">Go</tspan><tspan fill="#0A3D55" style="fill:rgb(10, 61, 85);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Arial Black&quot;, sans-serif;font-size:80px;font-weight:900;text-anchor:middle;dominant-baseline:auto">Doc</tspan>
+  </text>
+
+  <!-- Slogan centralizado em x=340 -->
+  <text text-anchor="middle" x="340" y="334" font-family="Arial, sans-serif" font-size="12" fill="#0A3D55" letter-spacing="2" style="fill:rgb(10, 61, 85);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Arial, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:auto">PROCURE E AGENDE SUA CONSULTA</text>
+
+  <!-- Linha decorativa: centrada em 340, largura 28 -->
+  <line x1="326" y1="344" x2="354" y2="344" stroke="#0A5F5F" stroke-width="2" stroke-linecap="round" style="fill:rgb(0, 0, 0);stroke:rgb(10, 95, 95);color:rgb(0, 0, 0);stroke-width:2px;stroke-linecap:round;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+</svg>
