@@ -5,9 +5,8 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
 type UserData = {
-    senha: string;
     email: string;
-    name?: string;
+    name: string;
     tipo: String
 };
 
@@ -41,14 +40,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     }, [])
 
-   async  function login(userData: UserData) {
+    async function login(userData: UserData) {
         setUser(userData);
         setLogged(true);
     }
 
     function logout() {
+        setLoading(true)
         setUser(null);
         setLogged(false);
+        localStorage.clear()
+        setLoading(false)
 
     }
 

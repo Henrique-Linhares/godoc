@@ -21,6 +21,7 @@ import AuthForm from "@/app/components/CredentialCard/AuthForm "
 
 function Login() {
 
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [name, setName] = useState("")
@@ -28,78 +29,73 @@ function Login() {
 
     const { user, logged, login, logout, loading, setLoading } = useAuth()
 
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
     }
-    const compFields = [
-        {
-            id: "email",
-            type: "email",
-            placeholder: "Email",
-            value: "",
-            variant: "default"
-        },
-        {
-            id: "senha",
-            type: "password",
-            placeholder: "Senha",
-            value: "",
-            variant: "default"
-        }
-    ]
+
 
     const router = useRouter()
 
     const handleAction = () => {
 
-        const user = users.find(u =>
+        const userFind = users.find(u =>
             u.email.toLowerCase() === email.toLowerCase() &&
             u.password === password
         )
 
-        if (user) {
+        console.log(userFind)
 
-            login({
+        if (userFind) {
+
+            const UserData = {
                 email: email,
-                senha: password,
-                name: user.user,
-                tipo: user.type
-            })
+                name: userFind.user,
+                tipo: userFind.type
+            }
+
+            login({ ...UserData})
 
             router.push(ROUTES.dashboard)
-
+            localStorage.setItem("user", JSON.stringify(UserData))
         } else {
-
             setAlert(true)
         }
     }
 
-    console.log("sad", logged)
-
     useEffect(() => {
+        setLoading(true)
+
+        const getLocal = localStorage.getItem("user")
+
+
+        if (getLocal) {
+            login(JSON.parse(getLocal))
+            console.log("PRINTADO", JSON.parse(getLocal))
+        }
+        console.log("LOGADO", getLocal)
         setLoading(false)
-
-    }, [loading])
-
-    const type = 'text'
-
+    }, [])
 
     return (
-        <>       
-        <div className={styles.container}>
-            <AuthForm
-                setEmail={setEmail}
-                setPassword={setPassword}
-                setName={setName}
-                handleAction={handleAction}
-                email={email}
-                password={password}
-                name={name}
-                alert={alert}
-                image={"/medico.png"}
-                type={'login'}
-            />
-        </div>
+        <>
+            <div className={styles.container}>
+                <AuthForm
+                    setEmail={setEmail}
+                    setPassword={setPassword}
+                    setName={setName}
+                    handleAction={handleAction}
+                    email={email}
+                    password={password}
+                    name={name}
+                    alert={alert}
+                    image={"/medico.png"}
+                    type={'login'}
+                />
+            </div>
+
+            {loading && <Loading />}
+
         </>
 
     )

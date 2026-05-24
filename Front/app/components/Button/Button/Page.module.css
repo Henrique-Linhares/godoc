@@ -1,7 +1,9 @@
 .default {
-
-    width: 30px;
+    width: 13rem;
     height: 30px;
+
+    padding: 5px;
+    margin: 5px;
 
     background-color: #16C1C8;
     color: rgb(255, 255, 255);
@@ -9,13 +11,25 @@
     border-radius: 5px;
     cursor: pointer;
 
-    padding: 5px;
-    margin: 5px;
-
-    width: 13rem;
-
     font-weight: bold;
 
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background-color 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.default:hover {
+    transform: translateY(-2px) scale(1.01);
+
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+
+    opacity: 0.95;
+}
+
+.default:active {
+    transform: scale(0.98);
 }
 
 .pesquisar {
@@ -25,18 +39,29 @@
     display: flex;
     justify-content: flex-start;
 
-    border-radius: 15px;
-    border-style: none;
-    border-top: transparent;
+    margin-left: 125px;
+    padding: 0 12px;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: #ffffff;
 
     color: black;
     color-scheme: unset;
 
-    border-radius: 5px;
-    background-color: #ffffff;
+    outline: none;
 
-    border-bottom: black;
+    transition:
+        box-shadow 0.25s ease,
+        transform 0.25s ease,
+        border-color 0.25s ease;
+}
 
-    margin-left: 125px;
+.pesquisar:focus {
+    transform: translateY(-1px);
 
+    box-shadow:
+        0 0 0 3px rgba(22, 193, 200, 0.2),
+        0 6px 16px rgba(0, 0, 0, 0.08);
 }

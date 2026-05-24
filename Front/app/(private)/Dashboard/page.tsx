@@ -8,6 +8,7 @@ import DetalheConsulta from './Consulta/DetalheConsulta'
 
 import { ROUTES } from '@/routes/routes'
 import { useRouter } from 'next/navigation'
+import Button from '@/app/components/Button/Button/Button'
 
 const FullCalendar = FullCalendarLib as any
 
@@ -65,11 +66,7 @@ export default function Dashboard() {
     <>
       <div className={styles.page}>
         <h1 className={styles.greeting}>{saudacao}, Dr Guilherme</h1>
-              <button onClick={() => router.push(ROUTES.catalog)}></button>
-              {/* TEMPORÁRIO - Link para testar Form */}
-              <button onClick={() => router.push(ROUTES.form)} style={{padding:'8px 20px',background:'#5bbfb6',color:'#fff',border:'none',borderRadius:'8px',cursor:'pointer',fontSize:'0.85rem'}}>Ir para Form (teste)</button>
-
-
+        <Button onClick={() => router.push(ROUTES.catalog)} type='text' variant='default' text='Ir para o catalogo' />
         <div className={styles.content}>
           <div className={styles.calendarWrapper}>
             <FullCalendar

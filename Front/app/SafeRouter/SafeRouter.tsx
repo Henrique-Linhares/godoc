@@ -22,7 +22,7 @@ const SafeRouter = ({ children }: Props) => {
     useEffect(() => {
         if (!auth.logged) {
             console.log("LOGGFED", auth.logged)
-            router.push(ROUTES.home2)
+            router.push(ROUTES.login)
         }
     }, [auth.logged])
 

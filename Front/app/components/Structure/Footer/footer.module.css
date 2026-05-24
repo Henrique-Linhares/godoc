@@ -39,8 +39,7 @@
 .contacContainer {
   width: 35%;
   height: 250px;
-  border-right: 1px solid rgb(255, 255, 255);
-  border-left: 1px solid rgb(255, 255, 255);
+
 
   display: flex;
   flex-direction: column;
@@ -52,7 +51,6 @@
 .suportContainer {
   width: 35%;
   height: 250px;
-  border-right: 1px solid rgb(255, 255, 255);
 
 
   display: flex;
@@ -105,12 +103,14 @@
 }
 
 .icon {
-  margin-right: 5px;
+  margin-right: 7px;
   transition:
     transform 0.25s ease,
     opacity 0.25s ease,
     filter 0.25s ease;
   cursor: pointer;
+  filter: invert(1);
+
 }
 
 .icon:hover {
@@ -119,5 +119,69 @@
   filter: brightness(1.2);
 }
 
+.box label {
+  position: relative;
+  cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease,
+    color 0.25s ease;
+}
 
+.boxStatic label {
+  position: relative;
+  cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease,
+    color 0.25s ease;
+}
 
+.box label::after {
+  content: attr(title);
+
+  position: absolute;
+  left: 110%;
+  top: 50%;
+
+  transform: translateY(-50%) translateX(-5px);
+
+  padding: 6px 10px;
+  border-radius: 8px;
+
+  background: #111;
+  color: white;
+
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: none;
+  white-space: nowrap;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.box label:hover::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.contacContainer,
+.suportContainer {
+  border-right: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 20px;
+}
+
+.contacContainer {
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 20px;
+
+}
+
+#static {
+  pointer-events: none;
+}

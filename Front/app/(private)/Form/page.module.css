@@ -9,7 +9,6 @@
   min-height: 700px;
 }
 
-/* ===== DOCTOR CARD ===== */
 .doctorCard {
   display: flex;
   align-items: center;
@@ -18,6 +17,14 @@
   border-radius: 12px;
   padding: 16px 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.docSector {
+  display: flex;
+  width: 28%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px ;
 }
 
 .doctorInfo {
@@ -267,8 +274,8 @@
   opacity: 0.9;
 }
 
-.cancelBtn {
-  width: 100%;
+.retornButton {
+  width: 40%;
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 25px;
