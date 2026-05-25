@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 
 import Image from 'next/image';
 import { ROUTES } from "@/routes/routes"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 import { Modal } from '../../Modal/Modal';
@@ -22,15 +22,38 @@ const DoxCard = () => {
     const { search } = useSearch();
 
   
-
-    const filtrados = doctors.filter(item =>
-        item.name.toLowerCase().includes(search.toLowerCase()) || item.specialty.toLowerCase().includes(search.toLowerCase())
-    );
-
     const [openModal, setOpenModal] = useState(false);
+    const [doctorsList, setDoctorsList] = useState<Doctor[]>(doctors);
 
     console.log("MODal", openModal)
+//
+type DoctorAction = {
+  label: string;
+  type: "primary" | "secondary";
+};
 
+type Doctor = {
+  id: number;
+  name: string;
+  specialty: string;
+  location: string;
+  rating: number;
+  reviews: number;
+  availableToday: boolean;
+  avatar: string;
+  action: DoctorAction;
+};
+
+
+useEffect(() => {
+    // Simulate fetching data from an API
+    setDoctorsList(doctors);
+}
+
+
+const filtrados = doctorsList.filter(item =>
+        item.name.toLowerCase().includes(search.toLowerCase()) || item.specialty.toLowerCase().includes(search.toLowerCase())
+    );
 
     return (
         <div className={styles.container}>
