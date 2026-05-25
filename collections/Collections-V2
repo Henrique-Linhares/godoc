@@ -1,0 +1,409 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Godoc
+meta:
+  id: wrk_cc4af252ac8d4d52afa7d2131e051ccc
+  created: 1775937621604
+  modified: 1775937621604
+  description: ""
+collection:
+  - name: Pacientes
+    meta:
+      id: fld_3ccd2dc2b9604e60891add5dbded1c1c
+      created: 1775938126796
+      modified: 1775938126796
+      sortKey: -1775938126796
+      description: ""
+    children:
+      - url: http://localhost:8080/pacientes
+        name: Cria Paciente
+        meta:
+          id: req_a64ad4d8a4c043659ba5be89222c60b9
+          created: 1775938130758
+          modified: 1775938779759
+          isPrivate: false
+          description: ""
+          sortKey: -1775938130758
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Henrique Linhares",
+              "idade": 19,
+              "cpf": "123.456.789-00",
+              "dataNascimento": "1996-05-15T10:00:00.000+00:00",
+              "telefone": "(11) 98888-7777",
+              "user": {
+                "id": 1
+              }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/pacientes
+        name: FindAllPacientes
+        meta:
+          id: req_236610dd2bdd45f18550874ed381947e
+          created: 1775938735661
+          modified: 1775938760849
+          isPrivate: false
+          description: ""
+          sortKey: -1775938735661
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/pacientes/2
+        name: GetById
+        meta:
+          id: req_c1ca9cd863674ae68c8ad2674531b8e8
+          created: 1775938786117
+          modified: 1775938806732
+          isPrivate: false
+          description: ""
+          sortKey: -1775938786117
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/pacientes/1
+        name: Atualiza Paciente
+        meta:
+          id: req_0f98811a32f941f7b75817c4e469062c
+          created: 1775938811059
+          modified: 1775938853164
+          isPrivate: false
+          description: ""
+          sortKey: -1775938811059
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Nicoly Araújo",
+              "idade": 19,
+              "cpf": "123.456.789-00",
+              "dataNascimento": "1996-05-15T10:00:00.000+00:00",
+              "telefone": "(11) 98888-7777",
+              "user": {
+                "id": 1
+              }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/pacientes/1
+        name: Deleta Pacientes
+        meta:
+          id: req_3f37ae15218e4e0584c8df278b11a5db
+          created: 1775938864630
+          modified: 1775938892081
+          isPrivate: false
+          description: ""
+          sortKey: -1775938864630
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Medico
+    meta:
+      id: fld_569eea7af17c4ec18fe3a46514984a55
+      created: 1779479374194
+      modified: 1779479374194
+      sortKey: -1779479374194
+      description: ""
+    children:
+      - url: http://localhost:8080/medicos
+        name: Cria Medico
+        meta:
+          id: req_e51931120b1043749b2a60b3226886ad
+          created: 1779480393847
+          modified: 1779480575519
+          isPrivate: false
+          description: ""
+          sortKey: -1779480393847
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Cleiton Rasta",
+              "crm": "CRM/SP 123456",
+              "especialidade": "Pneumologista",
+              "telefone": "11999998888",
+              "userId": 2
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnb2RvYyIsInN1YiI6ImhlbnJpcXVlQGdtYWlsLmNvbSIsImV4cCI6MTc3OTQ4Mzk3NSwiaWF0IjoxNzc5NDgwMzc1LCJyb2xlcyI6IlJPTEVfVVNFUiJ9.6xErWbxjFon-5PzuX_ovl6mCtOyh3FW9GMcQN29FWI4
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/medicos
+        name: FindAll Medico
+        meta:
+          id: req_3d667eea187c477e882d6a5a69057452
+          created: 1779480578948
+          modified: 1779480618819
+          isPrivate: false
+          description: ""
+          sortKey: -1779480578948
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnb2RvYyIsInN1YiI6ImhlbnJpcXVlQGdtYWlsLmNvbSIsImV4cCI6MTc3OTQ4Mzk3NSwiaWF0IjoxNzc5NDgwMzc1LCJyb2xlcyI6IlJPTEVfVVNFUiJ9.6xErWbxjFon-5PzuX_ovl6mCtOyh3FW9GMcQN29FWI4
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/medicos/2
+        name: Get By ID
+        meta:
+          id: req_894e9974074b46ddac99baf1983512a3
+          created: 1779480623260
+          modified: 1779480656386
+          isPrivate: false
+          description: ""
+          sortKey: -1779480623260
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnb2RvYyIsInN1YiI6ImhlbnJpcXVlQGdtYWlsLmNvbSIsImV4cCI6MTc3OTQ4Mzk3NSwiaWF0IjoxNzc5NDgwMzc1LCJyb2xlcyI6IlJPTEVfVVNFUiJ9.6xErWbxjFon-5PzuX_ovl6mCtOyh3FW9GMcQN29FWI4
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/medicos/2
+        name: Atualiza Medico
+        meta:
+          id: req_27835f0735c34ac19407476539af5e8f
+          created: 1779480661626
+          modified: 1779480735486
+          isPrivate: false
+          description: ""
+          sortKey: -1779480661626
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Gilberto Piedade",
+              "crm": "CRM/SP 123456",
+              "especialidade": "Pneumologista",
+              "telefone": "11999998888",
+              "userId": 2
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnb2RvYyIsInN1YiI6ImhlbnJpcXVlQGdtYWlsLmNvbSIsImV4cCI6MTc3OTQ4Mzk3NSwiaWF0IjoxNzc5NDgwMzc1LCJyb2xlcyI6IlJPTEVfVVNFUiJ9.6xErWbxjFon-5PzuX_ovl6mCtOyh3FW9GMcQN29FWI4
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/medicos/1
+        name: Deleta Medicos
+        meta:
+          id: req_a9c9aef07ef341bd86724b457eaa4eaa
+          created: 1779480744309
+          modified: 1779480794475
+          isPrivate: false
+          description: ""
+          sortKey: -1779480744309
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnb2RvYyIsInN1YiI6ImhlbnJpcXVlQGdtYWlsLmNvbSIsImV4cCI6MTc3OTQ4Mzk3NSwiaWF0IjoxNzc5NDgwMzc1LCJyb2xlcyI6IlJPTEVfVVNFUiJ9.6xErWbxjFon-5PzuX_ovl6mCtOyh3FW9GMcQN29FWI4
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Authentication
+    meta:
+      id: fld_d4ad5170f96445d888f251894fb94869
+      created: 1779479399079
+      modified: 1779479399079
+      sortKey: -1779479399079
+      description: ""
+    children:
+      - url: http://localhost:8080/auth/register
+        name: Registro
+        meta:
+          id: req_c506b1a254fb4d43b8f908c2fc423394
+          created: 1779479403807
+          modified: 1779480550574
+          isPrivate: false
+          description: ""
+          sortKey: -1779479403807
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "cleitonrasta@email.com",
+            	"password": "1234567"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/auth/login
+        name: Login
+        meta:
+          id: req_a0079033fce94357a4246b96e3b66a54
+          created: 1779480337301
+          modified: 1779480373892
+          isPrivate: false
+          description: ""
+          sortKey: -1779480337301
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "henrique@gmail.com",
+            	"password": "1234556"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_57a075ea4965d609f9b4aac7baa91c7aac8f786d
+    created: 1775937621609
+    modified: 1775937621609
+environments:
+  name: Base Environment
+  meta:
+    id: env_57a075ea4965d609f9b4aac7baa91c7aac8f786d
+    created: 1775937621606
+    modified: 1775937621606
+    isPrivate: false
