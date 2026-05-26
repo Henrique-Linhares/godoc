@@ -1,7 +1,8 @@
 "use client";
 
 import styles from './docbox.module.css'
-import { doctors } from '@/services/doctorListService'
+import { consultarMedicos } from '@/Services/doctorListService'
+
 
 // Import context
 import { useSearch } from '@/context/Search';
@@ -16,16 +17,15 @@ import { useEffect, useState } from 'react';
 
 import { Modal } from '../../Modal/Modal';
 
-const DoxCard = () => {
+const DoxCard = async () => {
 
     const router = useRouter();
     const { search } = useSearch();
 
   
     const [openModal, setOpenModal] = useState(false);
-    const [doctorsList, setDoctorsList] = useState<Doctor[]>(doctors);
+const [doctors, setDoctors] = useState<Doctor[] | null>([]);
 
-    console.log("MODal", openModal)
 //
 type DoctorAction = {
   label: string;
@@ -46,12 +46,17 @@ type Doctor = {
 
 
 useEffect(() => {
-    // Simulate fetching data from an API
-    setDoctorsList(doctors);
-}
+        async function carregarMedicos() {
+            const medicos = await consultarMedicos()
+            setDoctors(medicos)
+        }
+
+        console.log("DOUTORES", doctors)
+})
 
 
-const filtrados = doctorsList.filter(item =>
+
+const filtrados = doctors.filter(item =>
         item.name.toLowerCase().includes(search.toLowerCase()) || item.specialty.toLowerCase().includes(search.toLowerCase())
     );
 

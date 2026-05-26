@@ -17,6 +17,14 @@ import Loading from "../../components/Loading/Loading";
 import Link from 'next/link'
 
 
+import { login} from '@/Services/doctorListService'
+
+type dada = {
+    email: string; // 'string' minúsculo é o correto em TypeScript
+    password: string;
+};
+
+
 import AuthForm from "@/app/components/CredentialCard/AuthForm "
 
 function Login() {
@@ -63,7 +71,21 @@ function Login() {
         }
     }
 
-    useEffect(() => {
+
+const dadosRecebida = {
+    email: "cleitonrasta@email.com",
+    password: "1234567"
+};
+
+
+
+useEffect(() => {
+    async function getLogin(dataReceived : dada ) {
+        const data = await login(dataReceived);
+        console.log(data); // Exemplo de uso do retorno
+    }
+
+        getLogin(dadosRecebida)
         setLoading(true)
 
         const getLocal = localStorage.getItem("user")
