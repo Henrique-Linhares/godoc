@@ -17,7 +17,7 @@ import Loading from "../../components/Loading/Loading";
 import Link from 'next/link'
 
 
-import { login} from '@/Services/doctorListService'
+import { login as loginService } from '@/Services/doctorListService'
 
 type dada = {
     email: string; // 'string' minúsculo é o correto em TypeScript
@@ -27,76 +27,75 @@ type dada = {
 
 import AuthForm from "@/app/components/CredentialCard/AuthForm "
 
+
 function Login() {
 
+    const router = useRouter()
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [name, setName] = useState("")
     const [alert, setAlert] = useState(false)
 
-    const { user, logged, login, logout, loading, setLoading } = useAuth()
-
+    const { login, loading, setLoading } = useAuth()
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        handleAction()
     }
 
+    const handleAction = async () => {
 
-    const router = useRouter()
-
-    const handleAction = () => {
-
-        const userFind = users.find(u =>
-            u.email.toLowerCase() === email.toLowerCase() &&
-            u.password === password
-        )
-
-        console.log(userFind)
-
-        if (userFind) {
-
-            const UserData = {
-                email: email,
-                name: userFind.user,
-                tipo: userFind.type
-            }
-
-            login({ ...UserData})
-
-            router.push(ROUTES.dashboard)
-            localStorage.setItem("user", JSON.stringify(UserData))
-        } else {
-            setAlert(true)
-        }
-    }
-
-
-const dadosRecebida = {
-    email: "cleitonrasta@email.com",
-    password: "1234567"
-};
-
-
-
-useEffect(() => {
-    async function getLogin(dataReceived : dada ) {
-        const data = await login(dataReceived);
-        console.log(data); // Exemplo de uso do retorno
-    }
-
-        getLogin(dadosRecebida)
         setLoading(true)
 
-        const getLocal = localStorage.getItem("user")
+        try {
 
+            const userData  = await loginService({ password, email })
 
-        if (getLocal) {
-            login(JSON.parse(getLocal))
-            console.log("PRINTADO", JSON.parse(getLocal))
-        }
-        console.log("LOGADO", getLocal)
+            localStorage.setItem("user", JSON.stringify(userData))
+
+            login(userData)
+
+            router.push(ROUTES.dashboard)
         setLoading(false)
+
+        } catch {
+        setAlert(true)
+        setLoading(false)
+
+        }
+    }
+    // useEffect(() => {
+    //     async function getLogin(dataReceived: dada) {
+    //         const data = await login(dataReceived);
+    //         console.log(data); // Exemplo de uso do retorno
+    //     }
+
+    //     getLogin(dadosRecebida)
+    //     setLoading(true)
+
+    //     const getLocal = localStorage.getItem("user")
+
+
+    //     if (getLocal) {
+    //         login(JSON.parse(getLocal))
+    //     }
+    //     setLoading(false)
+    // }, [])
+
+    useEffect(() => {
+        async function restoreSession() {
+            setLoading(true)
+            try {
+                const getLocal = localStorage.getItem("user")
+                if (getLocal) {
+                    login(JSON.parse(getLocal))
+                }
+            } finally {
+                setLoading(false)
+            }
+        }
+        restoreSession()
     }, [])
 
     return (

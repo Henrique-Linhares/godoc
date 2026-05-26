@@ -23,11 +23,6 @@ import { useState, useEffect } from "react"
 //Styles
 import styles from "./page.module.css"
 
-const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-}
-
-
 
 interface Props {
     setEmail: (value: string) => void
@@ -44,6 +39,11 @@ interface Props {
 
 const AuthForm = ({ setEmail, setPassword, setName, handleAction, email, password, name, alert, image, type }: Props) => {
 
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        handleAction()
+    }
+
     const { user, logged, login, logout, loading, setLoading } = useAuth()
 
     return (
@@ -54,15 +54,6 @@ const AuthForm = ({ setEmail, setPassword, setName, handleAction, email, passwor
                         <div className={styles.loginContainer}>
                             {type === 'login' ? <h1>Login</h1> : <h1>Criar Conta</h1>}
                             <div className={styles.inputContainer}>
-                                <span className={styles.description}>Digite seu nome </span>
-                                <Input
-                                    type={'text'}
-                                    onChange={(e) => setName(e.target.value)}
-                                    variant={'default'}
-                                    value={name}
-                                    placeholder="" />
-
-                                {alert && <div className={styles.alert}>Credenciais invalidas</div>}
                                 <span className={styles.description}>Digite seu email</span>
                                 <Input
                                     type={'text'}
@@ -70,7 +61,7 @@ const AuthForm = ({ setEmail, setPassword, setName, handleAction, email, passwor
                                     variant={'default'}
                                     value={email}
                                     placeholder="" />
-                                {alert && <div className={styles.alert}>Credenciais invalidas</div>}
+                                {alert && <span className={styles.alert}>Credenciais invalidas</span>}
 
                                 <span className={styles.description}>Digite sua senha </span>
                                 <Input

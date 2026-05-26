@@ -17,11 +17,9 @@ const SafeRouter = ({ children }: Props) => {
     const auth = useAuth()
     const router = useRouter()
 
-    console.log("LOGGFED", auth.logged)
 
     useEffect(() => {
         if (!auth.logged) {
-            console.log("LOGGFED", auth.logged)
             router.push(ROUTES.login)
         }
     }, [auth.logged])

@@ -6,24 +6,60 @@ import { useState, useEffect } from "react"
 //components
 import AuthForm from "@/app/components/CredentialCard/AuthForm "
 
+import { useAuth } from "@/context/Auth"
+import { useRouter } from "next/router"
+
 //Styles
 import styles from "./page.module.css"
 
-
-const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-}
-
 function Register() {
+
+    const auth = useAuth()
+
+    const router = useRouter()
+
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [alert, seAlert] = useState(false)
 
-    const handleAction = () => {
-        return name
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        handleAction()
     }
+
+    // const handleAction = async () => {
+
+    //         setLoading(true)
+
+    //         try {
+
+    //             const userData  = await loginService({ password, email })
+
+    //             localStorage.setItem("user", JSON.stringify(userData))
+
+    //             login(userData)
+
+    //             router.push(ROUTES.dashboard)
+    //         setLoading(false)
+
+    //         } catch {
+    //         setAlert(true)
+    //         setLoading(false)
+
+    //         }
+    //     }
+
+    const handleAction = async () => {
+        setLoading(true)
+    }
+
+
+    useEffect(() => {
+
+    })
 
     return (
         <div className={styles.container}>

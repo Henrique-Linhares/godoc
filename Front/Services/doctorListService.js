@@ -7,19 +7,46 @@ export async function login(dados) {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
-      }, 
+      },
       body: JSON.stringify(dados)
     }
   )
   return await response.json()
 }
 
+export async function criarConta(dados) {
+  const response = await fetch('http://localhost:8080/auth/register',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dados)
+    }
+  )
+
+}
+
 export async function consultarMedicos() {
 
-  const response = await fetch('http://localhost:8080/medicos')
+  const response = await fetch('http://localhost:8080/medicos',
+    {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+    })
+
+  const data = await response.json()
+}
+
+export async function cosultarPacientes() {
+  const response = await fetch('http://localhost:8080/pacientes')
   const data = await response.json()
 
   return data
+
 }
 
 

@@ -22,11 +22,11 @@ export default function Dashboard() {
   const [consultas, setConsultas] = useState<any[]>([])
   const [selecionada, setSelecionada] = useState<any | null>(null)
 
-  useEffect(() => {
-    fetch('http://localhost:5000/api/consultas')
-      .then(r => r.json())
-      .then(setConsultas)
-  }, [])
+  // useEffect(() => {
+  //   fetch('http://localhost:5000/api/consultas')
+  //     .then(r => r.json())
+  //     .then(setConsultas)
+  // }, [])
 
   const router = useRouter()
   const hoje = new Date().toISOString().slice(0, 10)
