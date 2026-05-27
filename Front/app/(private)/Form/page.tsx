@@ -5,11 +5,11 @@ import Button from '@/app/components/Button/Button/Button'
 import Image from 'next/image'
 import styles from './page.module.css'
 import { ROUTES } from '@/routes/routes'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation';
 
 export default function FormAgendamento() {
 
-  const router = useRouter()
+  const router = useRouter();
 
   const [nome, setNome] = useState('')
   const [dataNascimento, setDataNascimento] = useState('')
@@ -45,7 +45,7 @@ export default function FormAgendamento() {
         </div>
         <div className={styles.docSector}>
           {/* <button className={styles.retornButton}>Voltar ao inicio</button> */}
-          <Button onClick={() => {router.push(ROUTES.catalog)}} type={'text'} variant={'default'} text={'Voltar'} />
+          <Button onClick={() => { router.push(ROUTES.catalog) }} type={'text'} variant={'default'} text={'Voltar'} />
           <div className={styles.priceTag}>
             <span>R$100 / Consulta</span>
           </div>

@@ -4,8 +4,6 @@ import DoxCard from "../../components/HomeComponents/DocCard/DocCard"
 import SearchBox from '@/app/components/HomeComponents/SearchBox/searchBox'
 import styles from "@/app/(private)/Catalog/page.module.css"
 
-import { useAuth } from "@/context/Auth";
-
 
 
 function HomePage() {

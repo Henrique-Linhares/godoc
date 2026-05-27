@@ -13,12 +13,8 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { ROUTES } from "@/routes/routes"
 import { useEffect, useState } from 'react';
-import { useAuth } from '@/context/Auth';
 
 
-import { Modal } from '../../Modal/Modal';
-import Loading from '../../Loading/Loading';
-import { object } from 'motion/react-client';
 
 
 //
@@ -52,10 +48,6 @@ const DoxCard = () => {
     const [openModal, setOpenModal] = useState(false);
     const [doctors, setDoctors] = useState<Doctor[] | null>([]);
     const [token, setToken] = useState('')
-
-    const { login, loading, setLoading } = useAuth()
-
-
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user")
@@ -91,15 +83,8 @@ const DoxCard = () => {
         }
 
         handleDoctors()
-    }, [])  // ← adiciona token na dependência
+    }, []) 
 
-    // useEffect(() => {
-    //     async function carregarMedicos() {
-    //         const medicos = await consultarMedicos()
-    //         setDoctors(medicos)
-    //     }
-
-    // console.log("DSDS", doctors)
     const filtrados = doctors?.filter(item =>
         item.nome.toLowerCase().includes(search.toLowerCase()) || item.especialidade.toLowerCase().includes(search.toLowerCase())
     );
@@ -127,13 +112,11 @@ const DoxCard = () => {
                                 <div className={item.availableToday === true ? styles.availableToday : styles.notAvaibleToday}>
                                     <span>{item.availableToday === true ? "Disponível Hoje" : "Disponível em Breve"}</span>
                                 </div>
-                                <div onClick={
-                                    () => { setOpenModal(true) }}
+                                <div onClick={() => {router.push(ROUTES.form)}}
                                     className={styles.action}
                                 >
                                     <span>Marcar</span>
 
-                                    {openModal && <Modal setOpenModal={() => setOpenModal(false)} />}
                                 </div>
                             </div>
                         </div>
