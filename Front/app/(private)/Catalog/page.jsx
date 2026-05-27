@@ -9,11 +9,9 @@ import { useAuth } from "@/context/Auth";
 
 
 function HomePage() {
-    const { loading } = useAuth()
 
     return (
         <>
-            {loading && <Loading />}
             <div className={styles.layout}>
                 <div className={styles.container}>
                     <div className={styles.searchContainer}>

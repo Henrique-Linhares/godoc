@@ -1,5 +1,3 @@
-const token = ''
-
 
 export async function login(dados) {
   const response = await fetch('http://localhost:8080/auth/login',
@@ -11,7 +9,9 @@ export async function login(dados) {
       body: JSON.stringify(dados)
     }
   )
-  return await response.json()
+  const data = await response.json()
+
+  return data
 }
 
 export async function criarConta(dados) {
@@ -23,12 +23,14 @@ export async function criarConta(dados) {
       },
       body: JSON.stringify(dados)
     }
+
   )
 
 }
 
-export async function consultarMedicos() {
+export async function consultarMedicos(token) {
 
+  console.log("TOKKKENENE", token)
   const response = await fetch('http://localhost:8080/medicos',
     {
       method: 'GET',
@@ -39,6 +41,8 @@ export async function consultarMedicos() {
     })
 
   const data = await response.json()
+
+  return data
 }
 
 export async function cosultarPacientes() {
@@ -48,6 +52,8 @@ export async function cosultarPacientes() {
   return data
 
 }
+
+
 
 
 

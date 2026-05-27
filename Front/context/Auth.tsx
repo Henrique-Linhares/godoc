@@ -31,15 +31,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [logged, setLogged] = useState(false);
     const [loading, setLoading] = useState(true)
 
-
-    useEffect(() => {
-
-        setLoading(false)
-        setLogged(false)
-        setLoading(false)
-
-    }, [])
-
     async function login(userData: UserData) {
         setUser(userData);
         setLogged(true);

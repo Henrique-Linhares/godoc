@@ -10,6 +10,7 @@ import { ROUTES } from '@/routes/routes'
 import { useRouter } from 'next/navigation'
 import Button from '@/app/components/Button/Button/Button'
 
+
 const FullCalendar = FullCalendarLib as any
 
 // Cores por tipoConsulta (V2)
@@ -62,6 +63,9 @@ export default function Dashboard() {
     new Date(iso).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
 
   // ── Dashboard principal ───────────────────────────────────────────────────
+  const getLocal = localStorage.getItem("user")
+console.log('USER', JSON.parse(getLocal))
+  
   return (
     <>
       <div className={styles.page}>
@@ -122,8 +126,6 @@ export default function Dashboard() {
           />
         )}
       </div>
-
-
 
 
     </>

@@ -19,6 +19,7 @@ import Link from 'next/link'
 
 import { login as loginService } from '@/Services/doctorListService'
 
+
 type dada = {
     email: string; // 'string' minúsculo é o correto em TypeScript
     password: string;
@@ -36,6 +37,7 @@ function Login() {
     const [password, setPassword] = useState("")
     const [name, setName] = useState("")
     const [alert, setAlert] = useState(false)
+    const [userData, setUserData] = useState([])
 
     const { login, loading, setLoading } = useAuth()
 
@@ -49,8 +51,8 @@ function Login() {
         setLoading(true)
 
         try {
-
             const userData  = await loginService({ password, email })
+            setUserData(userData)
 
             localStorage.setItem("user", JSON.stringify(userData))
 
