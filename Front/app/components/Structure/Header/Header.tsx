@@ -46,7 +46,7 @@ function Header() {
                     />
                     <span className={styles.span}>{user?.name}</span>
                     <div className={styles.profileImage}>
-                        <Image src={'/cleiton.png'} alt="Godoc" width={40} height={40} />
+                        <Image src={'/imagem-do-usuario-com-fundo-preto.png'} alt="Godoc" width={40} height={40} />
                     </div>
                 </div>
             </div>

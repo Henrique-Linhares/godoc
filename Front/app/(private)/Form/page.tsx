@@ -32,7 +32,7 @@ export default function FormAgendamento() {
       <div className={styles.doctorCard}>
         <div className={styles.doctorInfo}>
           <div className={styles.doctorAvatar}>
-            <Image src="/cleiton.png" alt="Dr. Cleiton Rasta" width={60} height={60} />
+            <Image src="/imagem-do-usuario-com-fundo-preto.png" alt="Dr. Cleiton Rasta" width={60} height={60} />
           </div>
           <div className={styles.doctorDetails}>
             <h2 className={styles.doctorName}>Dr. Cleiton Rasta</h2>
