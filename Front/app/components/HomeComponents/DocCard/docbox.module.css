@@ -1,153 +1,161 @@
 .container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 
-    width: 800px;
-    height: 550px;
+  width: 800px;
+  height: 550px;
 
-    padding: 16px;
-    box-sizing: border-box;
+  padding: 16px;
+  box-sizing: border-box;
 
-    background-color: #FFFFFF;
-    border-radius: 15px;
+  background-color: #ffffff;
+  border-radius: 15px;
 }
 
 .card {
-    width: 90%;
-    height: 100%;
+  width: 90%;
+  height: 100%;
 
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 
-    overflow-y: auto;
+  overflow-y: auto;
 
-    padding-right: 8px;
+  padding-right: 8px;
 
-    scrollbar-width: thin;
-    scrollbar-color: #c1c1c1 transparent;
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 transparent;
 }
 
 .card::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 .card::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .card::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #d6d6d6, #bfbfbf);
-    border-radius: 10px;
+  background: linear-gradient(180deg, #d6d6d6, #bfbfbf);
+  border-radius: 10px;
 }
 
 .card::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
+  background: #a8a8a8;
 }
 .info {
-    display: flex;
-    gap: 8%;
+  display: flex;
+  gap: 8%;
 
-    background-color: #ffffff;
-    padding: 15px;
-    margin-top: 15px;
+  background-color: #ffffff;
+  padding: 15px;
+  margin-top: 15px;
 
-    border: 1px solid #ececec;
-    border-radius: 15px;
+  border: 1px solid #ececec;
+  border-radius: 15px;
 
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 
-    font-family: Inter, system-ui, sans-serif;
+  font-family: Inter, system-ui, sans-serif;
 
-    transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .info:hover {
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.ImageDisplay{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #eeeeee;
+.ImageDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3px;
+
   border-radius: 50%;
-    width: 12%;
+  width: 12%;
+}
+
+.ImageDisplay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .name {
-    font-size: larger;
-    padding: 3px;
+  font-size: larger;
+  padding: 3px;
 
-    font-weight: 500;
-    color: #111;
+  font-weight: 500;
+  color: #111;
 
-    letter-spacing: 0.2px;
-    line-height: 1.2;
+  letter-spacing: 0.2px;
+  line-height: 1.2;
 
-    display: inline-block;
-
+  display: inline-block;
 }
 
 .meta {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    padding: 1px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 1px;
 
-    font-size: 14px;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.65);
 
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 
-    letter-spacing: 0.2px;
+  letter-spacing: 0.2px;
 }
 
 .scheduleInfo {
-    display: flex;
-    width: 25%;
+  display: flex;
+  width: 25%;
 
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-
 .details {
+    display: flex;
+    align-items: self-start;
+    justify-content: center;
+      flex-direction: column;
 
-    width: 40%;
-
+  width: 40%;
 }
 
 .availableToday {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #4ECDC4;
-    padding: 3px;
-    border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4ecdc4;
+  padding: 3px;
+  border-radius: 5px;
 }
 
 .notAvaibleToday {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #a9cd4e;
-    padding: 3px;
-    border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #a9cd4e;
+  padding: 3px;
+  border-radius: 5px;
 }
 
 .action {
-    color: #4ECDC4;
-    margin-top: 5%;
-    padding: 5px;
-    border-style: solid;
-    border-color: #4ECDC4;
-    border-radius: 10px;
+  color: #4ecdc4;
+  margin-top: 5%;
+  padding: 5px;
+  border-style: solid;
+  border-color: #4ecdc4;
+  border-radius: 10px;
 
-    cursor: pointer;
+  cursor: pointer;
 }

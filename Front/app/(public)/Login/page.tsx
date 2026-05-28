@@ -1,128 +1,147 @@
-'use client'
+"use client";
 
-import Input from "../../components/Input/Input"
-import Button from "../../components/Button/Button/Button"
-import Image from "next/image"
-import { ROUTES } from "@/routes/routes"
-import { useRouter } from 'next/navigation';
+import Input from "../../components/Input/Input";
+import Button from "../../components/Button/Button/Button";
+import Image from "next/image";
+import { ROUTES } from "@/routes/routes";
+import { useRouter } from "next/navigation";
 
-import { users } from '@/services/users'
+import { users } from "@/services/users";
 
 import { useAuth } from "@/context/Auth";
 
-import { useState, useEffect } from "react"
-import styles from "./page.module.css"
+import { useState, useEffect } from "react";
+import styles from "./page.module.css";
 
 import Loading from "../../components/Loading/Loading";
-import Link from 'next/link'
+import Link from "next/link";
 
+import { login as loginService } from "@/Services/doctorListService";
 
-import { login as loginService } from '@/Services/doctorListService'
+import MedForm from "@/app/components/Medform/page";
+import { consultarMedicos } from "@/Services/doctorListService";
 
+import { useDoc } from "@/context/Doc";
 
 type dada = {
-    email: string; // 'string' minúsculo é o correto em TypeScript
-    password: string;
+  email: string; // 'string' minúsculo é o correto em TypeScript
+  password: string;
 };
 
-
-import AuthForm from "@/app/components/CredentialCard/AuthForm "
-
+import AuthForm from "@/app/components/CredentialCard/AuthForm ";
 
 function Login() {
+  const router = useRouter();
 
-    const router = useRouter()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [alert, setAlert] = useState(false);
+  const [userData, setUserData] = useState([]);
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [name, setName] = useState("")
-    const [alert, setAlert] = useState(false)
-    const [userData, setUserData] = useState([])
+  const [medFormOn, setMedFormOn] = useState(false);
 
-    const { login, loading, setLoading } = useAuth()
+  const { login, loading, setLoading } = useAuth();
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        handleAction()
+  const { doc, setDoc } = useDoc();
+
+  const handleAction = async () => {
+    setLoading(true);
+
+    try {
+      const data = await loginService({ password, email });
+
+      if (data) {
+        const userData = data;
+        setUserData(userData);
+
+        localStorage.setItem("user", JSON.stringify(userData));
+
+        login(userData);
+
+        //router.push(ROUTES.dashboard);
+        setMedFormOn(true);
+        setLoading(false);
+      }
+    } catch {
+      setAlert(true);
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const handleAction = async () => {
+  const handleMedLogin = async () => {
+    try {
+      const storedUser = localStorage.getItem("user");
 
-        setLoading(true)
+      if (!storedUser) return;
 
-        try {
-            const userData  = await loginService({ password, email })
-            setUserData(userData)
+      const token = JSON.parse(storedUser).token;
 
-            localStorage.setItem("user", JSON.stringify(userData))
+      const data = await consultarMedicos(token);
 
-            login(userData)
-
-            router.push(ROUTES.dashboard)
-        setLoading(false)
-
-        } catch {
-        setAlert(true)
-        setLoading(false)
-
-        }
+      if (data) {
+        setDoc(data);
+      }
+    } catch (err) {
+      console.error(err);
     }
-    // useEffect(() => {
-    //     async function getLogin(dataReceived: dada) {
-    //         const data = await login(dataReceived);
-    //         console.log(data); // Exemplo de uso do retorno
-    //     }
+  };
+  // useEffect(() => {
+  //     async function getLogin(dataReceived: dada) {
+  //         const data = await login(dataReceived);
+  //         console.log(data); // Exemplo de uso do retorno
+  //     }
 
-    //     getLogin(dadosRecebida)
-    //     setLoading(true)
+  //     getLogin(dadosRecebida)
+  //     setLoading(true)
 
-    //     const getLocal = localStorage.getItem("user")
+  //     const getLocal = localStorage.getItem("user")
 
+  //     if (getLocal) {
+  //         login(JSON.parse(getLocal))
+  //     }
+  //     setLoading(false)
+  // }, [])
 
-    //     if (getLocal) {
-    //         login(JSON.parse(getLocal))
-    //     }
-    //     setLoading(false)
-    // }, [])
-
-    useEffect(() => {
-        async function restoreSession() {
-            setLoading(true)
-            try {
-                const getLocal = localStorage.getItem("user")
-                if (getLocal) {
-                    login(JSON.parse(getLocal))
-                }
-            } finally {
-                setLoading(false)
-            }
+  useEffect(() => {
+    async function restoreSession() {
+      setLoading(true);
+      try {
+        const getLocal = localStorage.getItem("user");
+        if (getLocal) {
+          login(JSON.parse(getLocal));
         }
-        restoreSession()
-    }, [])
+      } finally {
+        setLoading(false);
+      }
+    }
+    restoreSession();
+  }, []);
 
-    return (
-        <>
-            <div className={styles.container}>
-                <AuthForm
-                    setEmail={setEmail}
-                    setPassword={setPassword}
-                    setName={setName}
-                    handleAction={handleAction}
-                    email={email}
-                    password={password}
-                    name={name}
-                    alert={alert}
-                    image={"/medico.png"}
-                    type={'login'}
-                />
-            </div>
+  return (
+    <>
+      <div className={styles.container}>
+        <AuthForm
+          setEmail={setEmail}
+          setPassword={setPassword}
+          setName={setName}
+          handleAction={handleAction}
+          email={email}
+          password={password}
+          name={name}
+          alert={alert}
+          image={"/medico.png"}
+          type={"login"}
+        />
+      </div>
 
-            {loading && <Loading />}
+      {medFormOn && <MedForm handleMedLogin={handleMedLogin} />}
 
-        </>
-
-    )
+      {loading && <Loading />}
+    </>
+  );
 }
-
 
 export default Login;
