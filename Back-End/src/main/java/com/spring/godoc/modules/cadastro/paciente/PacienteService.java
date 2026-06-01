@@ -16,16 +16,16 @@ import org.springframework.stereotype.Service;
 public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
-    private final UserRepository userRepository;
+//    private final UserRepository userRepository;
 
     public PacienteService(PacienteRepository pacienteRepository, UserRepository userRepository) {
         this.pacienteRepository = pacienteRepository;
-        this.userRepository = userRepository;
+//        this.userRepository = userRepository;
     }
 
     public PacienteResponse criaPaciente(PacienteRequest dto) {
-        UserEntity user = userRepository.findById(dto.user().getId())
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+//        UserEntity user = userRepository.findById(dto.user().getId())
+//                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
         PacienteEntity paciente = new PacienteEntity();
         paciente.setCpf(dto.cpf());
@@ -33,7 +33,7 @@ public class PacienteService {
         paciente.setIdade(dto.idade());
         paciente.setNome(dto.nome());
         paciente.setTelefone(dto.telefone());
-        paciente.setUser(user);
+//        paciente.setUser(user);
 
         PacienteEntity novoPaciente = pacienteRepository.save(paciente);
         return toResponse(novoPaciente);
@@ -79,8 +79,8 @@ public class PacienteService {
             paciente.getIdade(),
             paciente.getCpf(),
             paciente.getDataNascimento(),
-            paciente.getTelefone(),
-            paciente.getUser()
+            paciente.getTelefone()
+//            paciente.getUser()
         );
     }
 }

@@ -17,9 +17,9 @@ public class PacienteEntity {
     private Date dataNascimento;
     private String telefone;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+//    @OneToOne
+//    @JoinColumn(name = "user_id")
+//    private UserEntity user;
 
     PacienteEntity() {}
 
@@ -30,10 +30,10 @@ public class PacienteEntity {
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.telefone = telefone;
-        this.user = user;
+//        this.user = user;
     }
 
-    Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -41,7 +41,7 @@ public class PacienteEntity {
         this.id = id;
     }
 
-    String getNome() {
+    public String getNome() {
         return nome;
     }
 
@@ -49,7 +49,7 @@ public class PacienteEntity {
         this.nome = nome;
     }
 
-    Integer getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 
@@ -57,7 +57,7 @@ public class PacienteEntity {
         this.idade = idade;
     }
 
-    String getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
@@ -65,7 +65,7 @@ public class PacienteEntity {
         this.cpf = cpf;
     }
 
-    Date getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
@@ -73,7 +73,7 @@ public class PacienteEntity {
         this.dataNascimento = dataNascimento;
     }
 
-    String getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
@@ -81,11 +81,11 @@ public class PacienteEntity {
         this.telefone = telefone;
     }
 
-    UserEntity getUser() {
-        return user;
-    }
-
-    void setUser(UserEntity user) {
-        this.user = user;
-    }
+//    UserEntity getUser() {
+//        return user;
+//    }
+//
+//    void setUser(UserEntity user) {
+//        this.user = user;
+//    }
 }
