@@ -29,7 +29,7 @@ public class MedicoEntity {
         this.user = user;
     }
 
-    Long getId() {
+    public Long getId() {
         return id;
     }
 
