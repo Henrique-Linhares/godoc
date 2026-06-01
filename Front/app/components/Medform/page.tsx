@@ -16,7 +16,7 @@ const MedForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    handleAction();
+    //handleAction();
   };
 
   return (
@@ -51,12 +51,12 @@ const MedForm = () => {
                   <div className={styles.alert}>Credenciais invalidas</div>
                 )}
               </div>
-              <Button
+              {/* <Button
                 onClick={handleAction}
                 text="Ir"
                 variant="default"
                 type="submit"
-              />
+              /> */}
             </div>
           </form>
         </div>

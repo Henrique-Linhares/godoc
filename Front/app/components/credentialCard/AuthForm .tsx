@@ -37,7 +37,8 @@ interface Props {
     type: string
 }
 
-const AuthForm = ({ setEmail, setPassword, setName, handleAction, email, password, name, alert, image, type }: Props) => {
+const 
+AuthForm = ({ setEmail, setPassword, setName, handleAction, email, password, name, alert, image, type }: Props) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

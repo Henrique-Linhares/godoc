@@ -1,147 +1,129 @@
 "use client";
 
-import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button/Button";
-import Image from "next/image";
-import { ROUTES } from "@/routes/routes";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
-import { users } from "@/services/users";
-
 import { useAuth } from "@/context/Auth";
-
-import { useState, useEffect } from "react";
-import styles from "./page.module.css";
-
-import Loading from "../../components/Loading/Loading";
-import Link from "next/link";
-
-import { login as loginService } from "@/Services/doctorListService";
-
-import MedForm from "@/app/components/Medform/page";
-import { consultarMedicos } from "@/Services/doctorListService";
-
 import { useDoc } from "@/context/Doc";
 
-type dada = {
-  email: string; // 'string' minúsculo é o correto em TypeScript
-  password: string;
-};
+import { login as loginService, consultarMedicos } from "@/Services/doctorListService";
 
 import AuthForm from "@/app/components/CredentialCard/AuthForm ";
+import MedForm from "@/app/components/Medform/page";
+import Loading from "../../components/Loading/Loading";
+
+import styles from "./page.module.css";
 
 function Login() {
-  const router = useRouter();
+    const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [alert, setAlert] = useState(false);
-  const [userData, setUserData] = useState([]);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
+    const [alert, setAlert] = useState(false);
+    const [medFormOn, setMedFormOn] = useState(false);
 
-  const [medFormOn, setMedFormOn] = useState(false);
+    const { login, loading, setLoading } = useAuth();
+    const { doc, setDoc } = useDoc();
+    let token = ''
 
-  const { login, loading, setLoading } = useAuth();
-
-  const { doc, setDoc } = useDoc();
-
-  const handleAction = async () => {
-    setLoading(true);
-
-    try {
-      const data = await loginService({ password, email });
-
-      if (data) {
-        const userData = data;
-        setUserData(userData);
-
-        localStorage.setItem("user", JSON.stringify(userData));
-
-        login(userData);
-
-        //router.push(ROUTES.dashboard);
-        setMedFormOn(true);
-        setLoading(false);
-      }
-    } catch {
-      setAlert(true);
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleMedLogin = async () => {
-    try {
-      const storedUser = localStorage.getItem("user");
-
-      if (!storedUser) return;
-
-      const token = JSON.parse(storedUser).token;
-
-      const data = await consultarMedicos(token);
-
-      if (data) {
-        setDoc(data);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  // useEffect(() => {
-  //     async function getLogin(dataReceived: dada) {
-  //         const data = await login(dataReceived);
-  //         console.log(data); // Exemplo de uso do retorno
-  //     }
-
-  //     getLogin(dadosRecebida)
-  //     setLoading(true)
-
-  //     const getLocal = localStorage.getItem("user")
-
-  //     if (getLocal) {
-  //         login(JSON.parse(getLocal))
-  //     }
-  //     setLoading(false)
-  // }, [])
-
-  useEffect(() => {
-    async function restoreSession() {
-      setLoading(true);
-      try {
-        const getLocal = localStorage.getItem("user");
-        if (getLocal) {
-          login(JSON.parse(getLocal));
+    const getDoctors = useCallback(async (token: string) => {
+        try {
+            const data = await consultarMedicos(token);
+            if (data) setDoc(data);
+        } catch (err) {
+            console.error("Erro ao buscar médicos:", err);
         }
-      } finally {
-        setLoading(false);
-      }
-    }
-    restoreSession();
-  }, []);
+        }, [setDoc]);
 
-  return (
-    <>
-      <div className={styles.container}>
-        <AuthForm
-          setEmail={setEmail}
-          setPassword={setPassword}
-          setName={setName}
-          handleAction={handleAction}
-          email={email}
-          password={password}
-          name={name}
-          alert={alert}
-          image={"/medico.png"}
-          type={"login"}
-        />
-      </div>
 
-      {medFormOn && <MedForm handleMedLogin={handleMedLogin} />}
+    //      useEffect(() => {
+    //     let parsed = "";
+    //     const storedUser = localStorage.getItem("user");
+    //     if (storedUser) {
+    //       parsed = JSON.parse(storedUser).token;
+    //     }
+    //     const handleDoctors = async () => {
+    //       try {
+    //         const data = await consultarMedicos(parsed);
+    //         if (data) {
+    //           setDoctors(data);
+    //         } else {
 
-      {loading && <Loading />}
-    </>
-  );
+    //         }
+    //       } catch (err) {
+    //         console.error(err);
+    //       } finally {
+    //       }
+    //     };
+
+    //     handleDoctors();
+    //   }, []);
+
+    // ── Restaura sessão e já busca médicos se houver token salvo ───────────────
+    useEffect(() => {
+        async function restoreSession() {
+            setLoading(true);
+            try {
+                const stored = localStorage.getItem("user");
+                if (!stored) return;
+
+                const userData = JSON.parse(stored);
+                login(userData);
+                await getDoctors(userData.token);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        restoreSession();
+    }, []);
+
+    // ── Login + busca de médicos em sequência ──────────────────────────────────
+    const handleAction = async () => {
+        setLoading(true);
+        setAlert(false);
+
+        try {
+            const userData = await loginService({ password, email });
+
+            if (!userData) return;
+
+            localStorage.setItem("user", JSON.stringify(userData));
+            login(userData);
+
+            await getDoctors(userData.token);
+            console.log("DOC", doc)
+            setMedFormOn(true);
+        } catch {
+            setAlert(true);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <>
+            <div className={styles.container}>
+                <AuthForm
+                    setEmail={setEmail}
+                    setPassword={setPassword}
+                    setName={setName}
+                    handleAction={handleAction}
+                    email={email}
+                    password={password}
+                    name={name}
+                    alert={alert}
+                    image="/medico.png"
+                    type="login"
+                />
+            </div>
+
+            {medFormOn && <MedForm handleMedLogin={() => fetchDoctors(JSON.parse(localStorage.getItem("user")!).token)} />}
+
+            {loading && <Loading />}
+        </>
+    );
 }
 
 export default Login;

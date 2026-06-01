@@ -11,6 +11,7 @@ import { MotionConfig } from "framer-motion";
 import "./globals.css";
 
 import { AuthProvider } from "@/context/Auth";
+import { DocProvider } from "@/context/Doc";
 
 
 import Header from "@/app/components/Structure/Header/Header";
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
   title: "Godoc",
   description: "Gerenciador de consultas",
   icons: {
-    icon: '/godoc-icon.svg', 
+    icon: '/godoc-icon.svg',
   }
 };
 
@@ -46,13 +47,15 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body>
         <AuthProvider>
-          <div className="app">
+          <DocProvider>
+            <div className="app">
             <Header />
             <main className="main">{children}</main>
             <Footer />
           </div>
-        </AuthProvider>
-      </body>
-    </html>
+          </DocProvider>
+      </AuthProvider>
+    </body>
+    </html >
   );
 }
