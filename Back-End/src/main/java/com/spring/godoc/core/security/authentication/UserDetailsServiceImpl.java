@@ -1,5 +1,6 @@
 package com.spring.godoc.core.security.authentication;
 
+import com.spring.godoc.core.exceptions.user.UserNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,8 +22,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         try {
             return new UserDetailsImpl(userService.findByEmail(email));
-        } catch (EntityNotFoundException e) {
-            throw new UsernameNotFoundException(e.getMessage());
+        } catch (UserNotFoundException e) {
+            throw new UserNotFoundException(e.getMessage());
         }
     }
 }

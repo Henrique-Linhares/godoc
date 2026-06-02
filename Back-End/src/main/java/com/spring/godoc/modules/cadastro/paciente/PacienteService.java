@@ -2,6 +2,7 @@ package com.spring.godoc.modules.cadastro.paciente;
 
 import java.util.List;
 
+import com.spring.godoc.core.exceptions.paciente.PacienteNotFoundException;
 import com.spring.godoc.modules.cadastro.paciente.dtos.requests.PacienteRequest;
 import com.spring.godoc.modules.cadastro.paciente.dtos.responses.PacienteResponse;
 import com.spring.godoc.modules.cadastro.user.UserEntity;
@@ -47,13 +48,13 @@ public class PacienteService {
 
     public PacienteResponse getPacienteById(Long id) {
         PacienteEntity paciente = pacienteRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado"));
+                .orElseThrow(() -> new PacienteNotFoundException(id));
         return toResponse(paciente);
     }
 
     public PacienteResponse atualizaPaciente(Long id, PacienteRequest dto) {
         PacienteEntity paciente = pacienteRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado"));
+                .orElseThrow(() -> new PacienteNotFoundException(id));
 
         if (dto.cpf() != null) paciente.setCpf(dto.cpf());
         if (dto.dataNascimento() != null) paciente.setDataNascimento(dto.dataNascimento());
@@ -67,7 +68,7 @@ public class PacienteService {
 
     public void deletePaciente(Long id) {
         if (!pacienteRepository.existsById(id)) {
-            throw new EntityNotFoundException("Paciente não encontrado");
+            throw new PacienteNotFoundException(id);
         }
         pacienteRepository.deleteById(id);
     }

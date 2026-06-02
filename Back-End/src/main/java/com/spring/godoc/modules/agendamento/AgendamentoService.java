@@ -1,5 +1,6 @@
 package com.spring.godoc.modules.agendamento;
 
+import com.spring.godoc.core.exceptions.medico.MedicoNotFoundException;
 import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoRequestDTO;
 import com.spring.godoc.modules.agendamento.dtos.responses.AgendamentoResponseDTO;
 import com.spring.godoc.modules.agendamento.enums.StatusAgendamento;
@@ -25,7 +26,7 @@ public class AgendamentoService {
 
     public AgendamentoResponseDTO criar(AgendamentoRequestDTO dto) {
         MedicoEntity medico = medicoRepository.findById(dto.idMedico())
-                .orElseThrow(() -> new RuntimeException("Médico não encontrado: " + dto.idMedico()));
+                .orElseThrow(() -> new MedicoNotFoundException(dto.idMedico()));
 
         AgendamentoEntity agendamento = new AgendamentoEntity();
         agendamento.setData(dto.dataHoraAgendamento());
@@ -46,7 +47,7 @@ public class AgendamentoService {
     private AgendamentoResponseDTO toResponseDTO(AgendamentoEntity entity, AgendamentoRequestDTO dto) {
         return new AgendamentoResponseDTO(
                 entity.getId(),
-                dto.nomeCompleto(),   // dados do paciente vêm do DTO
+                dto.nomeCompleto(),
                 dto.cpf(),
                 dto.telefone(),
                 entity.getTipoConsulta(),
