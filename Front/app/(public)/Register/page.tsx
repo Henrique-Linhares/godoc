@@ -1,77 +1,44 @@
 'use client'
 
-//React
 import { useState, useEffect } from "react"
-
-//components
-import AuthForm from "@/app/components/CredentialCard/AuthForm "
-
+import AuthForm from "@/app/components/credentialCard/AuthForm ";
 import { useAuth } from "@/context/Auth"
-import { useRouter } from "next/router"
-
-import criarConta from "@/Services/criarContaService"
-
-
-//Styles
+import { criarConta } from "@/Services/userService"
 import styles from "./page.module.css"
 
 function Register() {
-
-    const auth = useAuth()
-
-    const router = useRouter()
-
+    const {setLoading } = useAuth(); 
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [alert, seAlert] = useState(false)
+    const [alert, setAlert] = useState(false) 
 
-    const { login, setLoading } = useAuth();
-
+    useEffect(() => {
+        setLoading(false) 
+    }, [])
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        handleAction()
+        handleAction(email, password);
     }
 
-    // const handleAction = async () => {
-
-    //         setLoading(true)
-
-    //         try {
-
-    //             const userData  = await loginService({ password, email })
-
-    //             localStorage.setItem("user", JSON.stringify(userData))
-
-    //             login(userData)
-
-    //             router.push(ROUTES.dashboard)
-    //         setLoading(false)
-
-    //         } catch {
-    //         setAlert(true)
-    //         setLoading(false)
-
-    //         }
-    //     }
-
-    const handleAction = async () => {
+    const handleAction = async (email: string, password: string, ) => { 
         setLoading(true);
-       // setAlert(false);
+        setAlert(false);
 
         try {
-            const userData = await criarConta({ password, email });
-
+            console.log(email, password )
+            const userData = await criarConta({email, password });
+            console.log("RODOU O CADASTRO", userData);
+            // login(userData)
+            // router.push(ROUTES.dashboard)
         } catch {
-            //setAlert(true);
+            setAlert(true);
         } finally {
             setLoading(false);
         }
     };
-
-
 
     return (
         <div className={styles.container}>
@@ -79,16 +46,16 @@ function Register() {
                 setEmail={setEmail}
                 setPassword={setPassword}
                 setName={setName}
-                handleAction={handleAction}
+                handleAction={() => handleAction(email, password )} 
                 email={email}
                 password={password}
                 name={name}
                 alert={alert}
                 image={"/clnica.png"}
-                type={'register'} />
+                type={'register'}
+            />
         </div>
     )
 }
 
 export default Register;
-

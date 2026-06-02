@@ -22,6 +22,7 @@ import { useState, useEffect } from "react"
 
 //Styles
 import styles from "./page.module.css"
+import { em } from "motion/react-client";
 
 
 interface Props {
@@ -37,15 +38,16 @@ interface Props {
     type: string
 }
 
-const 
-AuthForm = ({ setEmail, setPassword, setName, handleAction, email, password, name, alert, image, type }: Props) => {
+const AuthForm = ({ setEmail, setPassword, setName, handleAction, email, password, name, alert, image, type }: Props) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         handleAction()
     }
 
-    const { user, logged, login, logout, loading, setLoading } = useAuth()
+    const { loading, setLoading } = useAuth()
+
+    console.log(email, password)
 
     return (
         <>

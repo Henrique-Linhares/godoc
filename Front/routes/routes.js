@@ -1,3 +1,4 @@
+import LandingPage from "@/app/(public)/LandingPage/page";
 
 export const ROUTES = {
   home2: "/",
@@ -6,6 +7,8 @@ export const ROUTES = {
   appointment: "/Appointment",
   dashboard: "Dashboard",
   register: "/Register",
-  form: "/Form"
+  form: "/Form",
+  medForm: "/MedForm",
+  LandingPage: "/LandingPage"
 };
 

@@ -64,13 +64,15 @@ export default function Dashboard() {
 
   // ── Dashboard principal ───────────────────────────────────────────────────
   const getLocal = localStorage.getItem("user")
-console.log('USER', JSON.parse(getLocal))
-  
+
   return (
     <>
       <div className={styles.page}>
         <h1 className={styles.greeting}>{saudacao}, Dr Guilherme</h1>
         <Button onClick={() => router.push(ROUTES.catalog)} type='text' variant='default' text='Ir para o catalogo' />
+        <Button onClick={() => router.push(ROUTES.medForm)} type='text' variant='default' text='Criar Medico' />
+        <Button onClick={() => router.push(ROUTES.LandingPage)} type='text' variant='default' text='Landing Page Temporaria' />
+
         <div className={styles.content}>
           <div className={styles.calendarWrapper}>
             <FullCalendar

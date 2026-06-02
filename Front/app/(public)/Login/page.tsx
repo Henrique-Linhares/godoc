@@ -8,7 +8,7 @@ import { useDoc } from "@/context/Doc";
 
 import { login as loginService, consultarMedicos } from "@/Services/doctorListService";
 
-import AuthForm from "@/app/components/CredentialCard/AuthForm ";
+import AuthForm from "@/app/components/credentialCard/AuthForm ";
 import MedForm from "@/app/components/Medform/page";
 import Loading from "../../components/Loading/Loading";
 
@@ -59,7 +59,6 @@ function Login() {
     //     handleDoctors();
     //   }, []);
 
-    // ── Restaura sessão e já busca médicos se houver token salvo ───────────────
     useEffect(() => {
         async function restoreSession() {
             setLoading(true);
@@ -78,7 +77,6 @@ function Login() {
         restoreSession();
     }, []);
 
-    // ── Login + busca de médicos em sequência ──────────────────────────────────
     const handleAction = async () => {
         setLoading(true);
         setAlert(false);
