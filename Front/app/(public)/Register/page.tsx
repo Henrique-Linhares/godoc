@@ -9,6 +9,9 @@ import AuthForm from "@/app/components/CredentialCard/AuthForm "
 import { useAuth } from "@/context/Auth"
 import { useRouter } from "next/router"
 
+import criarConta from "@/Services/criarContaService"
+
+
 //Styles
 import styles from "./page.module.css"
 
@@ -23,6 +26,8 @@ function Register() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [alert, seAlert] = useState(false)
+
+    const { login, setLoading } = useAuth();
 
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -53,13 +58,20 @@ function Register() {
     //     }
 
     const handleAction = async () => {
-        setLoading(true)
-    }
+        setLoading(true);
+       // setAlert(false);
+
+        try {
+            const userData = await criarConta({ password, email });
+
+        } catch {
+            //setAlert(true);
+        } finally {
+            setLoading(false);
+        }
+    };
 
 
-    useEffect(() => {
-
-    })
 
     return (
         <div className={styles.container}>

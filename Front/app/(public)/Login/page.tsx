@@ -25,7 +25,6 @@ function Login() {
 
     const { login, loading, setLoading } = useAuth();
     const { doc, setDoc } = useDoc();
-    let token = ''
 
     const getDoctors = useCallback(async (token: string) => {
         try {
@@ -93,8 +92,6 @@ function Login() {
             login(userData);
 
             await getDoctors(userData.token);
-            console.log("DOC", doc)
-            setMedFormOn(true);
         } catch {
             setAlert(true);
         } finally {

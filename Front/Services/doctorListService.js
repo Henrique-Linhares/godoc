@@ -30,7 +30,6 @@ export async function criarConta(dados) {
 
 export async function consultarMedicos(token) {
 
-  console.log("TOKKKENENE", token)
   const response = await fetch('http://localhost:8080/medicos',
     {
       method: 'GET',
@@ -52,6 +51,7 @@ export async function cosultarPacientes() {
   return data
 
 }
+
 
 
 
