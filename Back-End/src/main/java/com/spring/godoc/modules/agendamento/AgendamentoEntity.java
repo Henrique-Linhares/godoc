@@ -33,9 +33,9 @@ public class AgendamentoEntity {
     @Enumerated(EnumType.STRING)
     private ModalidadeAgendamento modalidade;
 
-//    @OneToOne
-//    @JoinColumn(name = "paciente_id")
-//    private PacienteEntity paciente;
+   @OneToOne
+   @JoinColumn(name = "paciente_id")
+   private PacienteEntity paciente;
 
     @ManyToOne
     @JoinColumn(name = "medico_id")
@@ -116,13 +116,13 @@ public class AgendamentoEntity {
         this.modalidade = modalidade;
     }
 
-//    public PacienteEntity getPaciente() {
-//        return paciente;
-//    }
-//
-//    public void setPaciente(PacienteEntity paciente) {
-//        this.paciente = paciente;
-//    }
+    public PacienteEntity getPaciente() {
+        return paciente;
+    }
+
+    void setPaciente(PacienteEntity paciente) {
+       this.paciente = paciente;
+    }
 
     public MedicoEntity getMedico() {
         return medico;

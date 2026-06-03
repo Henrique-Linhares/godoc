@@ -3,6 +3,8 @@ package com.spring.godoc.modules.cadastro.user;
 import java.util.List;
 import java.util.Optional;
 
+import com.spring.godoc.core.exceptions.user.UserConflictException;
+import com.spring.godoc.core.exceptions.user.UserNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,7 @@ public class UserService {
 
     public UserEntity findByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado: " + email));
+                .orElseThrow(() -> new UserNotFoundException(email));
     }
 
     public Optional<UserEntity> findById(Long id) {
@@ -36,7 +38,7 @@ public class UserService {
 
     public UserEntity saveUser(UserRegisterRequestDTO userRegisterRequestDTO) {
         if (userRepository.existsByEmail(userRegisterRequestDTO.email())) {
-            throw new RuntimeException("Usuário já Cadastrado no Sistema");
+            throw new UserConflictException();
         }
 
         String encodedPassword = passwordEncoder.encode(userRegisterRequestDTO.password());

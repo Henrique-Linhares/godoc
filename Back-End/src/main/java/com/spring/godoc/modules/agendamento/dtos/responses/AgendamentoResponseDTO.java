@@ -26,7 +26,7 @@ public record AgendamentoResponseDTO(
         @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
         LocalDateTime dataHoraFim,
 
-//        Long idPaciente,
+        Long idPaciente,
         Long idMedico,
         StatusAgendamento status
 ) {}

@@ -2,13 +2,14 @@ package com.spring.godoc.modules.cadastro.medico;
 
 import java.util.List;
 
+import com.spring.godoc.core.exceptions.user.UserNotFoundException;
+import com.spring.godoc.core.exceptions.medico.MedicoNotFoundException;
 import com.spring.godoc.modules.cadastro.medico.dtos.requests.MedicoRequest;
 import com.spring.godoc.modules.cadastro.medico.dtos.responses.MedicoResponse;
 import com.spring.godoc.modules.cadastro.user.UserEntity;
 import com.spring.godoc.modules.cadastro.user.UserRepository;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -37,7 +38,7 @@ public class MedicoService {
 
     public MedicoResponse criaMedico(MedicoRequest request) {
         UserEntity user = userRepository.findById(request.userId())
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado!"));
+                .orElseThrow(() -> new UserNotFoundException(request.userId()));
 
         MedicoEntity medico = new MedicoEntity();
         medico.setCrm(request.crm());
@@ -57,13 +58,13 @@ public class MedicoService {
 
     public MedicoResponse getMedicoById(Long id) {
         MedicoEntity medico = medicoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Médico não encontrado"));
+                .orElseThrow(() -> new MedicoNotFoundException(id));
         return toResponse(medico);
     }
 
     public MedicoResponse atualizaMedico(Long id, MedicoRequest request) {
         MedicoEntity medico = medicoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Médico não encontrado"));
+                .orElseThrow(() -> new MedicoNotFoundException(id));
 
         if (request.crm() != null) medico.setCrm(request.crm());
         if (request.nome() != null) medico.setNome(request.nome());
@@ -75,7 +76,7 @@ public class MedicoService {
 
     public void deletaMedico(Long id) {
         if (!medicoRepository.existsById(id)) {
-            throw new EntityNotFoundException("Médico não encontrado!");
+            throw new MedicoNotFoundException(id);
         }
         medicoRepository.deleteById(id);
     }

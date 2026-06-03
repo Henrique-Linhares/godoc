@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-GodocApplication<godoc>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.spring.godoc.GodocApplication",
+      "projectName": "godoc",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
