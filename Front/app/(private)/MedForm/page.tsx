@@ -21,6 +21,8 @@ import { useState, useEffect } from "react"
 //Styles
 import styles from "./page.module.css"
 
+import { criarConta } from "@/Services/userService";
+
 
 function MedForm() {
 
@@ -36,32 +38,31 @@ function MedForm() {
         e.preventDefault();
     }
 
-     const data = localStorage.getItem('user')
-            const token =JSON.parse(data).token
+    const data = localStorage.getItem('user')
+    const token = JSON.parse(data).token
 
-            
-            console.log(token)
 
-    const handleAction = () => {
+    const handleAction = (name: string, crm: string, especialidade: string, telefone: string, token: string ) => {
 
-        async function createMedic() {
+        const obj = {
+            name,
+            crm,
+            especialidade,
+            telefone
+        }
+
+        async function createMedic(obj : any, token: string) {
             setLoading(true)
-
-           
             try {
-                const data = await fetch('http://localhost:5000/api/medicos', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                    })
-                })
+                const data = await criarConta(obj, token)
+                console.log(data)
             } catch (error) {
                 console.error('Erro ao criar médico:', error);
             }
 
         }
+
+        createMedic(data, token)
     }
     return (
         <div className={styles.container}>
@@ -109,7 +110,7 @@ function MedForm() {
                             {alert && <div className={styles.alert}>Credenciais invalidas</div>}
                         </div >
                         <Button
-                            onClick={handleAction}
+                            onClick={() => handleAction(token, name, crm, especialidade, telefone)}
                             text="Ir"
                             variant="default"
                             type="submit" />
