@@ -72,6 +72,8 @@ export default function Dashboard() {
         <Button onClick={() => router.push(ROUTES.catalog)} type='text' variant='default' text='Ir para o catalogo' />
         <Button onClick={() => router.push(ROUTES.medForm)} type='text' variant='default' text='Criar Medico' />
         <Button onClick={() => router.push(ROUTES.LandingPage)} type='text' variant='default' text='Landing Page Temporaria' />
+        <Button onClick={() => router.push(ROUTES.userForm)} type='text' variant='default' text='Criar Paciente' />
+
 
         <div className={styles.content}>
           <div className={styles.calendarWrapper}>

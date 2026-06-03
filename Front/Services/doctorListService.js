@@ -53,7 +53,7 @@ export async function cadastrarMedico(dados, token) {
       body: JSON.stringify(dados)
     }
   )
-  const data = await response.json()  
+  return response.json();
 }
 
 

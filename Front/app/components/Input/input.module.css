@@ -1,36 +1,55 @@
 .default {
-    width: 200px;
-    height: 30px;
+  width: 200px;
+  height: 30px;
 
-    border-radius: 15px;
-    border-style: none;
-    border-top: transparent;
+  border-radius: 15px;
+  border-style: none;
+  border-top: transparent;
 
-    color: black;
+  color: black;
 
-    border-radius: 5px;
-    background-color: #F1F1F1;
+  border-radius: 5px;
+  background-color: #f1f1f1;
 
-    border-bottom: black;
+  border-bottom: black;
 
-    padding: 0 12px;
-
+  padding: 0 12px;
 }
 
+.form {
+  width: 100%;
+
+  height: 30px;
+
+  border-radius: 15px;
+  border-style: none;
+  border-top: transparent;
+
+  color: black;
+
+  border-radius: 5px;
+  background-color: #f1f1f1;
+
+  border-bottom: black;
+
+  padding: 0 12px;
+}
+
+
 .pesquisar {
- width: 350px;
-height: 30px;
+  width: 350px;
+  height: 30px;
 
-padding: 0 12px;
+  padding: 0 12px;
 
-border: none;
-border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-border-radius: 8px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
 
-background-color: #ffffff;
-color: #000;
+  background-color: #ffffff;
+  color: #000;
 
-outline: none;
+  outline: none;
 
-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }

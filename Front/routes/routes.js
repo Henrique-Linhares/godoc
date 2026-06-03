@@ -9,6 +9,8 @@ export const ROUTES = {
   register: "/Register",
   form: "/Form",
   medForm: "/MedForm",
-  LandingPage: "/LandingPage"
+  userForm: '/UserForm',
+  LandingPage: "/LandingPage",
+
 };
 
