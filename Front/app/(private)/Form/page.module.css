@@ -293,9 +293,9 @@
   color: #333;
 }
 
-/* ===== SCHEDULE COLUMN (PLACEHOLDER) ===== */
+/* ===== SCHEDULE COLUMN ===== */
 .scheduleColumn {
-  width: 320px;
+  width: 340px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -312,27 +312,182 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.calendarPlaceholder,
-.timeSlotsPlaceholder {
+/* ===== CALENDAR ===== */
+.calendarContainer {
   background: #ffffff;
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.placeholderBox {
-  width: 100%;
-  min-height: 200px;
-  border: 2px dashed #ddd;
-  border-radius: 10px;
+.calendarNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.calendarNavBtn {
+  background: none;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  color: #555;
+  font-size: 1rem;
+  transition: all 0.2s ease;
 }
 
-.placeholderText {
-  font-size: 0.85rem;
+.calendarNavBtn:hover {
+  border-color: #5bbfb6;
+  color: #5bbfb6;
+  background: rgba(91, 191, 182, 0.05);
+}
+
+.calendarMonthYear {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  font-family: 'Poppins', sans-serif;
+  text-transform: capitalize;
+}
+
+.calendarWeekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 6px;
+}
+
+.calendarWeekday {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #999;
+  text-align: center;
+  padding: 4px 0;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.calendarDay {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.15s ease;
+}
+
+.calendarDay:hover {
+  background: rgba(91, 191, 182, 0.1);
+  color: #5bbfb6;
+}
+
+.calendarDayToday {
+  border: 2px solid #5bbfb6;
+  font-weight: 700;
+  color: #5bbfb6;
+}
+
+.calendarDaySelected {
+  background: linear-gradient(135deg, #7CD7CF, #5bbfb6);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(91, 191, 182, 0.35);
+}
+
+.calendarDaySelected:hover {
+  background: linear-gradient(135deg, #7CD7CF, #5bbfb6);
+  color: #ffffff;
+}
+
+.calendarDayDisabled {
+  color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.calendarDayEmpty {
+  pointer-events: none;
+}
+
+/* ===== TIME SLOTS ===== */
+.timeSlotsContainer {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.timeSlotsLabel {
+  font-size: 0.78rem;
+  color: #888;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.timeSlotGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.timeSlot {
+  padding: 10px 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #444;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.timeSlot:hover {
+  border-color: #5bbfb6;
+  color: #5bbfb6;
+  background: rgba(91, 191, 182, 0.04);
+}
+
+.timeSlotSelected {
+  background: linear-gradient(135deg, #7CD7CF, #5bbfb6);
+  color: #ffffff;
+  border-color: transparent;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(91, 191, 182, 0.3);
+}
+
+.timeSlotSelected:hover {
+  background: linear-gradient(135deg, #7CD7CF, #5bbfb6);
+  color: #ffffff;
+}
+
+.noSlotsMessage {
+  font-size: 0.82rem;
   color: #aaa;
+  text-align: center;
+  padding: 20px 0;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -357,3 +512,34 @@
   color: rgba(255, 255, 255, 0.85);
   font-family: 'Poppins', sans-serif;
 }
+
+/* ===== FEEDBACK MESSAGES ===== */
+.successMessage {
+  background: #e8f8f5;
+  border: 1px solid #5bbfb6;
+  border-radius: 10px;
+  padding: 14px 18px;
+  color: #2a7a6f;
+  font-size: 0.85rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  text-align: center;
+}
+
+.errorMessage {
+  background: #fef2f2;
+  border: 1px solid #f87171;
+  border-radius: 10px;
+  padding: 14px 18px;
+  color: #b91c1c;
+  font-size: 0.85rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  text-align: center;
+}
+
+.confirmBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
