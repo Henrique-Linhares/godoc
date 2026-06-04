@@ -17,7 +17,7 @@ function UserForm() {
   const [dataNascimento, setDataNascimento] = useState("");
   const [telefone, setTelefone] = useState("");
   const [alert, setAlert] = useState("");
-  const [userId, setUserId] = useState(1);
+  const [userId, setUserId] = useState(2);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,6 +29,7 @@ function UserForm() {
       setLoading(true);
       try {
         const userStr = localStorage.getItem("user");
+        console.log(userStr)
         if (!userStr) throw new Error("Usuário não autenticado");
 
         const token = JSON.parse(userStr).token;
