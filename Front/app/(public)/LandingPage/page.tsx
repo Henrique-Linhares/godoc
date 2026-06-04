@@ -1,4 +1,5 @@
-import styles from './page.module.css'
+
+import styles from "./page.module.css";
 
 import { useContext } from 'react'
 
@@ -27,20 +28,20 @@ function LandingPage() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.info_card}>
-                <h2>{dataCard.title}</h2>
-                <p>{dataCard.description}</p>
+            <div>
+                <h1>{dataCard.title}</h1>
+                <span>{dataCard.description}</span>
             </div>
             <div>
                 <div>
 
                 </div>
-                <div>
+                <div className={styles.info_cards}>
                     {data.map((item, index) => {
                         return (
                             <div key={index} className={styles.info_card}>
-                                <h2>{item.title}</h2>
-                                <p>{item.description}</p>
+                                <h2 className={styles.item}>{item.title}</h2>
+                                <span className={styles.item_description}>{item.description}</span>
                             </div>
                         )
                     })}
