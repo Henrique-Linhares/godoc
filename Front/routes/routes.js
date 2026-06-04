@@ -11,6 +11,7 @@ export const ROUTES = {
   medForm: "/MedForm",
   userForm: '/UserForm',
   LandingPage: "/LandingPage",
+  consultForm: '/ConsultForm'
 
 };
 
