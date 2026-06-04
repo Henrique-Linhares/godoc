@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.spring.godoc.modules.cadastro.user.dtos.UserRegisterRequestDTO;
+import com.spring.godoc.modules.cadastro.user.dtos.UserUpdateRequestDTO;
 import com.spring.godoc.modules.cadastro.user.enums.UserRoles;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -53,5 +54,32 @@ public class UserService {
         }
         UserEntity admin = new UserEntity(email, passwordEncoder.encode(senha), UserRoles.ADMIN);
         userRepository.save(admin);
+    }
+
+    public UserEntity getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    public UserEntity updateUser(Long id, UserUpdateRequestDTO request) {
+        UserEntity user = getUserById(id);
+
+        if (request.email() != null && !request.email().isBlank()) {
+            if (!user.getEmail().equals(request.email()) && userRepository.existsByEmail(request.email())) {
+                throw new UserConflictException();
+            }
+            user.setEmail(request.email());
+        }
+
+        if (request.password() != null && !request.password().isBlank()) {
+            user.setSenha(passwordEncoder.encode(request.password()));
+        }
+
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(Long id) {
+        UserEntity user = getUserById(id);
+        userRepository.delete(user);
     }
 }
