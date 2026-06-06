@@ -8,7 +8,9 @@ import { useRouter } from 'next/navigation'
 import Button from '@/app/components/Button/Button/Button'
 
 import CreateDoctor from '@/app/components/Doctor/CreateDoctor/CreateDoctor'
+
 import CreatePacient from '@/app/components/Pacient/CreatePacient'
+import GetPacient from '@/app/components/Pacient/GetPacient/GetPacient'
 
 import Catalog from '@/app/components/Catalog/page'
 import Calendar from '@/app/components/FullCalendar/FullCalendar'
@@ -30,7 +32,7 @@ export default function Dashboard() {
       title: 'Listar Pacientes',
       variant: 'dashboard-subMenu',
       activated: false,
-      identifier: 'PS',
+      identifier: 'Get Pacient',
       onClick: () => { }
     }
   ])
@@ -78,14 +80,25 @@ export default function Dashboard() {
 
   const handleView = (identifier: string) => {
 
-    if (identifier === 'Pass') {
+    if (identifier === 'Pass' ) {
       setActiveSubMenu('Create Pacient')
-      setActiveView('')
+      if (activeView !== 'Menu Pacient') {
+        setActiveView('')
+      }
     }
 
-    if (identifier === 'Create_doctor') {
+    if (identifier === 'Create_doctor' && activeView !== 'Menu Doctor') {
       setActiveSubMenu('Create Doctor')
-      setActiveView('')
+      if (activeView !== 'Menu Doctor') {
+        setActiveView('')
+      }
+    }
+
+    if (identifier === 'Get Pacient') {
+      setActiveSubMenu('Get Pacient')
+      if (activeView !== 'Menu Pacient') {
+        setActiveView('')
+      }
 
     }
   }
@@ -96,21 +109,21 @@ export default function Dashboard() {
         <h1 className={styles.greeting}>Dashboard</h1>
 
         <div className={styles.buttonBox}>
-          <Button onClick={() => {setActiveView('Callendar'); setActiveSubMenu('')}}            
+          <Button onClick={() => { setActiveView('Callendar'); setActiveSubMenu('') }}
             type="text"
             variant={activeView === 'Callendar' ? 'dashboard-selected' : 'dashboard'}
             text="Calendario"
           />
 
           <Button
-            onClick={() => {setActiveView('Catalog'); setActiveSubMenu('')}}
+            onClick={() => { setActiveView('Catalog'); setActiveSubMenu('') }}
             type="text"
             variant={activeView === 'Catalog' ? 'dashboard-selected' : 'dashboard'}
             text="Catalogo"
           />
 
           <Button
-            onClick={() => {setActiveView('Menu Pacient'); setActiveSubMenu('Create Pacient')}}
+            onClick={() => { setActiveView('Menu Pacient'); setActiveSubMenu('Create Pacient') }}
             type="text"
             variant={activeView === 'Menu Pacient' ? 'dashboard-selected' : 'dashboard'}
             text={activeView === 'Menu Pacient' ? 'Paciente ▼' : 'Paciente ▲'}
@@ -140,7 +153,7 @@ export default function Dashboard() {
           </div>
 
           <Button
-            onClick={() => {setActiveView('Menu Doctor'); setActiveSubMenu('Create Doctor')}}
+            onClick={() => { setActiveView('Menu Doctor'); setActiveSubMenu('Create Doctor') }}
             type="text"
             variant={activeView === 'Menu Doctor' ? 'dashboard-selected' : 'dashboard'}
             text={activeView === 'Menu Doctor' ? 'Doutor ▼' : 'Doutor ▲'}
@@ -178,6 +191,7 @@ export default function Dashboard() {
           {activeView === 'Callendar' && <Calendar />}
           {activeSubMenu === 'Create Doctor' && <CreateDoctor />}
           {activeSubMenu === 'Create Pacient' && <CreatePacient />}
+          {activeSubMenu === 'Get Pacient' && <GetPacient />}
         </div>
       </div>
     </div>
