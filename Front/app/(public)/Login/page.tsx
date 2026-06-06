@@ -9,7 +9,7 @@ import { useDoc } from "@/context/Doc";
 import { login as loginService, consultarMedicos } from "@/Services/doctorListService";
 
 import AuthForm from "@/app/components/credentialCard/AuthForm ";
-import MedForm from "@/app/components/Medform/page";
+import MedForm from "@/app/components/Medform/Medform";
 import Loading from "../../components/Loading/Loading";
 
 import styles from "./page.module.css";
