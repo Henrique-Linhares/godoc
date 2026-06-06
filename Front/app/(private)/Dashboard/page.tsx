@@ -7,7 +7,8 @@ import { ROUTES } from '@/routes/routes'
 import { useRouter } from 'next/navigation'
 import Button from '@/app/components/Button/Button/Button'
 
-import CreateDoctor from '@/app/components/Doctor/CreateDoctor/page'
+import CreateDoctor from '@/app/components/Doctor/CreateDoctor/CreateDoctor'
+import CreatePacient from '@/app/components/Pacient/CreatePacient'
 
 import Catalog from '@/app/components/Catalog/page'
 import Calendar from '@/app/components/FullCalendar/FullCalendar'
@@ -30,7 +31,7 @@ export default function Dashboard() {
       variant: 'dashboard-subMenu',
       activated: false,
       identifier: 'PS',
-      onClick: () => {}
+      onClick: () => { }
     }
   ])
 
@@ -41,7 +42,7 @@ export default function Dashboard() {
       variant: 'dashboard-subMenu',
       activated: true,
       identifier: 'Create_doctor',
-      onClick: () => {}
+      onClick: () => { }
     },
     {
       id: 2,
@@ -49,18 +50,13 @@ export default function Dashboard() {
       variant: 'dashboard-subMenu',
       activated: false,
       identifier: 'DL',
-      onClick: () => {}
+      onClick: () => { }
     }
   ])
 
-  const [openCatalog, setOpenCatalog] = useState(false)
-  const [openCallendar, setOpenCallendar] = useState(true)
+  const [activeView, setActiveView] = useState('Callendar')
+  const [activeSubMenu, setActiveSubMenu] = useState('')
 
-  const [openMenuPaciente, setopenMenuPaciente] = useState(false)
-  const [openCreatePacient, setopenCreatePacient] = useState(false)
-
-  const [openMenuDoctor, setOpenMenuDoctor] = useState(false)
-  const [openCreateDocor, setopenCreateDocor] = useState(false)
 
   const selectItem = (selectedIndex: number) => {
     setpacientArray(prev =>
@@ -81,21 +77,18 @@ export default function Dashboard() {
   }
 
   const handleView = (identifier: string) => {
-    setopenCreatePacient(false)
-    setopenCreateDocor(false)
 
     if (identifier === 'Pass') {
-      setopenCreatePacient(true)
+      setActiveSubMenu('Create Pacient')
+      setActiveView('')
     }
 
     if (identifier === 'Create_doctor') {
-      setopenCreateDocor(true)
+      setActiveSubMenu('Create Doctor')
+      setActiveView('')
+
     }
   }
-
-  useEffect(() => {
-    console.log(pacientArray)
-  }, [pacientArray])
 
   return (
     <div className={styles.container}>
@@ -103,29 +96,28 @@ export default function Dashboard() {
         <h1 className={styles.greeting}>Dashboard</h1>
 
         <div className={styles.buttonBox}>
-          <Button
-            onClick={() => setOpenCallendar(!openCallendar)}
+          <Button onClick={() => {setActiveView('Callendar'); setActiveSubMenu('')}}            
             type="text"
-            variant={openCallendar ? 'dashboard-selected' : 'dashboard'}
+            variant={activeView === 'Callendar' ? 'dashboard-selected' : 'dashboard'}
             text="Calendario"
           />
 
           <Button
-            onClick={() => setOpenCatalog(!openCatalog)}
+            onClick={() => {setActiveView('Catalog'); setActiveSubMenu('')}}
             type="text"
-            variant={openCatalog ? 'dashboard-selected' : 'dashboard'}
+            variant={activeView === 'Catalog' ? 'dashboard-selected' : 'dashboard'}
             text="Catalogo"
           />
 
           <Button
-            onClick={() => setopenMenuPaciente(!openMenuPaciente)}
+            onClick={() => {setActiveView('Menu Pacient'); setActiveSubMenu('Create Pacient')}}
             type="text"
-            variant={openMenuPaciente ? 'dashboard-selected' : 'dashboard'}
-            text={openMenuPaciente ? 'Paciente ▼' : 'Paciente ▲'}
+            variant={activeView === 'Menu Pacient' ? 'dashboard-selected' : 'dashboard'}
+            text={activeView === 'Menu Pacient' ? 'Paciente ▼' : 'Paciente ▲'}
           />
 
           <div className={styles.subMenu}>
-            {openMenuPaciente && (
+            {activeView === 'Menu Pacient' && (
               <div className={styles.submenu}>
                 {pacientArray.map((item, index) => (
                   <Button
@@ -148,14 +140,14 @@ export default function Dashboard() {
           </div>
 
           <Button
-            onClick={() => setOpenMenuDoctor(!openMenuDoctor)}
+            onClick={() => {setActiveView('Menu Doctor'); setActiveSubMenu('Create Doctor')}}
             type="text"
-            variant={openMenuDoctor ? 'dashboard-selected' : 'dashboard'}
-            text={openMenuDoctor ? 'Doutor ▼' : 'Doutor ▲'}
+            variant={activeView === 'Menu Doctor' ? 'dashboard-selected' : 'dashboard'}
+            text={activeView === 'Menu Doctor' ? 'Doutor ▼' : 'Doutor ▲'}
           />
 
           <div className={styles.subMenu}>
-            {openMenuDoctor && (
+            {activeView === 'Menu Doctor' && (
               <div className={styles.submenu}>
                 {doctorArray.map((item, index) => (
                   <Button
@@ -181,10 +173,11 @@ export default function Dashboard() {
 
       <div className={styles.content}>
         <div className={styles.contentWrapper}>
-          {openCreatePacient && <Catalog />}
-          {openCreateDocor && <CreateDoctor />}
-          {openCatalog && <Catalog />}
-          {openCallendar && <Calendar />}
+          {activeView === 'Doctor' && <CreateDoctor />}
+          {activeView === 'Catalog' && <Catalog />}
+          {activeView === 'Callendar' && <Calendar />}
+          {activeSubMenu === 'Create Doctor' && <CreateDoctor />}
+          {activeSubMenu === 'Create Pacient' && <CreatePacient />}
         </div>
       </div>
     </div>

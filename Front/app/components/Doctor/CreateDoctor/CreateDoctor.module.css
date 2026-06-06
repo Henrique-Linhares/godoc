@@ -1,0 +1,211 @@
+.container {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    height: 700px;
+    animation: bornFade 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: fit-content;
+    background: #ffffff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    animation: bornScale 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #2bbfbf;
+    padding: 24px 32px;
+    animation: bornFade 0.4s ease 0.2s both;
+}
+
+.headerIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.headerTitle {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.headerSubtitle {
+    margin: 0;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+    padding: 28px 32px;
+    gap: 10px;
+    animation: bornSlide 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+}
+
+.infoBox {
+    display: flex;
+    flex-direction: column;
+        width: 100%;
+
+}
+
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+}
+
+.basicInfo {
+    display: flex;
+    gap: 10px;
+
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    animation: bornUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.field:nth-child(1) { animation-delay: 0.28s; }
+.field:nth-child(2) { animation-delay: 0.33s; }
+.field:nth-child(3) { animation-delay: 0.38s; }
+.field:nth-child(4) { animation-delay: 0.43s; }
+
+.fieldSmall {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 120px;
+    animation: bornUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+.description {
+    display: flex;
+    align-items: flex-start;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #64748b;
+    letter-spacing: 0.05em;
+}
+
+.inputContainer input:focus {
+    border-color: #2bbfbf;
+    box-shadow: 0 0 0 3px rgba(43, 191, 191, 0.18);
+}
+
+
+.buttonBox {
+    display: flex;
+    width: 50%;
+    gap: 10px;
+    margin-top: 13px;
+    
+    animation: bornUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.48s both;
+}
+
+.buttonBox > *:first-child {
+    flex: 1;
+}
+
+.buttonBox > *:last-child {
+    flex: 2;
+}
+
+
+.alert {
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    color: red;
+    font-size: smaller;
+    animation: alertShake 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+
+.loadingContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(1px);
+    z-index: 999;
+    animation: bornFade 0.25s ease both;
+}
+
+
+@keyframes bornFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes bornScale {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(16px);
+        filter: blur(4px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes bornSlide {
+    from { opacity: 0; transform: translateX(12px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes bornUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes alertShake {
+    0%   { opacity: 0; transform: translateX(0); }
+    20%  { opacity: 1; transform: translateX(-6px); }
+    40%  { transform: translateX(5px); }
+    60%  { transform: translateX(-3px); }
+    80%  { transform: translateX(2px); }
+    100% { transform: translateX(0); }
+}
