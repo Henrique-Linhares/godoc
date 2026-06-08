@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation'
 import Button from '@/app/components/Button/Button/Button'
 
 import CreateDoctor from '@/app/components/Doctor/CreateDoctor/CreateDoctor'
-
 import CreatePacient from '@/app/components/Pacient/CreatePacient'
 import GetPacient from '@/app/components/Pacient/GetPacient/GetPacient'
 
@@ -80,7 +79,7 @@ export default function Dashboard() {
 
   const handleView = (identifier: string) => {
 
-    if (identifier === 'Pass' ) {
+    if (identifier === 'Pass') {
       setActiveSubMenu('Create Pacient')
       if (activeView !== 'Menu Pacient') {
         setActiveView('')
@@ -99,7 +98,13 @@ export default function Dashboard() {
       if (activeView !== 'Menu Pacient') {
         setActiveView('')
       }
+    }
 
+    if (identifier === 'Get Pacient') {
+      setActiveSubMenu('Get Pacient')
+      if (activeView !== 'Menu Pacient') {
+        setActiveView('')
+      }
     }
   }
 

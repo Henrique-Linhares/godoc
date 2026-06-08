@@ -26,3 +26,4 @@ export async function login(dados) {
 
   return data
 }
+

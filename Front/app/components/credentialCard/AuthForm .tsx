@@ -22,7 +22,6 @@ import { useState, useEffect } from "react"
 
 //Styles
 import styles from "./page.module.css"
-import { em } from "motion/react-client";
 
 
 interface Props {
@@ -42,7 +41,6 @@ const AuthForm = ({ setEmail, setPassword, setName, handleAction, email, passwor
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        handleAction()
     }
 
     const { loading, setLoading } = useAuth()
