@@ -9,6 +9,10 @@ export async function consultarMedicos(token) {
       },
     })
 
+  if (!response.ok) {
+    throw new Error(`Erro ao consultar médicos: ${response.status} ${response.statusText}`);
+  }
+
   const data = await response.json()
 
   return data
