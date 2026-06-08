@@ -1,6 +1,7 @@
 package com.spring.godoc.modules.agendamento;
 
 import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoRequestDTO;
+import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoUpdateRequestDTO;
 import com.spring.godoc.modules.agendamento.dtos.responses.AgendamentoResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +21,27 @@ public class AgendamentoController {
 
     @PostMapping
     public ResponseEntity<AgendamentoResponseDTO> criar(@RequestBody AgendamentoRequestDTO dto) {
-        AgendamentoResponseDTO response = agendamentoService.criar(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(agendamentoService.criar(dto));
     }
 
     @GetMapping
     public ResponseEntity<List<AgendamentoResponseDTO>> getAllAgendamentos() {
         return ResponseEntity.ok(agendamentoService.getAllAgendamentos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AgendamentoResponseDTO> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(agendamentoService.getById(id));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<AgendamentoResponseDTO> atualizar(@PathVariable Long id, @RequestBody AgendamentoUpdateRequestDTO dto) {
+        return ResponseEntity.ok(agendamentoService.atualizar(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        agendamentoService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
