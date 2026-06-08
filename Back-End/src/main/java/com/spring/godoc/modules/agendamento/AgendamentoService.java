@@ -10,6 +10,7 @@ import com.spring.godoc.core.exceptions.agendamento.AgendamentoConflictException
 import com.spring.godoc.core.exceptions.agendamento.AgendamentoNotFoundException;
 import com.spring.godoc.core.exceptions.medico.MedicoNotFoundException;
 import com.spring.godoc.core.exceptions.paciente.PacienteNotFoundException;
+import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoComNovoPacienteRequestDTO;
 import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoRequestDTO;
 import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoUpdateRequestDTO;
 import com.spring.godoc.modules.agendamento.dtos.responses.AgendamentoResponseDTO;
@@ -18,6 +19,9 @@ import com.spring.godoc.modules.cadastro.medico.MedicoEntity;
 import com.spring.godoc.modules.cadastro.medico.MedicoRepository;
 import com.spring.godoc.modules.cadastro.paciente.PacienteEntity;
 import com.spring.godoc.modules.cadastro.paciente.PacienteRepository;
+import com.spring.godoc.modules.cadastro.paciente.PacienteService;
+import com.spring.godoc.modules.cadastro.paciente.dtos.requests.PacienteRequest;
+import com.spring.godoc.modules.cadastro.paciente.dtos.responses.PacienteResponse;
 
 @Service
 public class AgendamentoService {
@@ -25,15 +29,18 @@ public class AgendamentoService {
     private final AgendamentoRepository agendamentoRepository;
     private final MedicoRepository medicoRepository;
     private final PacienteRepository pacienteRepository;
+    private final PacienteService pacienteService;
 
     public AgendamentoService(
             AgendamentoRepository agendamentoRepository,
             MedicoRepository medicoRepository,
-            PacienteRepository pacienteRepository
+            PacienteRepository pacienteRepository,
+            PacienteService pacienteService
     ) {
         this.agendamentoRepository = agendamentoRepository;
         this.medicoRepository = medicoRepository;
         this.pacienteRepository = pacienteRepository;
+        this.pacienteService = pacienteService;
     }
 
     @Transactional
@@ -43,6 +50,40 @@ public class AgendamentoService {
 
         PacienteEntity paciente = pacienteRepository.findById(dto.idPaciente())
                 .orElseThrow(() -> new PacienteNotFoundException(dto.idPaciente()));
+
+        LocalDateTime inicio = dto.dataHoraAgendamento();
+        LocalDateTime fim = inicio.plusHours(1);
+
+        if (agendamentoRepository.existsByMedicoIdAndIdNotAndInicioBeforeAndFimAfter(medico.getId(), -1L, fim, inicio)) {
+            throw new AgendamentoConflictException();
+        }
+
+        AgendamentoEntity agendamento = new AgendamentoEntity();
+        agendamento.setInicio(inicio);
+        agendamento.setFim(fim);
+        agendamento.setStatus(dto.status() != null ? dto.status() : StatusAgendamento.AGENDADO);
+        agendamento.setTipoConsulta(dto.tipoConsulta());
+        agendamento.setConvenio(dto.convenio());
+        agendamento.setNumeroCarteirinhaPlano(dto.numeroCarteirinhaPlano());
+        agendamento.setMotivoConsulta(dto.motivoConsulta());
+        agendamento.setModalidade(dto.modalidade());
+        agendamento.setMedico(medico);
+        agendamento.setPaciente(paciente);
+
+        return toResponseDTO(agendamentoRepository.save(agendamento));
+    }
+
+    @Transactional
+    public AgendamentoResponseDTO criarComNovoPaciente(AgendamentoComNovoPacienteRequestDTO dto) {
+        MedicoEntity medico = medicoRepository.findById(dto.idMedico())
+                .orElseThrow(() -> new MedicoNotFoundException(dto.idMedico()));
+
+        PacienteResponse pacienteResponse = pacienteService.createOrFindPaciente(
+                new PacienteRequest(dto.nomePaciente(), dto.idadePaciente(), dto.cpfPaciente(),
+                        dto.dataNascimentoPaciente(), dto.telefonePaciente()));
+
+        PacienteEntity paciente = pacienteRepository.findById(pacienteResponse.id())
+                .orElseThrow(() -> new PacienteNotFoundException(pacienteResponse.id()));
 
         LocalDateTime inicio = dto.dataHoraAgendamento();
         LocalDateTime fim = inicio.plusHours(1);

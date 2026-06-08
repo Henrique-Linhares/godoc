@@ -1,5 +1,6 @@
 package com.spring.godoc.modules.agendamento;
 
+import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoComNovoPacienteRequestDTO;
 import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoRequestDTO;
 import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoUpdateRequestDTO;
 import com.spring.godoc.modules.agendamento.dtos.responses.AgendamentoResponseDTO;
@@ -23,6 +24,12 @@ public class AgendamentoController {
     public ResponseEntity<AgendamentoResponseDTO> criar(@RequestBody AgendamentoRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(agendamentoService.criar(dto));
     }
+
+    @PostMapping("/comPaciente")
+    public ResponseEntity<AgendamentoResponseDTO> criarComNovoPaciente(@RequestBody AgendamentoComNovoPacienteRequestDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(agendamentoService.criarComNovoPaciente(dto));
+    }
+
 
     @GetMapping
     public ResponseEntity<List<AgendamentoResponseDTO>> getAllAgendamentos() {

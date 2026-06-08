@@ -24,6 +24,12 @@ public class PacienteService {
 //        this.userRepository = userRepository;
     }
 
+    public PacienteResponse createOrFindPaciente(PacienteRequest dto) {
+        return pacienteRepository.findByCpf(dto.cpf())
+                .map(this::toResponse)
+                .orElseGet(() -> criaPaciente(dto));
+    }
+
     public PacienteResponse criaPaciente(PacienteRequest dto) {
 //        UserEntity user = userRepository.findById(dto.user().getId())
 //                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
