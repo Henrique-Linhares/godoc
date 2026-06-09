@@ -30,7 +30,7 @@ function CreateDoctor() {
   const [especialidade, setEspecialidade] = useState("");
   const [telefone, setTelefone] = useState("");
   const [alert, setAlert] = useState("");
-  const [userId, setUserId] = useState(4);
+  const [userId, setUserId] = useState(1);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,6 +45,14 @@ function CreateDoctor() {
     userId,
   };
 
+  useEffect(() => {
+    const userStr = localStorage.getItem("user");
+    const med = JSON.parse(userStr).id;
+
+    setUserId(med)
+
+  })
+
 
   const handleAction = () => {
     async function createMedic() {
@@ -57,11 +65,8 @@ function CreateDoctor() {
         const token = JSON.parse(userStr).token;
         if (!token) throw new Error("Token inválido");
 
-        console.log(token)
-        console.log(doctor)
 
         const data = await cadastrarMedico(doctor, token);
-        console.log(data);
       } catch (error) {
         console.error("Erro ao criar médico:", error);
       } finally {
