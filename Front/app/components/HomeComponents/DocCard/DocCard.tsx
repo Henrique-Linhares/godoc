@@ -91,7 +91,7 @@ const DoxCard = () => {
                 </div>
                 <div
                   onClick={() => {
-                    router.push(`${ROUTES.form}?medicoId=${item.id}`);
+                    router.push(`${ROUTES.consultForm}?medicoId=${item.id}`);
                   }}
                   className={styles.action}
                 >

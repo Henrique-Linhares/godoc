@@ -1,3 +1,4 @@
 
 // Animation library
 npm install motion
+npm install sweetalert2
