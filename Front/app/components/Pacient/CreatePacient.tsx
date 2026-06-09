@@ -7,6 +7,7 @@ import { useAuth } from "@/context/Auth";
 import { useState } from "react";
 import styles from "./CreatePacient.module.css";
 import { cadastrarPaciente } from "@/Services/clientService";
+import Swal from "sweetalert2";
 
 function CreatePacient() {
   const { loading, setLoading } = useAuth();
@@ -35,11 +36,13 @@ function CreatePacient() {
         const token = JSON.parse(userStr).token;
         if (!token) throw new Error("Token inválido");
 
+        const [year, month, day] = dataNascimento.split("-");
+
         const pacient = {
           nome,
           idade: Number(idade),
           cpf,
-          dataNascimento: new Date(dataNascimento).toISOString(),
+          dataNascimento: `${day}-${month}-${year}`,
           telefone,
           user: {
             id: userId,
@@ -49,8 +52,29 @@ function CreatePacient() {
         console.log("Enviando:", pacient);
         const data = await cadastrarPaciente(pacient, token);
         console.log("Resposta:", data);
+
+        await Swal.fire({
+          icon: "success",
+          title: "Paciente criado!",
+          text: "O paciente foi cadastrado com sucesso.",
+          confirmButtonColor: "#35C9D6",
+          confirmButtonText: "OK",
+        });
+
+        setNome("");
+        setIdade("");
+        setCpf("");
+        setDataNascimento("");
+        setTelefone("");
       } catch (error) {
-        console.error("Erro ao criar médico:", error);
+        console.error("Erro ao criar paciente:", error);
+        await Swal.fire({
+          icon: "error",
+          title: "Erro",
+          text: "Não foi possível cadastrar o paciente. Tente novamente.",
+          confirmButtonColor: "#d33",
+          confirmButtonText: "Fechar",
+        });
       } finally {
         setLoading(false);
       }
