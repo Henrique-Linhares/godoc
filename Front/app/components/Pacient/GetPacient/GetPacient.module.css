@@ -18,6 +18,8 @@
     border-radius: 16px;
     overflow: hidden;
     animation: bornScale 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+        border: 1px solid #D3D1C7;
+
 }
 
 .header {
@@ -40,6 +42,7 @@
     margin: 0;
     font-size: 0.82rem;
     color: rgba(0, 0, 0, 0.75);
+    
 }
 
 .infoContainer h1 {
@@ -80,6 +83,7 @@
     width: 100%;
     padding: 24px 28px;
     animation: bornSlide 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+    
 }
 
 .card {
@@ -93,6 +97,8 @@
     background: #ffffff;
     transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.18s ease;
     animation: bornUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+        border: 1px solid #D3D1C7;
+
 }
 
 .card:hover {

@@ -14,6 +14,7 @@ import { ROUTES } from "@/routes/routes";
 import { useEffect, useState } from "react";
 
 import { useAuth } from "@/context/Auth";
+import { useDoc } from "@/context/Doc";
 
 //
 type DoctorAction = {
@@ -37,35 +38,14 @@ const DoxCard = () => {
   const router = useRouter();
   const { search } = useSearch();
 
-  const [doctors, setDoctors] = useState<Doctor[] | null>([]);
+  const { doc } = useDoc()
+
   const [alert, setAlert] = useState(false);
 
-  const { setLoading } = useAuth()
 
-  useEffect(() => {
-    let parsed = "";
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      parsed = JSON.parse(storedUser).token;
-    }
-    const handleDoctors = async () => {
-      try {
-        const data = await consultarMedicos(parsed);
-        if (data) {
-          setDoctors(data);
-        } else {
-            
-        }
-      } catch (err) {
-        console.error(err);
-      } finally {
-      }
-    };
 
-    handleDoctors();
-  }, []);
 
-  const filtrados = doctors?.filter(
+  const filtrados = doc?.filter(
     (item) =>
       item.nome.toLowerCase().includes(search.toLowerCase()) ||
       item.especialidade.toLowerCase().includes(search.toLowerCase()),

@@ -7,15 +7,24 @@ import { ROUTES } from '@/routes/routes'
 import { useRouter } from 'next/navigation'
 import Button from '@/app/components/Button/Button/Button'
 
+
+import { useDoc } from '@/context/Doc'
+
 import CreateDoctor from '@/app/components/Doctor/CreateDoctor/CreateDoctor'
 import CreatePacient from '@/app/components/Pacient/CreatePacient'
+
 import GetPacient from '@/app/components/Pacient/GetPacient/GetPacient'
+import GetDoctor from '@/app/components/Doctor/CreateDoctor/GetDoctor/GetDoctor'
 
 import Catalog from '@/app/components/Catalog/page'
 import Calendar from '@/app/components/FullCalendar/FullCalendar'
 
+import { consultarMedicos } from '@/Services/doctorListService'
+
 export default function Dashboard() {
   const router = useRouter()
+
+  const {setDoc} = useDoc()
 
   const [pacientArray, setpacientArray] = useState([
     {
@@ -50,10 +59,33 @@ export default function Dashboard() {
       title: 'Listar Médicos',
       variant: 'dashboard-subMenu',
       activated: false,
-      identifier: 'DL',
+      identifier: 'Get Doctor',
       onClick: () => { }
     }
   ])
+
+    useEffect(() => {
+    let parsed = "";
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      parsed = JSON.parse(storedUser).token;
+    }
+    const handleDoctors = async () => {
+      try {
+        const data = await consultarMedicos(parsed);
+        if (data) {
+          setDoc(data);
+        } else {
+            
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+      }
+    };
+
+    handleDoctors();
+  }, []);
 
   const [activeView, setActiveView] = useState('Callendar')
   const [activeSubMenu, setActiveSubMenu] = useState('')
@@ -100,8 +132,8 @@ export default function Dashboard() {
       }
     }
 
-    if (identifier === 'Get Pacient') {
-      setActiveSubMenu('Get Pacient')
+    if (identifier === 'Get Doctor') {
+      setActiveSubMenu('Get Doctor')
       if (activeView !== 'Menu Pacient') {
         setActiveView('')
       }
@@ -197,6 +229,7 @@ export default function Dashboard() {
           {activeSubMenu === 'Create Doctor' && <CreateDoctor />}
           {activeSubMenu === 'Create Pacient' && <CreatePacient />}
           {activeSubMenu === 'Get Pacient' && <GetPacient />}
+          {activeSubMenu === 'Get Doctor' && <GetDoctor />}
         </div>
       </div>
     </div>

@@ -52,7 +52,7 @@ function CreateDoctor() {
 
     setUserId(med)
 
-  })
+  },[])
 
 
   const handleAction = () => {

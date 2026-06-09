@@ -68,24 +68,46 @@
 .dashboard {
     width: 13rem;
     height: 50px;
-
-    padding: 5px;
+    padding: 0 16px;
     margin: 5px;
-    background-color: transparent;
+    background-color: #ffffff;
 
-    border: 1px solid #000000;
-    color: #000000;
+    border: 1px solid #D3D1C7;
+    color: #2C2C2A;
 
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
 
-    font-weight: bold;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.01em;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        background-color 0.25s ease,
-        opacity 0.25s ease;
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.dashboard:hover {
+    background-color: #F1EFE8;
+    border-color: #B4B2A9;
+    transform: translateY(-1px);
+}
+
+.dashboard:active {
+    transform: scale(0.98);
+    background-color: #D3D1C7;
+}
+
+.dashboard.active {
+    background-color: #2BBFAD;
+    border-color: #2BBFAD;
+    color: #ffffff;
 }
 
 .dashboard-selected {

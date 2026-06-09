@@ -21,7 +21,7 @@
     flex-direction: column;
     padding: 24px 16px;
     gap: 8px;
-    min-width: 200px;
+    width: 20%;
     position: relative;
     z-index: 1;
 }
@@ -44,7 +44,6 @@
 .buttonBox {
     display: flex;
     flex-direction: column;
-    width: 100%;
     gap: 2px;
     animation: slideDown 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
 }
