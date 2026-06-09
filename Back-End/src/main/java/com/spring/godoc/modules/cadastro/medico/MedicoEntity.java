@@ -14,7 +14,7 @@ public class MedicoEntity {
     private String especialidade;
     private String telefone;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
