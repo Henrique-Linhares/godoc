@@ -27,7 +27,7 @@ function Header() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.logoBox}>
+            <div className={styles.logoBox} onClick={() => router.push('/')}>
                 <Image src={'/logo_pequena_sem_fundo.png'} alt="Godoc" width={80} height={60} />
             </div>
             <div className={styles.leftContainer}>
