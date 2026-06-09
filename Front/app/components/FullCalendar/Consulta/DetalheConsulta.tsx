@@ -1,5 +1,7 @@
 'use client'
 
+import { createPortal } from 'react-dom'
+import { useEffect, useState } from 'react'
 import styles from './DetalheConsulta.module.css'
 
 // Labels de status (V2 - uppercase)
@@ -26,6 +28,16 @@ interface DetalheConsultaProps {
 
 export default function DetalheConsulta({ consulta, onVoltar }: DetalheConsultaProps) {
   const c = consulta
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    // Prevent body scroll when overlay is open
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
 
   const formatarHora = (iso: string) =>
     new Date(iso).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
@@ -56,7 +68,9 @@ export default function DetalheConsulta({ consulta, onVoltar }: DetalheConsultaP
   // Convênio label amigável
   const convenioLabel = CONVENIO_LABEL[c.convenio] || c.convenio || 'Particular'
 
-  return (
+  if (!mounted) return null
+
+  const overlayContent = (
     <div className={styles.overlay} onClick={onVoltar}>
       <div className={styles.panel} onClick={e => e.stopPropagation()}>
 
@@ -206,4 +220,7 @@ export default function DetalheConsulta({ consulta, onVoltar }: DetalheConsultaP
       </div>
     </div>
   )
+
+  return createPortal(overlayContent, document.body)
 }
+

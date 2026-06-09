@@ -1,137 +1,204 @@
 'use client'
+
 import { useEffect, useState } from 'react'
-import FullCalendarLib from '@fullcalendar/react'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
 import styles from './page.module.css'
-import DetalheConsulta from './Consulta/DetalheConsulta'
 
 import { ROUTES } from '@/routes/routes'
 import { useRouter } from 'next/navigation'
 import Button from '@/app/components/Button/Button/Button'
 
+import CreateDoctor from '@/app/components/Doctor/CreateDoctor/CreateDoctor'
+import CreatePacient from '@/app/components/Pacient/CreatePacient'
+import GetPacient from '@/app/components/Pacient/GetPacient/GetPacient'
 
-const FullCalendar = FullCalendarLib as any
-
-// Cores por tipoConsulta (V2)
-const CORES: Record<string, string> = {
-  PRIMEIRA: '#3b82f6',
-  RETORNO: '#10b981',
-}
+import Catalog from '@/app/components/Catalog/page'
+import Calendar from '@/app/components/FullCalendar/FullCalendar'
 
 export default function Dashboard() {
-  const [consultas, setConsultas] = useState<any[]>([])
-  const [selecionada, setSelecionada] = useState<any | null>(null)
-
-  // useEffect(() => {
-  //   fetch('http://localhost:5000/api/consultas')
-  //     .then(r => r.json())
-  //     .then(setConsultas)
-  // }, [])
-
   const router = useRouter()
-  const hoje = new Date().toISOString().slice(0, 10)
-  const agora = new Date()
 
-  // Filtra consultas do dia usando dataHoraAgendamento (V2)
-  const doDia = consultas.filter(c => c.dataHoraAgendamento?.startsWith(hoje))
-  const proximos = doDia.filter(c => c.dataHoraAgendamento && new Date(c.dataHoraAgendamento) > agora && c.status !== 'CANCELADO')
-    .sort((a, b) => a.dataHoraAgendamento.localeCompare(b.dataHoraAgendamento))
-    .slice(0, 5)
+  const [pacientArray, setpacientArray] = useState([
+    {
+      id: 1,
+      title: 'Criar Paciente',
+      variant: 'dashboard-subMenu',
+      activated: true,
+      identifier: 'Pass',
+      onClick: () => router.push(ROUTES.userForm)
+    },
+    {
+      id: 2,
+      title: 'Listar Pacientes',
+      variant: 'dashboard-subMenu',
+      activated: false,
+      identifier: 'Get Pacient',
+      onClick: () => { }
+    }
+  ])
 
-  const resumo = [
-    { label: 'Consultas', valor: doDia.filter(c => c.tipoConsulta === 'PRIMEIRA').length },
-    { label: 'Retornos', valor: doDia.filter(c => c.tipoConsulta === 'RETORNO').length },
-    { label: 'Pendentes', valor: proximos.length },
-    { label: 'Canceladas', valor: doDia.filter(c => c.status === 'CANCELADO').length },
-  ]
+  const [doctorArray, setDoctorArray] = useState([
+    {
+      id: 1,
+      title: 'Criar Médico',
+      variant: 'dashboard-subMenu',
+      activated: true,
+      identifier: 'Create_doctor',
+      onClick: () => { }
+    },
+    {
+      id: 2,
+      title: 'Listar Médicos',
+      variant: 'dashboard-subMenu',
+      activated: false,
+      identifier: 'DL',
+      onClick: () => { }
+    }
+  ])
 
-  // Monta eventos do calendário usando campos V2
-  const eventos = consultas.map(c => ({
-    id: c.id,
-    title: c.nomeCompleto,
-    start: c.dataHoraAgendamento,
-    end: c.fim,
-    color: c.status === 'CANCELADO' ? '#ef4444' : (CORES[c.tipoConsulta] || '#6b7280'),
-    extendedProps: c,
-  }))
+  const [activeView, setActiveView] = useState('Callendar')
+  const [activeSubMenu, setActiveSubMenu] = useState('')
 
-  const hora = agora.getHours()
-  const saudacao = hora < 12 ? 'Bom dia' : hora < 18 ? 'Boa tarde' : 'Boa noite'
 
-  const formatarHora = (iso: string) =>
-    new Date(iso).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+  const selectItem = (selectedIndex: number) => {
+    setpacientArray(prev =>
+      prev.map((item, index) => ({
+        ...item,
+        activated: index === selectedIndex
+      }))
+    )
+  }
 
-  // ── Dashboard principal ───────────────────────────────────────────────────
-  const getLocal = localStorage.getItem("user")
+  const selectDoctorItem = (selectedIndex: number) => {
+    setDoctorArray(prev =>
+      prev.map((item, index) => ({
+        ...item,
+        activated: index === selectedIndex
+      }))
+    )
+  }
+
+  const handleView = (identifier: string) => {
+
+    if (identifier === 'Pass') {
+      setActiveSubMenu('Create Pacient')
+      if (activeView !== 'Menu Pacient') {
+        setActiveView('')
+      }
+    }
+
+    if (identifier === 'Create_doctor' && activeView !== 'Menu Doctor') {
+      setActiveSubMenu('Create Doctor')
+      if (activeView !== 'Menu Doctor') {
+        setActiveView('')
+      }
+    }
+
+    if (identifier === 'Get Pacient') {
+      setActiveSubMenu('Get Pacient')
+      if (activeView !== 'Menu Pacient') {
+        setActiveView('')
+      }
+    }
+
+    if (identifier === 'Get Pacient') {
+      setActiveSubMenu('Get Pacient')
+      if (activeView !== 'Menu Pacient') {
+        setActiveView('')
+      }
+    }
+  }
 
   return (
-    <>
-      <div className={styles.page}>
-        <h1 className={styles.greeting}>{saudacao}, Dr Guilherme</h1>
-        <Button onClick={() => router.push(ROUTES.catalog)} type='text' variant='default' text='Ir para o catalogo' />
-        <Button onClick={() => router.push(ROUTES.medForm)} type='text' variant='default' text='Criar Medico' />
-        <Button onClick={() => router.push(ROUTES.LandingPage)} type='text' variant='default' text='Landing Page Temporaria' />
-        <Button onClick={() => router.push(ROUTES.userForm)} type='text' variant='default' text='Criar Paciente' />
+    <div className={styles.container}>
+      <div className={styles.menu}>
+        <h1 className={styles.greeting}>Dashboard</h1>
 
+        <div className={styles.buttonBox}>
+          <Button onClick={() => { setActiveView('Callendar'); setActiveSubMenu('') }}
+            type="text"
+            variant={activeView === 'Callendar' ? 'dashboard-selected' : 'dashboard'}
+            text="Calendario"
+          />
 
-        <div className={styles.content}>
-          <div className={styles.calendarWrapper}>
-            <FullCalendar
-              plugins={[timeGridPlugin, interactionPlugin]}
-              initialView="timeGridWeek"
-              locale="pt-br"
-              height="100%"
-              headerToolbar={{ left: 'prev,next', center: 'title', right: 'timeGridWeek,timeGridDay' }}
-              events={eventos}
-              editable={true}
-              selectable={true}
-              eventClick={(info: any) => setSelecionada(info.event.extendedProps)}
-            />
-          </div>
+          <Button
+            onClick={() => { setActiveView('Catalog'); setActiveSubMenu('') }}
+            type="text"
+            variant={activeView === 'Catalog' ? 'dashboard-selected' : 'dashboard'}
+            text="Catalogo"
+          />
 
-          <aside className={styles.sidebar}>
-            <div className={styles.resumoCard}>
-              <h2 className={styles.cardTitle}>Resumo de hoje</h2>
-              <div className={styles.resumoGrid}>
-                {resumo.map(item => (
-                  <div key={item.label} className={styles.resumoItem}>
-                    <span className={styles.resumoValue}>{item.valor}</span>
-                    <span className={styles.resumoLabel}>{item.label}</span>
-                  </div>
+          <Button
+            onClick={() => { setActiveView('Menu Pacient'); setActiveSubMenu('Create Pacient') }}
+            type="text"
+            variant={activeView === 'Menu Pacient' ? 'dashboard-selected' : 'dashboard'}
+            text={activeView === 'Menu Pacient' ? 'Paciente ▼' : 'Paciente ▲'}
+          />
+
+          <div className={styles.subMenu}>
+            {activeView === 'Menu Pacient' && (
+              <div className={styles.submenu}>
+                {pacientArray.map((item, index) => (
+                  <Button
+                    key={index}
+                    onClick={() => {
+                      selectItem(index)
+                      handleView(item.identifier)
+                    }}
+                    type="text"
+                    variant={
+                      item.activated
+                        ? 'dashboard-subMenu-activated'
+                        : item.variant
+                    }
+                    text={item.title}
+                  />
                 ))}
               </div>
-            </div>
+            )}
+          </div>
 
-            <div className={styles.pacientesCard}>
-              <h2 className={styles.cardTitle}>Próximos pacientes</h2>
-              {proximos.length === 0
-                ? <p className={styles.emptyMessage}>Sem consultas restantes hoje.</p>
-                : (
-                  <ul className={styles.pacientesList}>
-                    {proximos.map(p => (
-                      <li key={p.id} className={styles.pacienteItem}>
-                        <span className={styles.pacienteNome}>{p.nomeCompleto}</span>
-                        <span className={styles.pacienteHora}>{formatarHora(p.dataHoraAgendamento)}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )
-              }
-            </div>
-          </aside>
-        </div>
-
-        {/* Modal de detalhe da consulta */}
-        {selecionada && (
-          <DetalheConsulta
-            consulta={selecionada}
-            onVoltar={() => setSelecionada(null)}
+          <Button
+            onClick={() => { setActiveView('Menu Doctor'); setActiveSubMenu('Create Doctor') }}
+            type="text"
+            variant={activeView === 'Menu Doctor' ? 'dashboard-selected' : 'dashboard'}
+            text={activeView === 'Menu Doctor' ? 'Doutor ▼' : 'Doutor ▲'}
           />
-        )}
+
+          <div className={styles.subMenu}>
+            {activeView === 'Menu Doctor' && (
+              <div className={styles.submenu}>
+                {doctorArray.map((item, index) => (
+                  <Button
+                    key={index}
+                    onClick={() => {
+                      selectDoctorItem(index)
+                      handleView(item.identifier)
+                    }}
+                    type="text"
+                    variant={
+                      item.activated
+                        ? 'dashboard-subMenu-activated'
+                        : item.variant
+                    }
+                    text={item.title}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
-
-    </>
+      <div className={styles.content}>
+        <div className={styles.contentWrapper}>
+          {activeView === 'Doctor' && <CreateDoctor />}
+          {activeView === 'Catalog' && <Catalog />}
+          {activeView === 'Callendar' && <Calendar />}
+          {activeSubMenu === 'Create Doctor' && <CreateDoctor />}
+          {activeSubMenu === 'Create Pacient' && <CreatePacient />}
+          {activeSubMenu === 'Get Pacient' && <GetPacient />}
+        </div>
+      </div>
+    </div>
   )
 }

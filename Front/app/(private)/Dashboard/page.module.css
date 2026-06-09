@@ -1,183 +1,148 @@
-/* Dashboard Layout */
-.page {
+.container {
     width: 100%;
-    padding: 28px 32px;
+    height: 800px;
     box-sizing: border-box;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background-color: #F1F1F1;
+    gap: 0;
     min-height: 700px;
+    animation: fadeIn 0.4s ease both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+.menu {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 24px 16px;
+    gap: 8px;
+    min-width: 200px;
+    position: relative;
+    z-index: 1;
 }
 
 .greeting {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #1a1a2e;
-    margin: 0;
+    color: #000000;
+    margin: 0 0 12px 0;
     letter-spacing: -0.3px;
+    animation: slideDown 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.content {
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+.buttonBox {
     display: flex;
-    gap: 20px;
-    flex: 1;
-    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+    gap: 2px;
+    animation: slideDown 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
 }
 
-/* FullCalendar wrapper */
-.calendarWrapper {
-    flex: 1;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+
+.subMenu {
     overflow: hidden;
-    height: 580px;
-    min-width: 0;
 }
 
-/* Override FullCalendar styles to match design */
-.calendarWrapper :global(.fc) {
-    height: 100%;
-    font-family: inherit;
-    font-size: 0.82rem;
-}
-
-.calendarWrapper :global(.fc-toolbar-title) {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #1a1a2e;
-}
-
-.calendarWrapper :global(.fc-button) {
-    background-color: #1a1a2e !important;
-    border-color: #1a1a2e !important;
-    border-radius: 6px !important;
-    font-size: 0.78rem;
-    padding: 4px 10px;
-}
-
-.calendarWrapper :global(.fc-button:hover) {
-    background-color: #2d2d4e !important;
-}
-
-.calendarWrapper :global(.fc-button-active) {
-    background-color: #3a3a6e !important;
-}
-
-.calendarWrapper :global(.fc-event) {
-    border-radius: 4px;
-    border: none;
-    font-size: 0.75rem;
-    padding: 1px 4px;
-}
-
-/* Sidebar */
-.sidebar {
-    width: 220px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-/* Card base */
-.resumoCard,
-.pacientesCard {
-    background: #3dd9c0;
-    border-radius: 14px;
-    padding: 16px;
-    box-shadow: 0 2px 12px rgba(61, 217, 192, 0.25);
-}
-
-.cardTitle {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0 0 14px 0;
-}
-
-/* Resumo Grid */
-.resumoGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.resumoItem {
-    background: rgba(255, 255, 255, 0.22);
-    border-radius: 10px;
-    padding: 10px 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-}
-
-.resumoValue {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #ffffff;
-    line-height: 1;
-}
-
-.resumoLabel {
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.85);
-    text-align: center;
-}
-
-/* Pacientes List */
-.pacientesList {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.pacienteItem {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: #1a1a2e;
-    color: #ffffff;
-    font-size: 0.7rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.pacienteInfo {
+.submenu {
     display: flex;
     flex-direction: column;
     gap: 1px;
+    padding-left: 12px;
+    margin-left: 8px;
+    animation: expandDown 0.70s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+    transform-origin: top;
 }
 
-.pacienteNome {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: #ffffff;
-    line-height: 1.2;
+@keyframes expandDown {
+    from {
+        opacity: 0;
+        transform: scaleY(0.85) translateY(-6px);
+        clip-path: inset(0 0 100% 0);
+    }
+    to {
+        opacity: 1;
+        transform: scaleY(1) translateY(0);
+        clip-path: inset(0 0 0% 0);
+    }
 }
 
-.pacienteHora {
-    font-size: 0.68rem;
-    color: rgba(255, 255, 255, 0.8);
+.submenu > *:nth-child(1) { animation-delay: 0.03s; }
+.submenu > *:nth-child(2) { animation-delay: 0.07s; }
+.submenu > *:nth-child(3) { animation-delay: 0.11s; }
+
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
 }
 
-.emptyMessage {
-    font-size: 0.78rem;
-    color: rgba(255, 255, 255, 0.75);
-    text-align: center;
-    margin: 8px 0 0;
+.contentWrapper {
+    height: 100%;
+    padding: 24px;
+    overflow-y: auto;
+    animation: contentFadeIn 0.35s ease 0.1s both;
+    scroll-behavior: smooth;
+}
+
+.contentWrapper::-webkit-scrollbar {
+    width: 5px;
+}
+.contentWrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+.contentWrapper::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 999px;
+}
+.contentWrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.28);
+}
+
+@keyframes contentFadeIn {
+    from { opacity: 0; transform: translateX(8px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+
+.componentEnter {
+    animation: componentIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes componentIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+        filter: blur(3px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+    }
+}
+
+@keyframes dropUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

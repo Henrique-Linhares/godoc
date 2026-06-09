@@ -13,4 +13,12 @@ export async function cadastrarPaciente(dados, token) {
   return response.json();
 }
 
+export async function cosultarPacientes() {
+  const response = await fetch('http://localhost:8080/pacientes')
+  const data = await response.json()
+
+  return data
+
+}
+
 

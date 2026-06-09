@@ -1,21 +1,3 @@
-
-export async function login(dados) {
-  const response = await fetch('http://localhost:8080/auth/login',
-    {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(dados)
-    }
-  )
-  const data = await response.json()
-
-  return data
-}
-
-
-
 export async function consultarMedicos(token) {
 
   const response = await fetch('http://localhost:8080/medicos',
@@ -27,20 +9,14 @@ export async function consultarMedicos(token) {
       },
     })
 
+  if (!response.ok) {
+    throw new Error(`Erro ao consultar médicos: ${response.status} ${response.statusText}`);
+  }
+
   const data = await response.json()
 
   return data
 }
-
-export async function cosultarPacientes() {
-  const response = await fetch('http://localhost:8080/pacientes')
-  const data = await response.json()
-
-  return data
-
-}
-
-
 
 export async function cadastrarMedico(dados, token) {
   const response = await fetch('http://localhost:8080/medicos',

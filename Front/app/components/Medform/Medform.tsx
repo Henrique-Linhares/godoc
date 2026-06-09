@@ -1,4 +1,4 @@
-import styles from "@/app/components/Medform/page.module.css";
+import styles from "@/app/components/Medform/Medform.module.css";
 import { useState } from "react";
 import Input from "../Input/Input";
 import { useAuth } from "@/context/Auth";

@@ -6,10 +6,11 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/Auth";
 import { useDoc } from "@/context/Doc";
 
-import { login as loginService, consultarMedicos } from "@/Services/doctorListService";
+import { login as loginService } from "@/Services/userService";
+import { consultarMedicos } from "@/Services/doctorListService";
 
 import AuthForm from "@/app/components/credentialCard/AuthForm ";
-import MedForm from "@/app/components/Medform/page";
+import MedForm from "@/app/components/Medform/Medform";
 import Loading from "../../components/Loading/Loading";
 
 import styles from "./page.module.css";

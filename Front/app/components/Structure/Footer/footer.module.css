@@ -2,7 +2,13 @@
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: #7cd7cf;
+background: linear-gradient(
+    135deg,
+    #36C3D6 0%,
+    #46CFD2 20%,
+    #50CDCC 50%,
+    #5ED6D5 100%
+);
   margin: 0px;
 
 
