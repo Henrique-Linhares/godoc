@@ -8,17 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.godoc.core.exceptions.agendamento.AgendamentoConflictException;
 import com.spring.godoc.core.exceptions.agendamento.AgendamentoNotFoundException;
-import com.spring.godoc.core.exceptions.medico.MedicoNotFoundException;
-import com.spring.godoc.core.exceptions.paciente.PacienteNotFoundException;
+import com.spring.godoc.core.wapApi.MessageWapApiService;
 import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoComNovoPacienteRequestDTO;
 import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoRequestDTO;
 import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoUpdateRequestDTO;
 import com.spring.godoc.modules.agendamento.dtos.responses.AgendamentoResponseDTO;
 import com.spring.godoc.modules.agendamento.enums.StatusAgendamento;
 import com.spring.godoc.modules.cadastro.medico.MedicoEntity;
-import com.spring.godoc.modules.cadastro.medico.MedicoRepository;
+import com.spring.godoc.modules.cadastro.medico.MedicoService;
 import com.spring.godoc.modules.cadastro.paciente.PacienteEntity;
-import com.spring.godoc.modules.cadastro.paciente.PacienteRepository;
 import com.spring.godoc.modules.cadastro.paciente.PacienteService;
 import com.spring.godoc.modules.cadastro.paciente.dtos.requests.PacienteRequest;
 import com.spring.godoc.modules.cadastro.paciente.dtos.responses.PacienteResponse;
@@ -27,29 +25,26 @@ import com.spring.godoc.modules.cadastro.paciente.dtos.responses.PacienteRespons
 public class AgendamentoService {
 
     private final AgendamentoRepository agendamentoRepository;
-    private final MedicoRepository medicoRepository;
-    private final PacienteRepository pacienteRepository;
+    private final MedicoService medicoService;
     private final PacienteService pacienteService;
+    private final MessageWapApiService notificacaoService;
 
     public AgendamentoService(
             AgendamentoRepository agendamentoRepository,
-            MedicoRepository medicoRepository,
-            PacienteRepository pacienteRepository,
-            PacienteService pacienteService
+            MedicoService medicoService,
+            PacienteService pacienteService,
+            MessageWapApiService notificacaoService
     ) {
         this.agendamentoRepository = agendamentoRepository;
-        this.medicoRepository = medicoRepository;
-        this.pacienteRepository = pacienteRepository;
+        this.medicoService = medicoService;
         this.pacienteService = pacienteService;
+        this.notificacaoService = notificacaoService;
     }
 
     @Transactional
     public AgendamentoResponseDTO criar(AgendamentoRequestDTO dto) {
-        MedicoEntity medico = medicoRepository.findById(dto.idMedico())
-                .orElseThrow(() -> new MedicoNotFoundException(dto.idMedico()));
-
-        PacienteEntity paciente = pacienteRepository.findById(dto.idPaciente())
-                .orElseThrow(() -> new PacienteNotFoundException(dto.idPaciente()));
+        MedicoEntity medico = medicoService.validarExistencia(dto.idMedico());
+        PacienteEntity paciente = pacienteService.validarExistencia(dto.idPaciente());
 
         LocalDateTime inicio = dto.dataHoraAgendamento();
         LocalDateTime fim = inicio.plusHours(1);
@@ -70,20 +65,20 @@ public class AgendamentoService {
         agendamento.setMedico(medico);
         agendamento.setPaciente(paciente);
 
-        return toResponseDTO(agendamentoRepository.save(agendamento));
+        AgendamentoResponseDTO response = toResponseDTO(agendamentoRepository.save(agendamento));
+        notificacaoService.sendMessageConfirmation(response);
+        return response;
     }
 
     @Transactional
     public AgendamentoResponseDTO criarComNovoPaciente(AgendamentoComNovoPacienteRequestDTO dto) {
-        MedicoEntity medico = medicoRepository.findById(dto.idMedico())
-                .orElseThrow(() -> new MedicoNotFoundException(dto.idMedico()));
+        MedicoEntity medico = medicoService.validarExistencia(dto.idMedico());
 
         PacienteResponse pacienteResponse = pacienteService.createOrFindPaciente(
                 new PacienteRequest(dto.nomePaciente(), dto.idadePaciente(), dto.cpfPaciente(),
                         dto.dataNascimentoPaciente(), dto.telefonePaciente()));
 
-        PacienteEntity paciente = pacienteRepository.findById(pacienteResponse.id())
-                .orElseThrow(() -> new PacienteNotFoundException(pacienteResponse.id()));
+        PacienteEntity paciente = pacienteService.validarExistencia(pacienteResponse.id());
 
         LocalDateTime inicio = dto.dataHoraAgendamento();
         LocalDateTime fim = inicio.plusHours(1);
@@ -104,7 +99,9 @@ public class AgendamentoService {
         agendamento.setMedico(medico);
         agendamento.setPaciente(paciente);
 
-        return toResponseDTO(agendamentoRepository.save(agendamento));
+        AgendamentoResponseDTO response = toResponseDTO(agendamentoRepository.save(agendamento));
+        notificacaoService.sendMessageConfirmation(response);
+        return response;
     }
 
     @Transactional(readOnly = true)
@@ -128,15 +125,11 @@ public class AgendamentoService {
                 .orElseThrow(() -> new AgendamentoNotFoundException(id));
 
         if (dto.idMedico() != null) {
-            MedicoEntity medico = medicoRepository.findById(dto.idMedico())
-                    .orElseThrow(() -> new MedicoNotFoundException(dto.idMedico()));
-            agendamento.setMedico(medico);
+            agendamento.setMedico(medicoService.validarExistencia(dto.idMedico()));
         }
 
         if (dto.idPaciente() != null) {
-            PacienteEntity paciente = pacienteRepository.findById(dto.idPaciente())
-                    .orElseThrow(() -> new PacienteNotFoundException(dto.idPaciente()));
-            agendamento.setPaciente(paciente);
+            agendamento.setPaciente(pacienteService.validarExistencia(dto.idPaciente()));
         }
 
         if (dto.dataHoraAgendamento() != null) {

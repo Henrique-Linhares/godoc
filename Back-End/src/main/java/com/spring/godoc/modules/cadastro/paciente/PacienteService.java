@@ -53,9 +53,12 @@ public class PacienteService {
     }
 
     public PacienteResponse getPacienteById(Long id) {
-        PacienteEntity paciente = pacienteRepository.findById(id)
+        return toResponse(validarExistencia(id));
+    }
+
+    public PacienteEntity validarExistencia(Long id) {
+        return pacienteRepository.findById(id)
                 .orElseThrow(() -> new PacienteNotFoundException(id));
-        return toResponse(paciente);
     }
 
     public PacienteResponse atualizaPaciente(Long id, PacienteRequest dto) {

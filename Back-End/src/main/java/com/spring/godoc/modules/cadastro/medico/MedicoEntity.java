@@ -9,13 +9,21 @@ public class MedicoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
     private String crm;
+
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false)
     private String especialidade;
+
+    @Column(nullable = false)
     private String telefone;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
     MedicoEntity() {}

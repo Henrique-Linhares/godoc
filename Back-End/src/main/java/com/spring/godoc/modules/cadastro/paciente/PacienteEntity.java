@@ -1,9 +1,12 @@
 package com.spring.godoc.modules.cadastro.paciente;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-import com.spring.godoc.modules.cadastro.user.UserEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "pacientes")
@@ -14,7 +17,7 @@ public class PacienteEntity {
     private String nome;
     private Integer idade;
     private String cpf;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     private String telefone;
 
 //    @OneToOne
@@ -23,7 +26,7 @@ public class PacienteEntity {
 
     PacienteEntity() {}
 
-    PacienteEntity(Long id, String nome, Integer idade, String cpf, Date dataNascimento, String telefone, UserEntity user) {
+    PacienteEntity(Long id, String nome, Integer idade, String cpf, LocalDate dataNascimento, String telefone) {
         this.id = id;
         this.nome = nome;
         this.idade = idade;
@@ -65,11 +68,11 @@ public class PacienteEntity {
         this.cpf = cpf;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    void setDataNascimento(Date dataNascimento) {
+    void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

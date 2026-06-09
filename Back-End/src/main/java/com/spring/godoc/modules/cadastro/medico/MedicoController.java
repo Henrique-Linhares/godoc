@@ -1,7 +1,9 @@
 package com.spring.godoc.modules.cadastro.medico;
 
 import com.spring.godoc.modules.cadastro.medico.dtos.requests.MedicoRequest;
+import com.spring.godoc.modules.cadastro.medico.dtos.requests.MedicoUpdateRequest;
 import com.spring.godoc.modules.cadastro.medico.dtos.responses.MedicoResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,7 @@ public class MedicoController {
     }
 
     @PostMapping
-    public ResponseEntity<MedicoResponse> createDoctor(@RequestBody MedicoRequest request) {
+    public ResponseEntity<MedicoResponse> createDoctor(@Valid @RequestBody MedicoRequest request) {
         MedicoResponse medicoResponse = medicoService.criaMedico(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(medicoResponse);
     }
@@ -35,7 +37,7 @@ public class MedicoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MedicoResponse> updateDoctor(@PathVariable Long id, @RequestBody MedicoRequest request) {
+    public ResponseEntity<MedicoResponse> updateDoctor(@PathVariable Long id, @RequestBody MedicoUpdateRequest request) {
         return ResponseEntity.ok(medicoService.atualizaMedico(id, request));
     }
 

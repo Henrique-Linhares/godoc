@@ -1,6 +1,7 @@
 package com.spring.godoc.modules.agendamento;
 
 import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoComNovoPacienteRequestDTO;
+import com.spring.godoc.core.wapApi.MessageWapApiService;
 import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoRequestDTO;
 import com.spring.godoc.modules.agendamento.dtos.requests.AgendamentoUpdateRequestDTO;
 import com.spring.godoc.modules.agendamento.dtos.responses.AgendamentoResponseDTO;
@@ -15,9 +16,11 @@ import java.util.List;
 public class AgendamentoController {
 
     private final AgendamentoService agendamentoService;
+    private final MessageWapApiService notificacaoService;
 
-    public AgendamentoController(AgendamentoService agendamentoService) {
+    public AgendamentoController(AgendamentoService agendamentoService, MessageWapApiService notificacaoService) {
         this.agendamentoService = agendamentoService;
+        this.notificacaoService = notificacaoService;
     }
 
     @PostMapping
@@ -50,5 +53,12 @@ public class AgendamentoController {
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         agendamentoService.deletar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/notificar")
+    public ResponseEntity<Void> reenviarNotificacao(@PathVariable Long id) {
+        AgendamentoResponseDTO agendamento = agendamentoService.getById(id);
+        notificacaoService.sendMessageConfirmation(agendamento);
+        return ResponseEntity.accepted().build();
     }
 }

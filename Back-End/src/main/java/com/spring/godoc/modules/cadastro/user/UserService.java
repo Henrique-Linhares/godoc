@@ -3,15 +3,14 @@ package com.spring.godoc.modules.cadastro.user;
 import java.util.List;
 import java.util.Optional;
 
-import com.spring.godoc.core.exceptions.user.UserConflictException;
-import com.spring.godoc.core.exceptions.user.UserNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spring.godoc.core.exceptions.user.UserConflictException;
+import com.spring.godoc.core.exceptions.user.UserNotFoundException;
 import com.spring.godoc.modules.cadastro.user.dtos.UserRegisterRequestDTO;
 import com.spring.godoc.modules.cadastro.user.dtos.UserUpdateRequestDTO;
 import com.spring.godoc.modules.cadastro.user.enums.UserRoles;
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UserService {

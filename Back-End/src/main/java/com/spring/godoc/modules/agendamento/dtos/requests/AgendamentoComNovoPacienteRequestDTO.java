@@ -5,14 +5,16 @@ import com.spring.godoc.modules.agendamento.enums.ModalidadeAgendamento;
 import com.spring.godoc.modules.agendamento.enums.StatusAgendamento;
 import com.spring.godoc.modules.agendamento.enums.TipoConsulta;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public record AgendamentoComNovoPacienteRequestDTO(
         String nomePaciente,
         Integer idadePaciente,
         String cpfPaciente,
-        Date dataNascimentoPaciente,
+
+        @JsonFormat(pattern = "dd-MM-yyyy")
+        LocalDate dataNascimentoPaciente,
         String telefonePaciente,
 
         Long idMedico,
