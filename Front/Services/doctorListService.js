@@ -4,7 +4,6 @@ export async function consultarMedicos(token) {
     {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       },
     })
@@ -31,6 +30,7 @@ export async function cadastrarMedico(dados, token) {
   )
   return response.json();
 }
+
 
 
 

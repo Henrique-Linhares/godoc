@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useMemo } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useState, useMemo, useEffect } from 'react'
 import Button from '@/app/components/Button/Button/Button'
-import Image from 'next/image'
 import styles from './page.module.css'
 import { ROUTES } from '@/routes/routes'
 import { useRouter } from 'next/navigation'
-import { criarAgendamento } from '@/Services/agendamentoService'
+import { criarAgendamentoPublico } from '@/Services/agendamentoService'
+import { consultarMedicos } from '@/Services/doctorListService'
+import Swal from 'sweetalert2'
 
 // Horários fixos disponíveis (slots de 1h)
 const HORARIOS = [
@@ -34,8 +34,10 @@ function formatarDataExibicao(dataStr: string): string {
 export default function FormAgendamento() {
 
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const medicoId = searchParams.get('medicoId')
+
+  // Estados para Médicos (Dinâmico)
+  const [medicos, setMedicos] = useState<any[]>([])
+  const [medicoSelecionadoId, setMedicoSelecionadoId] = useState('')
 
   // Dados pessoais
   const [nome, setNome] = useState('')
@@ -66,21 +68,32 @@ export default function FormAgendamento() {
   const [sucesso, setSucesso] = useState('')
   const [erro, setErro] = useState('')
 
+  // BUSCAR MÉDICOS ASSIM QUE A TELA CARREGAR
+  useEffect(() => {
+    async function carregarDados() {
+      try {
+        const dados = await consultarMedicos()
+        setMedicos(dados)
+      } catch (err: any) {
+        setErro('Erro ao carregar a lista de médicos disponíveis.')
+      }
+    }
+    carregarDados()
+  }, [])
+
   // Gerar dias do mês para o calendário
   const diasDoMes = useMemo(() => {
     const primeiroDia = new Date(anoAtual, mesAtual, 1)
     const ultimoDia = new Date(anoAtual, mesAtual + 1, 0)
-    const diasAntes = primeiroDia.getDay() // dia da semana do 1º dia
+    const diasAntes = primeiroDia.getDay()
     const totalDias = ultimoDia.getDate()
 
     const dias: { dia: number; desabilitado: boolean; vazio: boolean }[] = []
 
-    // Dias vazios antes do 1º dia do mês
     for (let i = 0; i < diasAntes; i++) {
       dias.push({ dia: 0, desabilitado: true, vazio: true })
     }
 
-    // Dias do mês
     for (let d = 1; d <= totalDias; d++) {
       const dataComparar = new Date(anoAtual, mesAtual, d)
       const hojeInicio = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate())
@@ -115,7 +128,7 @@ export default function FormAgendamento() {
   function selecionarDia(dia: number) {
     const novaData = formatarData(anoAtual, mesAtual, dia)
     setDataSelecionada(novaData)
-    setHorarioSelecionado('') // resetar horário ao mudar de dia
+    setHorarioSelecionado('')
   }
 
   function ehHoje(dia: number): boolean {
@@ -130,85 +143,84 @@ export default function FormAgendamento() {
     return dataSelecionada === formatarData(anoAtual, mesAtual, dia)
   }
 
-  async function handleConfirmarAgendamento() {
-    setErro('')
-    setSucesso('')
+async function handleConfirmarAgendamento() {
+  setErro('')
+  setSucesso('')
+  
+  if (!medicoSelecionadoId) { setErro('Selecione um médico para o atendimento.'); return }
+  if (!nome.trim()) { setErro('Preencha o nome completo.'); return }
+  if (!dataNascimento) { setErro('Preencha a data de nascimento.'); return }
+  if (!idade) { setErro('Preencha a idade.'); return }
+  if (!cpf.trim()) { setErro('Preencha o CPF.'); return }
+  if (!telefone.trim()) { setErro('Preencha o telefone.'); return }
+  if (!dataSelecionada) { setErro('Selecione uma data no calendário.'); return }
+  if (!horarioSelecionado) { setErro('Selecione um horário.'); return }
 
-    // Validações básicas
-    if (!nome.trim()) { setErro('Preencha o nome completo.'); return }
-    if (!dataNascimento) { setErro('Preencha a data de nascimento.'); return }
-    if (!idade) { setErro('Preencha a idade.'); return }
-    if (!cpf.trim()) { setErro('Preencha o CPF.'); return }
-    if (!telefone.trim()) { setErro('Preencha o telefone.'); return }
-    if (!dataSelecionada) { setErro('Selecione uma data no calendário.'); return }
-    if (!horarioSelecionado) { setErro('Selecione um horário.'); return }
-    if (!medicoId) { setErro('ID do médico não encontrado.'); return }
+  const [anoNasc, mesNasc, diaNasc] = dataNascimento.split('-')
+  const dataNascimentoFormatada = `${diaNasc}-${mesNasc}-${anoNasc}`
 
-    const payload = {
-      nomeCompleto: nome,
-      dataNascimento: dataNascimento,
-      idade: parseInt(idade),
-      cpf: cpf.replace(/\D/g, ''),
-      email: email || null,
-      telefone: telefone.replace(/\D/g, ''),
-      tipoConsulta: primeiraConsulta ? 'PRIMEIRA' : 'RETORNO',
-      convenio: convenio ? convenio.toUpperCase() : null,
-      numeroCarteirinhaPlano: carteirinha || null,
-      motivoConsulta: motivo || null,
-      modalidade: modalidade,
-      dataHoraAgendamento: `${dataSelecionada}T${horarioSelecionado}:00Z`,
-      idMedico: parseInt(medicoId),
-      status: 'AGENDADO'
-    }
-
-    setEnviando(true)
-
-    try {
-      // Pegar token do localStorage
-      let token = ''
-      const storedUser = localStorage.getItem('user')
-      if (storedUser) {
-        token = JSON.parse(storedUser).token
-      }
-
-      await criarAgendamento(payload, token)
-      setSucesso('Agendamento criado com sucesso!')
-
-      // Limpar após 3s e voltar ao catálogo
-      setTimeout(() => {
-        router.push(ROUTES.catalog)
-      }, 2000)
-    } catch (err: any) {
-      setErro(err.message || 'Erro ao criar agendamento.')
-    } finally {
-      setEnviando(false)
-    }
+  const payload = {
+    nomePaciente: nome,
+    idadePaciente: parseInt(idade),
+    cpfPaciente: cpf.replace(/\D/g, ''),
+    dataNascimentoPaciente: dataNascimentoFormatada,
+    telefonePaciente: telefone.replace(/\D/g, ''),
+    idMedico: parseInt(medicoSelecionadoId),
+    tipoConsulta: primeiraConsulta ? 'PRIMEIRA' : 'RETORNO',
+    convenio: convenio ? convenio.toUpperCase() : null,
+    numeroCarteirinhaPlano: carteirinha || null,
+    motivoConsulta: motivo || null,
+    modalidade: modalidade,
+    status: 'AGENDADO',
+    dataHoraAgendamento: `${dataSelecionada}T${horarioSelecionado}:00Z`
   }
+
+  Swal.fire({
+    title: 'Processando agendamento...',
+    text: 'Estamos validando seus dados e enviando a confirmação.',
+    allowOutsideClick: false,
+    didOpen: () => {
+      Swal.showLoading()
+    }
+  })
+
+  setEnviando(true)
+
+  try {
+    await criarAgendamentoPublico(payload)
+    Swal.fire({
+      icon: 'success',
+      title: 'Agendamento Confirmado!',
+      text: 'Sua consulta foi reservada com sucesso. Você receberá uma notificação em breve.',
+      confirmButtonColor: '#00c1a4',
+      timer: 3000,
+      timerProgressBar: true
+    })
+
+    setTimeout(() => {
+      router.push(ROUTES.catalog)
+    }, 3000)
+
+  } catch (err: any) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Ops! Falha no agendamento',
+      text: err.message || 'Verifique se o horário escolhido já não está ocupado.',
+      confirmButtonColor: '#d33'
+    })
+    
+    setErro(err.message || 'Erro ao criar agendamento.')
+  } finally {
+    setEnviando(false)
+  }
+}
 
   return (
     <div className={styles.page}>
 
-      {/* Card do médico */}
-      <div className={styles.doctorCard}>
-        <div className={styles.doctorInfo}>
-          <div className={styles.doctorAvatar}>
-            <Image src="/imagem-do-usuario-com-fundo-preto.png" alt="Médico" width={60} height={60} />
-          </div>
-          <div className={styles.doctorDetails}>
-            <h2 className={styles.doctorName}>Dr. Cleiton Rasta</h2>
-            <span className={styles.doctorSpecialty}>Ortopedista • São Carlos - SP</span>
-            <div className={styles.doctorRating}>
-              <span>★★★★★</span>
-              <span className={styles.reviewCount}>23 Avaliações</span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.docSector}>
-          <Button onClick={() => { router.push(ROUTES.catalog) }} type={'text'} variant={'default'} text={'Voltar'} />
-          <div className={styles.priceTag}>
-            <span>R$100 / Consulta</span>
-          </div>
-        </div>
+      {/* Cabeçalho superior com botão de voltar */}
+      <div className={styles.docSector} style={{ marginBottom: '20px' }}>
+        <Button onClick={() => { router.push(ROUTES.catalog) }} type={'text'} variant={'default'} text={'‹ Voltar para o Catálogo'} />
       </div>
 
       {/* Conteúdo principal */}
@@ -216,6 +228,26 @@ export default function FormAgendamento() {
 
         {/* Coluna esquerda - Formulário */}
         <div className={styles.formColumn}>
+
+          {/* Seleção do Médico Dinâmica */}
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Profissional</h2>
+            <div className={styles.fieldGroup}>
+              <label className={styles.label}>Escolha o Médico*</label>
+              <select
+                className={styles.select}
+                value={medicoSelecionadoId}
+                onChange={(e) => setMedicoSelecionadoId(e.target.value)}
+              >
+                <option value="">Selecione um médico na lista...</option>
+                {medicos.map((medico: any) => (
+                  <option key={medico.id} value={medico.id}>
+                    {medico.nome} - {medico.especialidade || 'Clínico Geral'}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </section>
 
           {/* Dados Pessoais */}
           <section className={styles.section}>
@@ -297,12 +329,14 @@ export default function FormAgendamento() {
               <label className={styles.label}>É a primeira consulta com este médico?</label>
               <div className={styles.toggleGroup}>
                 <button
+                  type="button"
                   className={`${styles.toggleBtn} ${primeiraConsulta ? styles.toggleActive : ''}`}
                   onClick={() => setPrimeiraConsulta(true)}
                 >
                   Sim, primeira vez
                 </button>
                 <button
+                  type="button"
                   className={`${styles.toggleBtn} ${!primeiraConsulta ? styles.toggleActive : ''}`}
                   onClick={() => setPrimeiraConsulta(false)}
                 >
@@ -356,12 +390,14 @@ export default function FormAgendamento() {
             <h2 className={styles.sectionTitle}>Modalidade da consulta</h2>
             <div className={styles.toggleGroup}>
               <button
+                type="button"
                 className={`${styles.toggleBtn} ${modalidade === 'PRESENCIAL' ? styles.toggleActive : ''}`}
                 onClick={() => setModalidade('PRESENCIAL')}
               >
                 Presencial
               </button>
               <button
+                type="button"
                 className={`${styles.toggleBtn} ${modalidade === 'ONLINE' ? styles.toggleActive : ''}`}
                 onClick={() => setModalidade('ONLINE')}
               >
@@ -387,21 +423,14 @@ export default function FormAgendamento() {
 
         {/* Coluna direita - Calendário e Horários */}
         <div className={styles.scheduleColumn}>
-
-          {/* Calendário */}
+          {/* O código do calendário e dos slots permanece igual */}
           <div className={styles.calendarContainer}>
             <h3 className={styles.scheduleTitle}>Selecione a data</h3>
 
             <div className={styles.calendarNav}>
-              <button className={styles.calendarNavBtn} onClick={mesAnterior}>
-                ‹
-              </button>
-              <span className={styles.calendarMonthYear}>
-                {MESES[mesAtual]} {anoAtual}
-              </span>
-              <button className={styles.calendarNavBtn} onClick={proximoMes}>
-                ›
-              </button>
+              <button type="button" className={styles.calendarNavBtn} onClick={mesAnterior}>‹</button>
+              <span className={styles.calendarMonthYear}>{MESES[mesAtual]} {anoAtual}</span>
+              <button type="button" className={styles.calendarNavBtn} onClick={proximoMes}>›</button>
             </div>
 
             <div className={styles.calendarWeekdays}>
@@ -412,9 +441,7 @@ export default function FormAgendamento() {
 
             <div className={styles.calendarGrid}>
               {diasDoMes.map((item, index) => {
-                if (item.vazio) {
-                  return <div key={`empty-${index}`} className={styles.calendarDayEmpty} />
-                }
+                if (item.vazio) return <div key={`empty-${index}`} className={styles.calendarDayEmpty} />
 
                 const classes = [styles.calendarDay]
                 if (item.desabilitado) classes.push(styles.calendarDayDisabled)
@@ -423,6 +450,7 @@ export default function FormAgendamento() {
 
                 return (
                   <button
+                    type="button"
                     key={`day-${item.dia}`}
                     className={classes.join(' ')}
                     onClick={() => selecionarDia(item.dia)}
@@ -438,15 +466,13 @@ export default function FormAgendamento() {
           {/* Horários */}
           <div className={styles.timeSlotsContainer}>
             <h3 className={styles.scheduleTitle}>Horários</h3>
-
             {dataSelecionada ? (
               <>
-                <span className={styles.timeSlotsLabel}>
-                  Horários para {formatarDataExibicao(dataSelecionada)}
-                </span>
+                <span className={styles.timeSlotsLabel}>Horários para {formatarDataExibicao(dataSelecionada)}</span>
                 <div className={styles.timeSlotGrid}>
                   {HORARIOS.map((horario) => (
                     <button
+                      type="button"
                       key={horario}
                       className={`${styles.timeSlot} ${horarioSelecionado === horario ? styles.timeSlotSelected : ''}`}
                       onClick={() => setHorarioSelecionado(horario)}
@@ -457,23 +483,19 @@ export default function FormAgendamento() {
                 </div>
               </>
             ) : (
-              <p className={styles.noSlotsMessage}>
-                Selecione uma data para ver os horários
-              </p>
+              <p className={styles.noSlotsMessage}>Selecione uma data para ver os horários</p>
             )}
           </div>
 
-          {/* Resumo do horário selecionado */}
+          {/* Resumo */}
           <div className={styles.selectedSlot}>
             <h4 className={styles.selectedTitle}>Horário Selecionado</h4>
             <span className={styles.selectedInfo}>
-              {dataSelecionada && horarioSelecionado
-                ? `${formatarDataExibicao(dataSelecionada)} às ${horarioSelecionado}`
-                : 'Nenhum horário selecionado'}
+              {dataSelecionada && horarioSelecionado ? `${formatarDataExibicao(dataSelecionada)} às ${horarioSelecionado}` : 'Nenhum horário selecionado'}
             </span>
           </div>
-
         </div>
+
       </div>
     </div>
   )
