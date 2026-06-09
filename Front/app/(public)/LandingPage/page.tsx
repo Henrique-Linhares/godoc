@@ -3,8 +3,6 @@ import styles from "./page.module.css";
 
 import { useContext } from 'react'
 
-
-
 const dataCard = {
     title: "Cuide da sua saúde",
     description: "No GoDoc você encontra médicos perto de você e agenda consultas em poucos cliques - sem filas,sem complicação e sem perder tempo"
