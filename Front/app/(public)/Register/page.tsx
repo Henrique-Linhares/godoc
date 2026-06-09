@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation"
 import AuthForm from "@/app/components/credentialCard/AuthForm ";
 import { useAuth } from "@/context/Auth"
 import { criarConta } from "@/Services/userService"
-import Swal from "sweetalert2"
 import styles from "./page.module.css"
 
 function Register() {
@@ -72,4 +71,4 @@ function Register() {
     )
 }
 
-export default Register;
+export default Register;
