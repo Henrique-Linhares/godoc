@@ -4,12 +4,6 @@ public record UserLoginResponse(
     String token,
     String email,
     String role,
+    Long id,
     Long expiresIn
-) {
-    public UserLoginResponse(String token, String email, String role, Long expiresIn) {
-        this.token = token;
-        this.email = email;
-        this.role = role;
-        this.expiresIn = expiresIn;
-    }
-}
+) {}

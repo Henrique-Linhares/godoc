@@ -1,13 +1,22 @@
 package com.spring.godoc.modules.agendamento;
 
+import java.time.LocalDateTime;
+
 import com.spring.godoc.modules.agendamento.enums.ModalidadeAgendamento;
 import com.spring.godoc.modules.agendamento.enums.StatusAgendamento;
 import com.spring.godoc.modules.agendamento.enums.TipoConsulta;
 import com.spring.godoc.modules.cadastro.medico.MedicoEntity;
 import com.spring.godoc.modules.cadastro.paciente.PacienteEntity;
-import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "agendamentos")
@@ -17,7 +26,7 @@ public class AgendamentoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime data;
+    private LocalDateTime inicio;
     private LocalDateTime fim;
 
     @Enumerated(EnumType.STRING)
@@ -33,9 +42,9 @@ public class AgendamentoEntity {
     @Enumerated(EnumType.STRING)
     private ModalidadeAgendamento modalidade;
 
-   @OneToOne
-   @JoinColumn(name = "paciente_id")
-   private PacienteEntity paciente;
+    @ManyToOne
+    @JoinColumn(name = "paciente_id")
+    private PacienteEntity paciente;
 
     @ManyToOne
     @JoinColumn(name = "medico_id")
@@ -52,12 +61,12 @@ public class AgendamentoEntity {
         this.id = id;
     }
 
-    public LocalDateTime getData() {
-        return data;
+    public LocalDateTime getInicio() {
+        return inicio;
     }
 
-    public void setData(LocalDateTime data) {
-        this.data = data;
+    public void setInicio(LocalDateTime inicio) {
+        this.inicio = inicio;
     }
 
     public LocalDateTime getFim() {
