@@ -15,7 +15,6 @@ import { useEffect, useState } from "react";
 
 import { useAuth } from "@/context/Auth";
 import { useDoc } from "@/context/Doc";
-import { useDoc } from "@/context/Doc";
 
 //
 type DoctorAction = {
