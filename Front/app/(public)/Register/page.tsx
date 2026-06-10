@@ -18,21 +18,13 @@ function Register() {
         setLoading(false) 
     }, [])
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        handleAction(email, password);
-    }
 
     const handleAction = async (email: string, password: string, ) => { 
         setLoading(true);
         setAlert(false);
 
         try {
-            console.log(email, password )
             const userData = await criarConta({email, password });
-            console.log("RODOU O CADASTRO", userData);
-            // login(userData)
-            // router.push(ROUTES.dashboard)
         } catch {
             setAlert(true);
         } finally {
@@ -46,7 +38,7 @@ function Register() {
                 setEmail={setEmail}
                 setPassword={setPassword}
                 setName={setName}
-                handleAction={() => handleAction(email, password )} 
+                handleAction={() => handleAction(email, password)} 
                 email={email}
                 password={password}
                 name={name}

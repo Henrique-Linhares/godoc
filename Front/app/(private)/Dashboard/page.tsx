@@ -87,6 +87,7 @@ export default function Dashboard() {
   const handleView = (identifier: string) => {
 
     if (identifier === 'Pass') {
+    if (identifier === 'Pass') {
       setActiveSubMenu('Create Pacient')
       if (activeView !== 'Menu Pacient') {
         setActiveView('')

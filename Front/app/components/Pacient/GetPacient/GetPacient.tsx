@@ -13,7 +13,6 @@ interface pacients {
     cpf: string,
     dataNascimento: string,
     telefone: string
-
 }
 
 const GetPacient = () => {
