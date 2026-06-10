@@ -3,8 +3,10 @@ package com.spring.godoc.modules.cadastro.medico;
 import java.util.List;
 
 import com.spring.godoc.core.exceptions.user.UserNotFoundException;
+import com.spring.godoc.core.exceptions.medico.MedicoConflictException;
 import com.spring.godoc.core.exceptions.medico.MedicoNotFoundException;
 import com.spring.godoc.modules.cadastro.medico.dtos.requests.MedicoRequest;
+import com.spring.godoc.modules.cadastro.medico.dtos.requests.MedicoUpdateRequest;
 import com.spring.godoc.modules.cadastro.medico.dtos.responses.MedicoResponse;
 import com.spring.godoc.modules.cadastro.user.UserEntity;
 import com.spring.godoc.modules.cadastro.user.UserRepository;
@@ -37,6 +39,10 @@ public class MedicoService {
     }
 
     public MedicoResponse criaMedico(MedicoRequest request) {
+        if (medicoRepository.existsByCrm(request.crm())) {
+            throw new MedicoConflictException(request.crm());
+        }
+
         UserEntity user = userRepository.findById(request.userId())
                 .orElseThrow(() -> new UserNotFoundException(request.userId()));
 
@@ -57,12 +63,15 @@ public class MedicoService {
     }
 
     public MedicoResponse getMedicoById(Long id) {
-        MedicoEntity medico = medicoRepository.findById(id)
-                .orElseThrow(() -> new MedicoNotFoundException(id));
-        return toResponse(medico);
+        return toResponse(validarExistencia(id));
     }
 
-    public MedicoResponse atualizaMedico(Long id, MedicoRequest request) {
+    public MedicoEntity validarExistencia(Long id) {
+        return medicoRepository.findById(id)
+                .orElseThrow(() -> new MedicoNotFoundException(id));
+    }
+
+    public MedicoResponse atualizaMedico(Long id, MedicoUpdateRequest request) {
         MedicoEntity medico = medicoRepository.findById(id)
                 .orElseThrow(() -> new MedicoNotFoundException(id));
 

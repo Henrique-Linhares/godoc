@@ -60,6 +60,8 @@
     flex-direction: column;
     padding: 28px 32px;
     gap: 10px;
+        border: 1px solid #D3D1C7;
+
     animation: bornSlide 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
 }
 

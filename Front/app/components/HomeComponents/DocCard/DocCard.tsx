@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 
 import { useAuth } from "@/context/Auth";
 import { useDoc } from "@/context/Doc";
+import { useDoc } from "@/context/Doc";
 
 //
 type DoctorAction = {
@@ -93,7 +94,7 @@ const DoxCard = () => {
                 </div>
                 <div
                   onClick={() => {
-                    router.push(`${ROUTES.form}?medicoId=${item.id}`);
+                    router.push(`${ROUTES.consultForm}?medicoId=${item.id}`);
                   }}
                   className={styles.action}
                 >

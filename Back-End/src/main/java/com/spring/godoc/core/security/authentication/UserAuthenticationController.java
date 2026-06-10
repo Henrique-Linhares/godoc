@@ -6,15 +6,19 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.godoc.core.security.jwt.JwtService;
 import com.spring.godoc.modules.cadastro.user.UserEntity;
 import com.spring.godoc.modules.cadastro.user.UserService;
 import com.spring.godoc.modules.cadastro.user.dtos.UserLoginRequest;
 import com.spring.godoc.modules.cadastro.user.dtos.UserLoginResponse;
 import com.spring.godoc.modules.cadastro.user.dtos.UserRegisterRequestDTO;
 import com.spring.godoc.modules.cadastro.user.dtos.UserRegisterResponseDTO;
-import com.spring.godoc.core.security.jwt.JwtService;
 
 @RestController
 @RequestMapping("/auth")
@@ -46,7 +50,7 @@ public class UserAuthenticationController {
             String token = jwtService.generateToken(userDetails);
             Long expiresIn = jwtService.getExpirationTime();
 
-            UserLoginResponse response = new UserLoginResponse(token, userDetails.getUsername(), role, expiresIn);
+            UserLoginResponse response = new UserLoginResponse(token, userDetails.getUsername(), role,user.getId(), expiresIn);
             return ResponseEntity.ok().body(response);
 
         } catch (AuthenticationException e) {

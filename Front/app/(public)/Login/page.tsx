@@ -87,6 +87,7 @@ function Login() {
 
             if (!userData) return;
 
+            localStorage.setItem("user", JSON.stringify(userData));
             login(userData);
 
             await getDoctors(userData.token);

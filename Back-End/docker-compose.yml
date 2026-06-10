@@ -9,6 +9,18 @@ services:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+  
+  evolution-api:
+    container_name: evolution_api
+    image: evoapicloud/evolution-api:latest
+    restart: always
+    ports:
+      - "9090:8080"
+    env_file:
+      - .env
+    volumes:
+      - evolution_instances:/evolution/instances
 
 volumes:
   mysql_data:
+  evolution_instances:

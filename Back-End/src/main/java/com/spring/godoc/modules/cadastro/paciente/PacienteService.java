@@ -24,6 +24,12 @@ public class PacienteService {
 //        this.userRepository = userRepository;
     }
 
+    public PacienteResponse createOrFindPaciente(PacienteRequest dto) {
+        return pacienteRepository.findByCpf(dto.cpf())
+                .map(this::toResponse)
+                .orElseGet(() -> criaPaciente(dto));
+    }
+
     public PacienteResponse criaPaciente(PacienteRequest dto) {
 //        UserEntity user = userRepository.findById(dto.user().getId())
 //                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
@@ -47,9 +53,12 @@ public class PacienteService {
     }
 
     public PacienteResponse getPacienteById(Long id) {
-        PacienteEntity paciente = pacienteRepository.findById(id)
+        return toResponse(validarExistencia(id));
+    }
+
+    public PacienteEntity validarExistencia(Long id) {
+        return pacienteRepository.findById(id)
                 .orElseThrow(() -> new PacienteNotFoundException(id));
-        return toResponse(paciente);
     }
 
     public PacienteResponse atualizaPaciente(Long id, PacienteRequest dto) {

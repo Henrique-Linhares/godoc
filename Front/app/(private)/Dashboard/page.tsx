@@ -7,10 +7,15 @@ import { ROUTES } from '@/routes/routes'
 import { useRouter } from 'next/navigation'
 import Button from '@/app/components/Button/Button/Button'
 
+
+import { useDoc } from '@/context/Doc'
+
 import CreateDoctor from '@/app/components/Doctor/CreateDoctor/CreateDoctor'
 import GetDoctor from '@/app/components/Doctor/CreateDoctor/GetDoctor/GetDoctor'
 import CreatePacient from '@/app/components/Pacient/CreatePacient'
+
 import GetPacient from '@/app/components/Pacient/GetPacient/GetPacient'
+import GetDoctor from '@/app/components/Doctor/CreateDoctor/GetDoctor/GetDoctor'
 
 import Catalog from '@/app/components/Catalog/page'
 import Calendar from '@/app/components/FullCalendar/FullCalendar'
@@ -61,6 +66,29 @@ export default function Dashboard() {
       onClick: () => { }
     }
   ])
+
+    useEffect(() => {
+    let parsed = "";
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      parsed = JSON.parse(storedUser).token;
+    }
+    const handleDoctors = async () => {
+      try {
+        const data = await consultarMedicos(parsed);
+        if (data) {
+          setDoc(data);
+        } else {
+            
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+      }
+    };
+
+    handleDoctors();
+  }, []);
 
   const [activeView, setActiveView] = useState('Callendar')
   const [activeSubMenu, setActiveSubMenu] = useState('')

@@ -6,7 +6,6 @@ import LandingPage from "./(public)/LandingPage/page";
 import PublicLayout from "./(public)/layout";
 
 import styles from "./page.module.css"
-import { Children } from "react";
 
 export default function Home() {
   return (

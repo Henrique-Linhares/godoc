@@ -1,5 +1,11 @@
 package com.spring.godoc.modules.cadastro.medico.dtos.requests;
 
-import com.spring.godoc.modules.cadastro.user.UserEntity;
+import jakarta.validation.constraints.NotNull;
 
-public record MedicoRequest(String crm, String nome, String especialidade, String telefone, Long userId) { }
+public record MedicoRequest(
+        @NotNull String crm,
+        @NotNull String nome,
+        @NotNull String especialidade,
+        @NotNull String telefone,
+        @NotNull Long userId
+) {}

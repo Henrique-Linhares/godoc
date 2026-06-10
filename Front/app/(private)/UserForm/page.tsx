@@ -35,11 +35,13 @@ function UserForm() {
         const token = JSON.parse(userStr).token;
         if (!token) throw new Error("Token inválido");
 
+        const [year, month, day] = dataNascimento.split("-");
+
         const pacient = {
           nome,
           idade: Number(idade),
           cpf,
-          dataNascimento: new Date(dataNascimento).toISOString(),
+          dataNascimento: `${day}-${month}-${year}`,
           telefone,
           user: {
             id: userId,

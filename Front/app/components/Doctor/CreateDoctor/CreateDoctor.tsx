@@ -16,6 +16,7 @@ import { useAuth } from "@/context/Auth";
 
 //React
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 import { cadastrarMedico } from "@/Services/doctorListService";
 
@@ -31,6 +32,7 @@ function CreateDoctor() {
   const [telefone, setTelefone] = useState("");
   const [alert, setAlert] = useState("");
   const [userId, setUserId] = useState(1);
+  const [userId, setUserId] = useState(1);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,6 +47,14 @@ function CreateDoctor() {
     userId,
   };
 
+  useEffect(() => {
+    const userStr = localStorage.getItem("user");
+    const med = JSON.parse(userStr).id;
+
+    setUserId(med)
+
+  },[])
+
 
   const handleAction = () => {
     async function createMedic() {
@@ -56,11 +66,24 @@ function CreateDoctor() {
         const token = JSON.parse(userStr).token;
         if (!token) throw new Error("Token inválido");
 
-
         const data = await cadastrarMedico(doctor, token);
-        console.log(data);
+
+        await Swal.fire({
+          icon: "success",
+          title: "Médico criado!",
+          text: "O médico foi cadastrado com sucesso.",
+          confirmButtonColor: "#35C9D6",
+          confirmButtonText: "OK",
+        });
       } catch (error) {
         console.error("Erro ao criar médico:", error);
+        await Swal.fire({
+          icon: "error",
+          title: "Erro",
+          text: "Não foi possível cadastrar o médico. Tente novamente.",
+          confirmButtonColor: "#d33",
+          confirmButtonText: "Fechar",
+        });
       } finally {
         setLoading(false);
       }
