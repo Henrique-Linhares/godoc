@@ -30,7 +30,7 @@ function CreateDoctor() {
   const [especialidade, setEspecialidade] = useState("");
   const [telefone, setTelefone] = useState("");
   const [alert, setAlert] = useState("");
-  const [userId, setUserId] = useState(4);
+  const [userId, setUserId] = useState(1);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,13 +52,10 @@ function CreateDoctor() {
       try {
         const userStr = localStorage.getItem("user");
         if (!userStr) throw new Error("Usuário não autenticado");
-        console.log(userStr)
 
         const token = JSON.parse(userStr).token;
         if (!token) throw new Error("Token inválido");
 
-        console.log(token)
-        console.log(doctor)
 
         const data = await cadastrarMedico(doctor, token);
         console.log(data);

@@ -21,4 +21,16 @@ export async function cosultarPacientes() {
 
 }
 
+export async function deletarPacientes(id) {
+const response = await fetch(`http://localhost:8080/pacientes/${id}` ,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }
+  )
+ 
+}
+
 

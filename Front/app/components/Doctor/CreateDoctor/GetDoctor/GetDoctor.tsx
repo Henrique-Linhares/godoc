@@ -1,53 +1,50 @@
-import styles from './GetPacient.module.css'
+import styles from './GetDoctor.module.css'
+import { deletarMedico } from '@/Services/doctorListService'
+import { consultarMedicos } from '@/Services/doctorListService'
+import Button from '@/app/components/Button/Button/Button'
 import { useState, useEffect } from 'react'
+import { useDoc } from '@/context/Doc'
+import { useAuth } from '@/context/Auth'
 
-import Button from '../../Button/Button/Button'
+type Doctor = {
+    id: number;
+    name: string;
+    specialty: string;
+    location: string;
+    rating: number;
+    reviews: number;
+    availableToday: boolean;
+    avatar: string;
+};
 
-import { cosultarPacientes } from '@/Services/clientService'
-import { deletarPacientes } from '@/Services/clientService'
+const GetDoctor = () => {
 
-interface pacients {
-    id: number,
-    nome: string,
-    idade: number,
-    cpf: string,
-    dataNascimento: string,
-    telefone: string
+    const { doc } = useDoc()
 
-}
+  const { loading, setLoading } = useAuth();
 
-const GetPacient = () => {
-
-    const [pacients, setPacients] = useState<pacients[]>([])
-
-    async function getPacients() {
-        try {
-            const data: pacients[] = await cosultarPacientes()
-
-            if (data && data.length > 0) {
-                setPacients(data)
-            }
-        } catch (error) {
-            console.error('Erro ao buscar pacientes:', error)
-        }
+    const user = localStorage.getItem('user')
+    if (!user) {
+        console.error('Usuário não encontrado no localStorage');
+        return;
     }
 
-    async function deletePatient(id: number) {
+    const token = JSON.parse(user).token;
+
+    async function deleteDoctor(id: number, token: string) {
         try {
-            const data = await deletarPacientes(id)
+            setLoading(true)
+            const data = await deletarMedico(id, token)
         } catch (error) {
             console.error('Erro ao excluir pacientes:', error)
+        } finally {
+            setLoading(false)
         }
-
     }
-
-    useEffect(() => {
-        getPacients()
-    }, [])
-
 
     return (
         <div className={styles.container}>
+
             <div className={styles.wrapper}>
                 <div className={styles.header}>
                     <div className={styles.headerIcon}>
@@ -57,13 +54,12 @@ const GetPacient = () => {
                         </svg>
                     </div>
                     <div>
-                        <span className={styles.headerTitle}>Pacientes Cadastrados</span>
-                        <p className={styles.headerSubtitle}>Lista Completa de pacientes </p>
-
+                        <span className={styles.headerTitle}>Medicos Cadastrados</span>
+                        <p className={styles.headerSubtitle}>Lista Completa de medicos </p>
                     </div>
                 </div>
                 <div className={styles.cardBox}>
-                    {pacients.map(item =>
+                    {doc.map(item =>
                         <div className={styles.card}>
                             <div className={styles.iconContainer}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -80,14 +76,13 @@ const GetPacient = () => {
                                     <span>{item.telefone}</span>
                                 </div>
                                 <div className={styles.buttonBox}>
-                                    <Button onClick={async () => {await deletePatient(item.id)}} type='text' variant='default' text='Deletar' />
+                                    <Button onClick={async () => { await deleteDoctor(item.id, token) }} type='text' variant='default' text='Deletar' />
                                 </div>
                             </div>
                         </div>)}
                 </div>
             </div>
-        </div>
-    )
+        </div>)
 }
 
-export default GetPacient
+export default GetDoctor;

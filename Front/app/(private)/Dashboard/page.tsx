@@ -8,22 +8,28 @@ import { useRouter } from 'next/navigation'
 import Button from '@/app/components/Button/Button/Button'
 
 import CreateDoctor from '@/app/components/Doctor/CreateDoctor/CreateDoctor'
-
+import GetDoctor from '@/app/components/Doctor/CreateDoctor/GetDoctor/GetDoctor'
 import CreatePacient from '@/app/components/Pacient/CreatePacient'
 import GetPacient from '@/app/components/Pacient/GetPacient/GetPacient'
 
 import Catalog from '@/app/components/Catalog/page'
 import Calendar from '@/app/components/FullCalendar/FullCalendar'
 
+import { consultarMedicos } from '@/Services/doctorListService'
+
+import { useDoc } from "@/context/Doc";
+
 export default function Dashboard() {
   const router = useRouter()
+
+  const { setDoc } = useDoc();
 
   const [pacientArray, setpacientArray] = useState([
     {
       id: 1,
       title: 'Criar Paciente',
       variant: 'dashboard-subMenu',
-      activated: true,
+      activated: false,
       identifier: 'Pass',
       onClick: () => router.push(ROUTES.userForm)
     },
@@ -42,7 +48,7 @@ export default function Dashboard() {
       id: 1,
       title: 'Criar Médico',
       variant: 'dashboard-subMenu',
-      activated: true,
+      activated: false,
       identifier: 'Create_doctor',
       onClick: () => { }
     },
@@ -51,7 +57,7 @@ export default function Dashboard() {
       title: 'Listar Médicos',
       variant: 'dashboard-subMenu',
       activated: false,
-      identifier: 'DL',
+      identifier: 'Get Doctor',
       onClick: () => { }
     }
   ])
@@ -80,14 +86,14 @@ export default function Dashboard() {
 
   const handleView = (identifier: string) => {
 
-    if (identifier === 'Pass' ) {
+    if (identifier === 'Pass') {
       setActiveSubMenu('Create Pacient')
       if (activeView !== 'Menu Pacient') {
         setActiveView('')
       }
     }
 
-    if (identifier === 'Create_doctor' && activeView !== 'Menu Doctor') {
+    if (identifier === 'Create_doctor') {
       setActiveSubMenu('Create Doctor')
       if (activeView !== 'Menu Doctor') {
         setActiveView('')
@@ -99,9 +105,41 @@ export default function Dashboard() {
       if (activeView !== 'Menu Pacient') {
         setActiveView('')
       }
+    }
 
+     if (identifier === 'Get Doctor') {
+      setActiveSubMenu('Get Doctor')
+      if (activeView !== 'Menu Doctor') {
+        setActiveView('')
+      }
     }
   }
+
+
+  useEffect(() => {
+    let parsed = "";
+
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      parsed = JSON.parse(storedUser).token;
+    }
+
+    const handleDoctors = async () => {
+      try {
+        const data = await consultarMedicos(parsed);
+
+        if (data) {
+          setDoc(data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    handleDoctors();
+  }, [setDoc]);
+
 
   return (
     <div className={styles.container}>
@@ -192,6 +230,7 @@ export default function Dashboard() {
           {activeSubMenu === 'Create Doctor' && <CreateDoctor />}
           {activeSubMenu === 'Create Pacient' && <CreatePacient />}
           {activeSubMenu === 'Get Pacient' && <GetPacient />}
+          {activeSubMenu === 'Get Doctor' && <GetDoctor />}
         </div>
       </div>
     </div>
