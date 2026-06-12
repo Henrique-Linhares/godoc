@@ -73,15 +73,32 @@ const GetPacient = () => {
                             <div className={styles.infoContainer}>
                                 <div className={styles.nameBox}>
                                     <h1>{item.nome}</h1>
-                                    <span className={styles.badge}>{item.idade} anos</span>
                                 </div>
                                 <div className={styles.credentialsBox}>
-                                    <span>📋 CPF: {item.cpf}</span>
-                                    <span>📞 {item.telefone}</span>
-                                    <span>🎂 {item.dataNascimento}</span>
+                                    <div className={`${styles.info} ${styles.cpf}`}>
+                                        <p>CPF</p>
+                                        <span>{item.cpf}</span>
+                                    </div>
+                                    <div className={`${styles.info} ${styles.telefone}`}>
+                                        <p>Telefone</p>
+                                        <span>{item.telefone}</span>
+                                    </div>
+                                    <div className={`${styles.info} ${styles.dataNascimento}`}>
+                                        <p>Data Nascimento</p>
+                                        <span>{item.dataNascimento}</span>
+                                    </div>
                                 </div>
-                                <div className={styles.buttonBox}>
-                                    <Button onClick={async () => {await deletePatient(item.id)}} type='text' variant='default' text='Deletar' />
+
+                            </div>
+                            <div className={styles.iconBox}>
+                                <div className={styles.icon} onClick={async () => { await deletePatient(item.id) }}>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="3 6 5 6 21 6" />
+                                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                                        <path d="M10 11v6" />
+                                        <path d="M14 11v6" />
+                                        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                                    </svg>
                                 </div>
                             </div>
                         </div>)}

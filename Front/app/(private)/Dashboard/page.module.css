@@ -1,67 +1,237 @@
+:root {
+    --primary: #16C1C8;
+    --menu-bg: rgb(48, 48, 46);
+    --white: #ffffff;
+    --transition: 0.2s ease;
+}
+
 .container {
     width: 100%;
-    height: 800px;
-    box-sizing: border-box;
-    display: flex;
-    gap: 0;
     min-height: 700px;
+    height: 800px;
+    display: flex;
+    box-sizing: border-box;
     animation: fadeIn 0.4s ease both;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-
 .menu {
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 24px 16px;
-    gap: 8px;
     width: 20%;
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 24px 16px;
+    background-color: var(--menu-bg);
     position: relative;
     z-index: 1;
 }
 
-.greeting {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #000000;
-    margin: 0 0 12px 0;
-    letter-spacing: -0.3px;
-    animation: slideDown 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-
-.buttonBox {
+.content {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    animation: slideDown 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
-}
-
-
-.subMenu {
     overflow: hidden;
 }
 
+.contentWrapper {
+    height: 100%;
+    padding: 24px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    animation: contentFadeIn 0.35s ease 0.1s both;
+}
+
+.contentWrapper::-webkit-scrollbar {
+    width: 5px;
+}
+
+.contentWrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.contentWrapper::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 999px;
+}
+
+.contentWrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.28);
+}
+
+.button,
+.buttonSelected {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition:
+        transform var(--transition),
+        background-color var(--transition),
+        border-color var(--transition),
+        color var(--transition),
+        margin-left var(--transition);
+}
+
+.buttonSelected {
+    padding: 10px;
+    background-color: var(--primary);
+}
+
+.button:hover {
+    background-color: var(--primary);
+    border-radius: 15px;
+    padding: 7px;
+    margin-left: 7px;
+    transform: translateY(-1px);
+}
+
+.button h2,
+.buttonSelected h2,
+.buttonSub h2 {
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+.headerIcon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.button:hover svg {
+    transform: scale(1.05);
+}
+
+.buttonBox {
+    display: flex;
+    width: 200px;
+    flex-direction: column;
+    gap: 30px   ;
+    justify-content: space-between;
+    animation: slideDown 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+.title {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+
+   background: linear-gradient(
+    90deg,
+    #6fbec2 0%,
+    #d9e8ea 100%
+);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    animation: fadeSlideDown 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.subMenu {
+    overflow: hidden;
+    visibility: hidden;
+    display: none;
+}
+
 .submenu {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1px;
-    padding-left: 12px;
-    margin-left: 8px;
-    animation: expandDown 0.70s cubic-bezier(0.22, 1, 0.36, 1) both;
-
+    align-items: start;
+    padding-left: 10px;
+    gap: 10px;
     transform-origin: top;
+    animation: expandDown 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.submenu>*:nth-child(1) {
+    animation-delay: 0.03s;
+}
+
+.submenu>*:nth-child(2) {
+    animation-delay: 0.07s;
+}
+
+.submenu>*:nth-child(3) {
+    animation-delay: 0.11s;
+}
+
+.buttonSub {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+
+
+
+    transition:
+        transform var(--transition),
+        background-color var(--transition),
+        border-color var(--transition),
+        color var(--transition),
+        box-shadow var(--transition);
+
+    will-change: transform;
+}
+
+.buttonSub:hover {
+    background-color: #16C1C8;
+    transform: translateX(6px);
+    box-shadow: 0 8px 20px rgba(22, 193, 200, 0.25);
+}
+
+.buttonSub:active {
+    transform: translateX(3px) scale(0.98);
+}
+
+.componentEnter {
+    animation: componentIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ===== ANIMAÇÕES ===== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes expandDown {
@@ -70,55 +240,24 @@
         transform: scaleY(0.85) translateY(-6px);
         clip-path: inset(0 0 100% 0);
     }
+
     to {
         opacity: 1;
         transform: scaleY(1) translateY(0);
-        clip-path: inset(0 0 0% 0);
+        clip-path: inset(0 0 0 0);
     }
 }
 
-.submenu > *:nth-child(1) { animation-delay: 0.03s; }
-.submenu > *:nth-child(2) { animation-delay: 0.07s; }
-.submenu > *:nth-child(3) { animation-delay: 0.11s; }
-
-
-.content {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    overflow: hidden;
-}
-
-.contentWrapper {
-    height: 100%;
-    padding: 24px;
-    overflow-y: auto;
-    animation: contentFadeIn 0.35s ease 0.1s both;
-    scroll-behavior: smooth;
-}
-
-.contentWrapper::-webkit-scrollbar {
-    width: 5px;
-}
-.contentWrapper::-webkit-scrollbar-track {
-    background: transparent;
-}
-.contentWrapper::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.15);
-    border-radius: 999px;
-}
-.contentWrapper::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.28);
-}
-
 @keyframes contentFadeIn {
-    from { opacity: 0; transform: translateX(8px); }
-    to   { opacity: 1; transform: translateX(0); }
-}
+    from {
+        opacity: 0;
+        transform: translateX(8px);
+    }
 
-
-.componentEnter {
-    animation: componentIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @keyframes componentIn {
@@ -127,10 +266,11 @@
         transform: translateY(16px) scale(0.98);
         filter: blur(3px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
-        filter: blur(0px);
+        filter: blur(0);
     }
 }
 
@@ -143,5 +283,34 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* ===== RESPONSIVIDADE ===== */
+
+@media (max-width: 1024px) {
+    .menu {
+        width: 260px;
+        min-width: 260px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .menu {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .content {
+        width: 100%;
+    }
+
+    .contentWrapper {
+        padding: 16px;
     }
 }

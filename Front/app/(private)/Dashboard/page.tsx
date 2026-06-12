@@ -22,23 +22,56 @@ export default function Dashboard() {
   const { setDoc } = useDoc()
 
   const [pacientArray, setpacientArray] = useState([
-    {
-      id: 1,
-      title: 'Criar Paciente',
-      variant: 'dashboard-subMenu',
-      activated: false,
-      identifier: 'Pass',
-      onClick: () => router.push(ROUTES.userForm)
-    },
-    {
-      id: 2,
-      title: 'Listar Pacientes',
-      variant: 'dashboard-subMenu',
-      activated: false,
-      identifier: 'Get Pacient',
-      onClick: () => {}
-    }
-  ])
+  {
+    id: 1,
+    title: 'Criar Paciente',
+    variant: 'dashboard-subMenu',
+    activated: false,
+    identifier: 'Pass',
+    onClick: () => router.push(ROUTES.userForm),
+    icon: (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="white"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      >
+        <path d="M12 5v14" />
+        <path d="M5 12h14" />
+      </svg>
+    )
+  },
+  {
+    id: 2,
+    title: 'Listar Pacientes',
+    variant: 'dashboard-subMenu',
+    activated: false,
+    identifier: 'Get Pacient',
+    onClick: () => {},
+    icon: (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="white"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M8 6h11" />
+        <path d="M8 12h11" />
+        <path d="M8 18h11" />
+        <circle cx="4" cy="6" r="1" fill="white" stroke="none" />
+        <circle cx="4" cy="12" r="1" fill="white" stroke="none" />
+        <circle cx="4" cy="18" r="1" fill="white" stroke="none" />
+      </svg>
+    )
+  }
+])
 
   const [doctorArray, setDoctorArray] = useState([
     {
@@ -47,7 +80,22 @@ export default function Dashboard() {
       variant: 'dashboard-subMenu',
       activated: false,
       identifier: 'Create_doctor',
-      onClick: () => {}
+      onClick: () => { },
+      icon: (
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="white"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        >
+          <path d="M12 5v14" />
+          <path d="M5 12h14" />
+        </svg>
+      )
+
     },
     {
       id: 2,
@@ -55,11 +103,29 @@ export default function Dashboard() {
       variant: 'dashboard-subMenu',
       activated: false,
       identifier: 'Get Doctor',
-      onClick: () => {}
+      onClick: () => { },
+      icon: (
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="white"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M8 6h11" />
+          <path d="M8 12h11" />
+          <path d="M8 18h11" />
+          <circle cx="4" cy="6" r="1" fill="white" stroke="none" />
+          <circle cx="4" cy="12" r="1" fill="white" stroke="none" />
+          <circle cx="4" cy="18" r="1" fill="white" stroke="none" />
+        </svg>
+      )
     }
   ])
 
-  // ✅ useEffect único, sem duplicata
   useEffect(() => {
     let parsed = ''
     const storedUser = localStorage.getItem('user')
@@ -102,7 +168,6 @@ export default function Dashboard() {
     )
   }
 
-  // ✅ Bloco handleView com chaves corretamente balanceadas
   const handleView = (identifier: string) => {
     if (identifier === 'Pass') {
       setActiveSubMenu('Create Pacient')
@@ -136,75 +201,93 @@ export default function Dashboard() {
   return (
     <div className={styles.container}>
       <div className={styles.menu}>
-        <h1 className={styles.greeting}>Dashboard</h1>
+        <h1 className={styles.title}>Menu</h1>
 
         <div className={styles.buttonBox}>
-          <Button
-            onClick={() => { setActiveView('Callendar'); setActiveSubMenu('') }}
-            type="text"
-            variant={activeView === 'Callendar' ? 'dashboard-selected' : 'dashboard'}
-            text="Calendario"
-          />
+          <div className={styles.button} onClick={() => { setActiveView('Callendar'); setActiveSubMenu('') }}>
+            <div className={styles.headerIcon}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+            </div>
 
-          <Button
-            onClick={() => { setActiveView('Catalog'); setActiveSubMenu('') }}
-            type="text"
-            variant={activeView === 'Catalog' ? 'dashboard-selected' : 'dashboard'}
-            text="Catalogo"
-          />
-
-          {/* ✅ Chevrons corrigidos: aberto = ▼, fechado = ▲ */}
-          <Button
-            onClick={() => { setActiveView('Menu Pacient'); setActiveSubMenu('Create Pacient') }}
-            type="text"
-            variant={activeView === 'Menu Pacient' ? 'dashboard-selected' : 'dashboard'}
-            text={activeView === 'Menu Pacient' ? 'Paciente ▲' : 'Paciente ▼'}
-          />
-
-          <div className={styles.subMenu}>
-            {activeView === 'Menu Pacient' && (
-              <div className={styles.submenu}>
-                {pacientArray.map((item, index) => (
-                  <Button
-                    key={index}
-                    onClick={() => {
-                      selectItem(index)
-                      handleView(item.identifier)
-                    }}
-                    type="text"
-                    variant={item.activated ? 'dashboard-subMenu-activated' : item.variant}
-                    text={item.title}
-                  />
-                ))}
-              </div>
-            )}
+            <h2>Calendario</h2>
           </div>
 
-          <Button
-            onClick={() => { setActiveView('Menu Doctor'); setActiveSubMenu('Create Doctor') }}
-            type="text"
-            variant={activeView === 'Menu Doctor' ? 'dashboard-selected' : 'dashboard'}
-            text={activeView === 'Menu Doctor' ? 'Doutor ▲' : 'Doutor ▼'}
-          />
-
-          <div className={styles.subMenu}>
-            {activeView === 'Menu Doctor' && (
-              <div className={styles.submenu}>
-                {doctorArray.map((item, index) => (
-                  <Button
-                    key={index}
-                    onClick={() => {
-                      selectDoctorItem(index)
-                      handleView(item.identifier)
-                    }}
-                    type="text"
-                    variant={item.activated ? 'dashboard-subMenu-activated' : item.variant}
-                    text={item.title}
-                  />
-                ))}
-              </div>
-            )}
+          <div className={styles.button} onClick={() => { setActiveView('Catalog'); setActiveSubMenu('') }}>
+            <div className={styles.headerIcon}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <line x1="3" y1="9" x2="21" y2="9" />
+                <line x1="9" y1="9" x2="9" y2="21" />
+              </svg>
+            </div>
+            <h2>Catalogo</h2>
           </div>
+
+          <div className={styles.button} onClick={() => { setActiveView('Menu Pacient'); setActiveSubMenu('Create Pacient') }}>
+            <div className={styles.headerIcon}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+            <h2>Paciente</h2>
+          </div>
+
+          {activeView === 'Menu Pacient' && (
+            <div className={styles.submenu}>
+              {pacientArray.map((item, index) => (
+                <div
+                  key={item.id}
+                  className={styles.buttonSub}
+                  onClick={() => {
+                    selectItem(index)
+                    handleView(item.identifier)
+                  }}
+                >
+                  <div className={styles.subIcon}>
+                    <h2>{item.icon}</h2>
+                  </div>
+
+                  <div className={styles.subTitle}>
+                    <h2>{item.title}</h2>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className={activeView === 'Menu Doctor' ? styles.buttonSelected : styles.button} onClick={() => { setActiveView('Menu Doctor'); setActiveSubMenu('Create Doctor') }}>
+            <div className={styles.headerIcon}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
+                <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
+                <circle cx="20" cy="10" r="2" />
+              </svg>
+            </div>
+            <h2>Doutor</h2>
+          </div>
+
+          {activeView === 'Menu Doctor' && (
+            <div className={styles.submenu}>
+              {doctorArray.map((item, index) => (
+                <div className={styles.buttonSub} onClick={() => {
+                  selectDoctorItem(index)
+                  handleView(item.identifier)
+                }}>
+                  <div className={styles.subIcon}>
+                    <h2>{item.icon}</h2>
+                  </div>
+                  <div className={styles.subTitle}>
+                    <h2>{item.title}</h2>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

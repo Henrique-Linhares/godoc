@@ -1,5 +1,6 @@
 "use client";
 
+
 import { createContext, useContext, useState, ReactNode } from "react";
 
 type UserData = {
@@ -29,9 +30,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [logged, setLogged] = useState(false);
     const [loading, setLoading] = useState(true)
 
+
+
     async function login(userData: UserData) {
         setUser(userData);
-        setLogged(true);
+        const preUser = { name: 'User' }
+        setUser({
+            ...userData,
+            name: 'Usuario'
+        });
+         setLogged(true);
     }
 
     function logout() {

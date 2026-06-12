@@ -1,27 +1,13 @@
 "use client";
 
-//Components
 import Input from "@/app/components/Input/Input";
 import Button from "@/app/components/Button/Button/Button";
 import Loading from "@/app/components/Loading/Loading";
-import Image from "next/image";
-
-//Routes
-import { ROUTES } from "@/routes/routes";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-
-//Context
 import { useAuth } from "@/context/Auth";
-
-//React
 import { useState, useEffect } from "react";
-import Swal from "sweetalert2";
-
-import { cadastrarMedico } from "@/Services/doctorListService";
-
-//Styles
 import styles from "./CreateDoctor.module.css";
+import { cadastrarMedico } from "@/Services/doctorListService";
+import Swal from "sweetalert2";
 
 function CreateDoctor() {
   const { loading, setLoading } = useAuth();
@@ -33,27 +19,15 @@ function CreateDoctor() {
   const [alert, setAlert] = useState("");
   const [userId, setUserId] = useState(1);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleAction()
-  };
-
-  const doctor = {
-    crm,
-    nome,
-    especialidade,
-    telefone,
-    userId,
-  };
-
   useEffect(() => {
     const userStr = localStorage.getItem("user");
-    const med = JSON.parse(userStr).id;
+    if (userStr) setUserId(JSON.parse(userStr).id);
+  }, []);
 
-    setUserId(med)
-
-  },[])
-
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleAction();
+  };
 
   const handleAction = () => {
     async function createMedic() {
@@ -65,7 +39,7 @@ function CreateDoctor() {
         const token = JSON.parse(userStr).token;
         if (!token) throw new Error("Token inválido");
 
-        const data = await cadastrarMedico(doctor, token);
+        await cadastrarMedico({ crm, nome, especialidade, telefone, userId }, token);
 
         await Swal.fire({
           icon: "success",
@@ -74,6 +48,11 @@ function CreateDoctor() {
           confirmButtonColor: "#35C9D6",
           confirmButtonText: "OK",
         });
+
+        setNome("");
+        setCrm("");
+        setEspecialidade("");
+        setTelefone("");
       } catch (error) {
         console.error("Erro ao criar médico:", error);
         await Swal.fire({
@@ -89,6 +68,7 @@ function CreateDoctor() {
     }
     createMedic();
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -101,83 +81,76 @@ function CreateDoctor() {
             </svg>
           </div>
           <div>
-            <p className={styles.headerTitle}>Novo Medico</p>
+            <p className={styles.headerTitle}>Novo médico</p>
             <p className={styles.headerSubtitle}>Preencha os dados abaixo</p>
           </div>
         </div>
+
         <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.formContainer}>
-            <div className={styles.inputContainer}>
-              <div className={styles.basicInfo}>
-                <div className={styles.infoBox}>
-                  <span className={styles.description}>Digite seu Nome</span>
-                  <Input
-                    type={"text"}
-                    onChange={(e) => setNome(e.target.value)}
-                    variant={"form"}
-                    value={nome}
-                    placeholder=""
-                  />
-                  {alert && (
-                    <span className={styles.alert}>Credenciais invalidas</span>
-                  )}
-                </div>
-                <div className={styles.infoBox}>
+          <div className={styles.inputContainer}>
 
-                  <span className={styles.description}>Digite seu CRM</span>
-                  <Input
-                    type={"text"}
-                    onChange={(e) => setCrm(e.target.value)}
-                    variant={"form"}
-                    value={crm}
-                    placeholder=""
-                  />
-                </div>
+            {/* Linha 1: Nome + CRM */}
+            <div className={styles.row}>
+              <div className={styles.field}>
+                <span className={styles.description}>NOME</span>
+                <Input
+                  type="text"
+                  onChange={(e) => setNome(e.target.value)}
+                  variant="form"
+                  value={nome}
+                  placeholder=""
+                />
               </div>
+              <div className={styles.field}>
+                <span className={styles.description}>CRM</span>
+                <Input
+                  type="text"
+                  onChange={(e) => setCrm(e.target.value)}
+                  variant="form"
+                  value={crm}
+                  placeholder="CRM/SP 123456"
+                />
+              </div>
+            </div>
 
-              {alert && (
-                <div className={styles.alert}>Credenciais invalidas</div>
-              )}
-
-              <span className={styles.description}>
-                Digite sua Especialidade
-              </span>
+            {/* Especialidade */}
+            <div className={styles.field}>
+              <span className={styles.description}>ESPECIALIDADE</span>
               <Input
-                type={"text"}
+                type="text"
                 onChange={(e) => setEspecialidade(e.target.value)}
-                variant={"form"}
+                variant="form"
                 value={especialidade}
-                placeholder=""
+                placeholder="Ex: Cardiologia, Clínica Geral..."
               />
+            </div>
 
-              {alert && (
-                <div className={styles.alert}>Credenciais invalidas</div>
-              )}
-
-              <span className={styles.description}>Digite seu Telefone</span>
+            {/* Telefone */}
+            <div className={styles.field}>
+              <span className={styles.description}>TELEFONE</span>
               <Input
-                type={"text"}
+                type="text"
                 onChange={(e) => setTelefone(e.target.value)}
-                variant={"form"}
+                variant="form"
                 value={telefone}
-                placeholder=""
+                placeholder="(11) 99999-9999"
               />
+            </div>
 
-              {alert && (
-                <div className={styles.alert}>Credenciais invalidas</div>
-              )}
-            </div>
-            <div className={styles.buttonBox}>
-              <Button
-                onClick={() => { }}
-                text="Ir"
-                variant="default"
-                type="submit"
-              />
-            </div>
+            {alert && <span className={styles.alert}>{alert}</span>}
+          </div>
+
+          <div className={styles.buttonBox}>
+            <Button
+              onClick={() => {}}
+              text="Salvar médico"
+              variant="default"
+              type="submit"
+            />
           </div>
         </form>
       </div>
+
       {loading && (
         <div className={styles.loadingContainer}>
           <Loading />

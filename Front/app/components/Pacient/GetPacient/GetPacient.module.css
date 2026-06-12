@@ -5,82 +5,25 @@
     align-items: center;
     flex-direction: column;
     padding: 20px;
-    animation: bornFade 0.4s ease both;
+    animation: fadeIn 0.4s ease both;
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
     width: 80%;
-    height: fit-content;
     background: #ffffff;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid #D3D1C7;
     border-radius: 16px;
     overflow: hidden;
-    animation: bornScale 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
-        border: 1px solid #D3D1C7;
-
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    animation: scaleIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
 }
 
 .header {
     display: flex;
     align-items: center;
     gap: 12px;
-    background: #2bbfbf;
+    background: #2BBFB3;
     padding: 24px 32px;
-    animation: bornFade 0.4s ease 0.2s both;
-}
-
-.header span {
-     margin: 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #ffffff;
-}
-
-.cardBox span {
-    margin: 0;
-    font-size: 0.82rem;
-    color: rgba(0, 0, 0, 0.75);
-    
-}
-
-.infoContainer h1 {
-    margin: 0;
-    font-size: 1.0rem;
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.75);
-}
-
-.infoContainer {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.nameBox {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.badge {
-    display: inline-block;
-    padding: 2px 10px;
-    border-radius: 20px;
-    background: #e0f7f7;
-    color: #2bbfbf;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-}
-
-.credentialsBox {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
 }
 
 .headerIcon {
@@ -97,7 +40,7 @@
 .headerTitle {
     margin: 0;
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: 500;
     color: #ffffff;
 }
 
@@ -111,35 +54,35 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 100%;
     padding: 24px 28px;
-    animation: bornSlide 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
-    
+    animation: slideIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+}
+
+.cardBox span {
+    font-size: 0.82rem;
+    color: rgba(0, 0, 0, 0.75);
 }
 
 .card {
     display: flex;
     align-items: center;
-    height: auto;
     min-height: 64px;
     padding: 12px 16px;
-    border: 0.5px solid rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
     gap: 16px;
     background: #ffffff;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.18s ease;
-    animation: bornUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-        border: 1px solid #D3D1C7;
-
+    border: 1px solid #D3D1C7;
+    border-radius: 12px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .card:hover {
-    border-color: #2bbfbf;
-    box-shadow: 0 4px 16px rgba(43, 191, 191, 0.12);
+    border-color: #7DD8E8;
+    box-shadow: 0 4px 16px rgba(125, 216, 232, 0.2);
     transform: translateY(-2px);
 }
 
-.card:nth-child(1) { animation-delay: 0.3s; }
+.card:nth-child(1) { animation-delay: 0.30s; }
 .card:nth-child(2) { animation-delay: 0.36s; }
 .card:nth-child(3) { animation-delay: 0.42s; }
 .card:nth-child(4) { animation-delay: 0.48s; }
@@ -150,45 +93,125 @@
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    background-color: #e0f7f7;
+    background: #e0f7f7;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     color: #0F6E56;
     font-size: 18px;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .card:hover .iconContainer {
-    background-color: #2bbfbf;
+    background: #7DD8E8;
     color: #ffffff;
 }
 
-@keyframes bornFade {
+.infoContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.infoContainer h1 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.nameBox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.badge {
+    padding: 2px 10px;
+    border-radius: 20px;
+    background: #e0f7f7;
+    color: #2BBFB3;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.credentialsBox {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.info.cpf p,
+.info.telefone p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    width: 50%;
+    background: #2BBFB3;
+    border-radius: 10px;
+    color: white;
+    font-size: 0.82rem;
+}
+
+.info.dataNascimento p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    width: 100%;
+    background: #2BBFB3;
+    border-radius: 10px;
+    color: white;
+    font-size: 0.82rem;
+}
+
+.iconBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #2BBFB3;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.iconBox:hover {
+    background: #7DD8E8;
+    transform: scale(1.08);
+}
+
+.iconBox:active {
+    transform: scale(0.95);
+}
+
+.icon {
+    transition: stroke 0.2s ease;
+}
+
+@keyframes fadeIn {
     from { opacity: 0; }
     to   { opacity: 1; }
 }
 
-@keyframes bornScale {
-    from {
-        opacity: 0;
-        transform: scale(0.96) translateY(16px);
-        filter: blur(4px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-        filter: blur(0);
-    }
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.96) translateY(16px); filter: blur(4px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0);    filter: blur(0);   }
 }
 
-@keyframes bornSlide {
+@keyframes slideIn {
     from { opacity: 0; transform: translateX(12px); }
-    to   { opacity: 1; transform: translateX(0); }
+    to   { opacity: 1; transform: translateX(0);    }
 }
 
-@keyframes bornUp {
+@keyframes slideUp {
     from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0);    }
 }

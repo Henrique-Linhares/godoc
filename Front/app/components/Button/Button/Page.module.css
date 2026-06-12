@@ -66,65 +66,56 @@
 }
 
 .dashboard {
-    width: 13rem;
+    width: 150px;
     height: 50px;
-    padding: 0 16px;
     margin: 5px;
-    background-color: #ffffff;
+    background-color: rgb(48 48 46);
 
-    border: 1px solid #D3D1C7;
-    color: #2C2C2A;
+    color: #ffffff;
 
-    border-radius: 10px;
-    cursor: pointer;
-
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: 0.01em;
+   
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
 
     transition:
         transform 0.2s ease,
         background-color 0.2s ease,
         border-color 0.2s ease,
-        color 0.2s ease;
+        color 0.2s ease,
+        margin-left 0.2s ease;
+
+    border: 0px;
 }
 
 .dashboard:hover {
-    background-color: #F1EFE8;
-    border-color: #B4B2A9;
-    transform: translateY(-1px);
+    
 }
 
 .dashboard:active {
     transform: scale(0.98);
-    background-color: #D3D1C7;
 }
 
 .dashboard.active {
     background-color: #2BBFAD;
     border-color: #2BBFAD;
-    color: #ffffff;
 }
 
-.dashboard-selected {
-    width: 13rem;
+ .dashboard-selected {
     height: 50px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    background-color: #111111;
+    border: 0px;
 
     padding: 5px;
     margin: 5px;
+    margin-left: 10px;
 
-    background: linear-gradient(160deg,
-            #50CDCC 0%,
-            #35C9D6 70%,
-            #35C9D6 100%,
-
-            #2BB8DA 100%);
-    border: 1px solid #000000;
-    color: #ffffff;
+    color: #2BB8DA;
 
     border-radius: 5px;
     cursor: pointer;
@@ -134,8 +125,10 @@
     transition:
         transform 0.25s ease,
         box-shadow 0.25s ease,
-        background-color 0.25s
-}
+        background-color 0.25s ease,
+        color 0.25s ease,
+        margin-left 0.25s ease;
+} 
 
 .dashboard-subMenu-activated {
     width: 10rem;
@@ -173,7 +166,6 @@
     padding: 5px;
     margin: 5px;
 
-    border: 1px solid #000000;
     color: #000000;
 
     border-radius: 5px;
