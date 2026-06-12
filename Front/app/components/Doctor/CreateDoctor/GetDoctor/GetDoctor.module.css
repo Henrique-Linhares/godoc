@@ -185,6 +185,16 @@
     transition: stroke 0.2s ease;
 }
 
+.ErrorBox {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to   { opacity: 1; }

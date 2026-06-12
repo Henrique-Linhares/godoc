@@ -1,10 +1,16 @@
 import styles from './GetPacient.module.css'
 import { useState, useEffect } from 'react'
 
+import { useAuth } from '@/context/Auth'
+
 import Button from '../../Button/Button/Button'
 
 import { cosultarPacientes } from '@/Services/clientService'
 import { deletarPacientes } from '@/Services/clientService'
+import { style } from 'motion/react-client'
+
+
+import ErrorBox from '../../ErrorBox/ErrorBox'
 
 interface pacients {
     id: number,
@@ -15,9 +21,12 @@ interface pacients {
     telefone: string
 }
 
-const GetPacient = () => {
+
+
+const GetPacient = ( ) => {
 
     const [pacients, setPacients] = useState<pacients[]>([])
+    const { setLoading } = useAuth()
 
     async function getPacients() {
         try {
@@ -33,9 +42,13 @@ const GetPacient = () => {
 
     async function deletePatient(id: number) {
         try {
+            setLoading(true)
             const data = await deletarPacientes(id)
         } catch (error) {
             console.error('Erro ao excluir pacientes:', error)
+        } finally {
+            setLoading(false)
+
         }
 
     }
@@ -103,7 +116,10 @@ const GetPacient = () => {
                             </div>
                         </div>)}
                 </div>
+                {pacients.length === 0 && <ErrorBox serchitem={'paciente'}/>}
+
             </div>
+
         </div>
     )
 }

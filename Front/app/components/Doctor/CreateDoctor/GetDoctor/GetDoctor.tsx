@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { useDoc } from '@/context/Doc'
 import { useAuth } from '@/context/Auth'
 
+import ErrorBox from '@/app/components/ErrorBox/ErrorBox'
+
 const GetDoctor = () => {
     const { doc } = useDoc()
     const { loading, setLoading } = useAuth()
@@ -88,6 +90,8 @@ const GetDoctor = () => {
                         </div>
                     )}
                 </div>
+                {doc.length === 0 && <ErrorBox serchitem={'medico'}/>}
+
             </div>
         </div>
     )

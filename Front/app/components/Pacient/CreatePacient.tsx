@@ -175,7 +175,6 @@ function CreatePacient() {
           </div>
         </form>
       </div>
-
       {loading && (
         <div className={styles.loadingContainer}>
           <Loading />
