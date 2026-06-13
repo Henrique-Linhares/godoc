@@ -41,7 +41,6 @@ const DoxCard = () => {
   //const [doctors, setDoctors] = useState<Doctor[] | null>([]);
   const [alert, setAlert] = useState(false);
 
-  const { setLoading } = useAuth()
 
     const { doc } = useDoc();
 

@@ -35,11 +35,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     async function login(userData: UserData) {
         setUser(userData);
         const preUser = { name: 'User' }
+
+        const storedUser = localStorage.getItem('user')
+        const email = JSON.parse(storedUser).email
         setUser({
             ...userData,
-            name: 'Usuario'
+            name: email
         });
-         setLogged(true);
+        setLogged(true);
     }
 
     function logout() {
